@@ -1,0 +1,50 @@
+expression;difficuty;language
+and;easy;python
+as;easy;python
+assert;easy;python
+break;easy;python
+class;easy;python
+continue;easy;python
+def;easy;python
+del;easy;python
+elif;easy;python
+else;easy;python
+except;easy;python
+exec;easy;python
+finally;easy;python
+for;easy;python
+from;easy;python
+global;easy;python
+if;easy;python
+import;easy;python
+in;easy;python
+is;easy;python
+is not;easy;python
+lambda;easy;python
+not;easy;python
+or;easy;python
+pass;easy;python
+print;easy;python
+raise;easy;python
+return;easy;python
+sort;easy;python
+try;easy;python
+while;easy;python
+yield;easy;python
+help();easy;python
+dir();easy;python
+print(placeholder);medium;python
+input(placeholder);medium;python
+len(placeholder);medium;python
+range(placeholder);medium;python
+str(placeholder);medium;python
+int(placeholder);medium;python
+def placeholder:;medium;python
+if placeholder:'medium;python
+for placeholder in placeholder:;hard;python
+while placeholder:;hard;python
+class placeholder:;hard;python
+f"Bonjour, ceci est {placeholder}";hard;python
+def __placeholder__:;hard;python
+placeholder.pop(placeholder);hard;python
+placeholder.remove(placeholder);hard;python
