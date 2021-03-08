@@ -1,3 +1,10 @@
+/*******************************************************************
+*NAME: ANTOINE AUGER-MAROUN
+*DATE: 07/03/21
+*OBJECT: File for server. Running with node js and express js
+*FICHIER: app.js
+/*******************************************************************/
+
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
@@ -47,8 +54,15 @@ app.use(function (err, req, res, next) {
 
 module.exports = app;
 
+
+/**
+ * This function check for existing and missing language in the BD. Also, if none user, it add an admin for testing purposes.
+ * 
+ */
+
 const init = () => {
   const language = "./assets/language";
+  
   //Connection to BD
   let mongoDB = "mongodb://localhost/Shift";
   mongoose.connect(mongoDB, {
@@ -58,15 +72,14 @@ const init = () => {
 
   let db = mongoose.connection;
 
-  //Checking if csv files are in BD otherwise they're imported
+  
+  //Checking if BD contains all csv files otherwise adding them to the collection "Language"
   let file = null;
   let json = null;
-  let query = null;
   fs.readdir(language, (err, files) => {
     files.forEach((file) => {
       file = file.split(".")[0];
-      json = csvToJson.getJsonFromCsv(`./assets/language/${file}.csv`);
-
+      
       Language.
       find().
       where('language').equals(file).
@@ -74,12 +87,11 @@ const init = () => {
       countDocuments().
       exec(function(err,document){
         if (err) throw err;
-        console.log(document);
 
         if (document == 0){
+          json = csvToJson.getJsonFromCsv(`./assets/language/${file}.csv`);
           db.collection('Language').insertMany(json, function (err, res){
-            if (err) throw err;
-            console.log(`Number of documents inserted:${res.insertedCount}`);
+            if (err) throw err;         
           })
         }
 
@@ -87,6 +99,13 @@ const init = () => {
       
     });
   });
+
+  
+  //If none User, add Admin for testing
+ 
+  
+
+
 
   db.on("error", console.error.bind(console, "MongoDB connection errors:"));
 };

@@ -40,7 +40,7 @@ range(placeholder);medium;python
 str(placeholder);medium;python
 int(placeholder);medium;python
 def placeholder:;medium;python
-if placeholder:'medium;python
+if placeholder:;medium;python
 for placeholder in placeholder:;hard;python
 while placeholder:;hard;python
 class placeholder:;hard;python
