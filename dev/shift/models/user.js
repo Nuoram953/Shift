@@ -12,6 +12,7 @@ var UserSchema = new Schema({
   LastPlayed: { type: Date },
   GamePlayed: { type: Number, default: 0 },
 });
+//test
 
 UserSchema.virtual("url").get(function () {
   return "/director/history/user/" + this._id;
