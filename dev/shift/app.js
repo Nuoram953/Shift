@@ -19,6 +19,7 @@ var usersRouter = require("./routes/users");
 var directorRouter = require("./routes/director");
 
 var Language = require("./models/language");
+var User = require("./models/user");
 
 var app = express();
 
@@ -102,6 +103,19 @@ const init = () => {
 
   
   //If none User, add Admin for testing
+  User.
+  find().
+  countDocuments().
+  exec(function (err,users){
+    if (err) throw err;
+
+    if (users <= 0){
+      let admin = new User({username:'admin', password:'admin',Admin:true})
+      admin.save(function(err){
+        if (err) throw ee
+      })
+    }
+  })
  
   
 
