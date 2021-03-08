@@ -7,6 +7,8 @@ router.get('/login',userController.loginIndex)
 
 router.post('/login/verif', userController.loginVerif)
 
+router.get('/home', userController.home)
+
 
 
 

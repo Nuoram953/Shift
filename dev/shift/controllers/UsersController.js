@@ -2,6 +2,7 @@ var User = require('../models/user');
 var bcrypt = require('bcrypt');
 
 
+
 exports.loginIndex = function (req, res, next) {
     res.render('login',{title:"Connexion",error:"",})
 }
@@ -16,7 +17,8 @@ exports.loginVerif = function (req, res, next) {
     exec(function (err, user) {
         bcrypt.compare(req.body.password,user[0].password,function (err,result) {
             if (result){
-                res.render('home',{title:"home"}); // Login info valid
+                req.session.username = req.body.username;
+                res.redirect('/director/home'); // Login info valid
             }else{
                 res.render('login',{title:"Connexion",error:"Mauvais nom d'utilisateur ou mot de passe",}); // Login info invalid
             }
@@ -25,4 +27,7 @@ exports.loginVerif = function (req, res, next) {
     })
     
     
+}
+exports.home = function (req, res, next) {
+    res.render('home',{title:req.session.username})
 }
