@@ -11,6 +11,11 @@
     <p><%= title %> </p>
     <input type="text" for="username" name="username" placeholder="Nom d'utilisateur" id="username">
     <input type="text" for="password" name="password" placeholder="Mot de passe" id="password">
-    <button>Se connecter</button>
+    <button id="login_confirm">Se connecter</button>
+
+    <% if (error != "") { %> 
+        <p><%= error %> </p>
+    <% } %>
+
 </body>
 </html>

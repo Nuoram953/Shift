@@ -60,7 +60,6 @@ module.exports = app;
  * This function check for existing and missing language in the BD. Also, if none user, it add an admin for testing purposes.
  * 
  */
-
 const init = () => {
   const language = "./assets/language";
   
@@ -116,10 +115,6 @@ const init = () => {
       })
     }
   })
- 
-  
-
-
 
   db.on("error", console.error.bind(console, "MongoDB connection errors:"));
 };

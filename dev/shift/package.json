@@ -8,6 +8,7 @@
     "serverstart": "SET DEBUG=Shift:* & npm run devstart"
   },
   "dependencies": {
+    "async": "^3.2.0",
     "convert-csv-to-json": "^1.3.0",
     "cookie-parser": "~1.4.4",
     "debug": "^2.6.9",
