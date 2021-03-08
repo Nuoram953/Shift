@@ -13,6 +13,7 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 var fs = require("fs");
 var csvToJson = require("convert-csv-to-json");
+var bcrypt = require("bcrypt")
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -23,6 +24,8 @@ var User = require("./models/user");
 
 var app = express();
 
+const saltRounds = 10;
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -32,6 +35,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
@@ -53,6 +57,8 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
+
+
 module.exports = app;
 
 
@@ -68,6 +74,7 @@ const init = () => {
   mongoose.connect(mongoDB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true
   });
 
   let db = mongoose.connection;
@@ -109,10 +116,18 @@ const init = () => {
     if (err) throw err;
 
     if (users <= 0){
-      let admin = new User({username:'admin', password:'admin',Admin:true})
-      admin.save(function(err){
-        if (err) throw ee
-      })
+
+      bcrypt.genSalt(saltRounds, function(err, salt) {
+        bcrypt.hash('admin', salt, function(err, hash) {
+            // Store hash in your password DB.
+            let admin = new User({username:'admin', password:hash,Admin:true})
+            admin.save(function(err){
+              if (err) throw err
+            })
+        });
+      });
+
+
     }
   })
 

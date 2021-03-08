@@ -1,14 +1,30 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/login', function(req, res) {
-    res.render('login',{title:"Connexion",error:""});
-    
-  });
+var userController = require('../controllers/UsersController')
 
-  router.post('/login/connection', function(req, res) {
-    console.log(req.body.username);
-    
-  });
+router.get('/login',userController.loginIndex)
+
+router.post('/login/verif', userController.loginVerif)
+
+
+
+
+
+
+ //router.post('/login/connection', function(req, res) {
+ //  let username = req.body.username;
+ //  console.log(req.body.username);
+ //  if(username != "Antoine"){
+ //    res.render('login',{title:"Connexion",error:"Mauvais nom"});
+ //  }else{
+ //    res.redirect('/director/home');
+ //  }
+ //});
+
+ //router.get('/home', function(req, res) {
+ //  res.render('home',{title:"Connexion",error:""});
+ //  
+ //});
 
 module.exports = router;

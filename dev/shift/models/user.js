@@ -3,14 +3,14 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
-  username: { type: String, required: true, maxlength: 25 },
-  password: { type: String, required: true, maxlength: 25 },
+  username: { type: String, required: true, maxlength: 25,unique:true},
+  password: { type: String, required: true, },
   Admin: { type: Boolean, default: false },
-  HighScore_trad: { type: Number, default: 0 },
-  HighScore_adventure: { type: Number, default: 0 },
-  FirstPlayed: { type: Date, default: Date.now() },
-  LastPlayed: { type: Date },
-  GamePlayed: { type: Number, default: 0 },
+  highScore_trad: { type: Number, default: 0 },
+  highScore_adventure: { type: Number, default: 0 },
+  firstPlayed: { type: Date, default: Date.now() },
+  fastPlayed: { type: Date },
+  gamePlayed: { type: Number, default: 0 },
 });
 //test
 
