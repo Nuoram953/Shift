@@ -14,7 +14,7 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 var fs = require("fs");
 var csvToJson = require("convert-csv-to-json");
-var bcrypt = require("bcrypt")
+var bcrypt = require("bcrypt");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -22,6 +22,7 @@ var directorRouter = require("./routes/director");
 
 var Language = require("./models/language");
 var User = require("./models/user");
+var Noun = require("./models/noun");
 
 var app = express();
 
@@ -31,20 +32,19 @@ const saltRounds = 10;
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-app.use(session({
-  secret: "secret",
-  resave: false,
-  saveUninitialized: true,
-  
-}));
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
-
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
@@ -66,81 +66,88 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-
-
 module.exports = app;
-
 
 /**
  * This function check for existing and missing language in the BD. Also, if none user, it add an admin for testing purposes.
- * 
+ *
  */
 const init = () => {
   const language = "./assets/language";
-  
+
   //Connection to BD
   let mongoDB = "mongodb://localhost/Shift";
   mongoose.connect(mongoDB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
   });
 
   let db = mongoose.connection;
 
-  
   //Checking if BD contains all csv files otherwise adding them to the collection "Language"
   let file = null;
   let json = null;
   fs.readdir(language, (err, files) => {
     files.forEach((file) => {
       file = file.split(".")[0];
-      
-      Language.
-      find().
-      where('language').equals(file).
-      select('language').
-      countDocuments().
-      exec(function(err,document){
-        if (err) throw err;
 
-        if (document == 0){
-          json = csvToJson.getJsonFromCsv(`./assets/language/${file}.csv`);
-          db.collection('Language').insertMany(json, function (err, res){
-            if (err) throw err;         
-          })
-        }
+      Language.find()
+        .where("language").equals(file)
+        .select("language")
+        .countDocuments()
+        .exec(function (err, document) {
+          if (err) throw err;
 
-      })
-      
+          if (document == 0) {
+            json = csvToJson.getJsonFromCsv(`./assets/language/${file}.csv`);
+            db.collection("Language").insertMany(json, function (err, res) {
+              if (err) throw err;
+            });
+          }
+        });
     });
   });
 
-  
   //If none User, add Admin for testing
-  User.
-  find().
-  countDocuments().
-  exec(function (err,users){
-    if (err) throw err;
+  User.find()
+    .countDocuments()
+    .exec(function (err, users) {
+      if (err) throw err;
 
-    if (users <= 0){
-
-      bcrypt.genSalt(saltRounds, function(err, salt) {
-        bcrypt.hash('admin', salt, function(err, hash) {
+      if (users <= 0) {
+        bcrypt.genSalt(saltRounds, function (err, salt) {
+          bcrypt.hash("admin", salt, function (err, hash) {
             // Store hash in your password DB.
-            let admin = new User({username:'admin', password:hash,Admin:true})
-            admin.save(function(err){
-              if (err) throw err
-            })
+            let admin = new User({
+              username: "admin",
+              password: hash,
+              Admin: true,
+            });
+            admin.save(function (err) {
+              if (err) throw err;
+            });
+          });
         });
-      });
+      }
+    });
+
+  db.on("error", console.error.bind(console, "MongoDB connection errors:"));
 
 
+  Noun.find()
+  .countDocuments()
+  .exec(function (err, noun){
+    if(noun == 0){
+      json = csvToJson.getJsonFromCsv(`./assets/noun/Noun.csv`);
+      db.collection("Noun").insertMany(json,function (err,result){
+        if (err) throw err;
+      })
     }
   })
 
-  db.on("error", console.error.bind(console, "MongoDB connection errors:"));
+
+
 };
 
 init();

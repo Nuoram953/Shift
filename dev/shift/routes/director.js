@@ -3,11 +3,11 @@ var router = express.Router();
 
 var userController = require('../controllers/UsersController')
 
-router.get('/login',userController.loginIndex)
+router.get('/login',userController.loginPage)
 
 router.post('/login/verif', userController.loginVerif)
 
-router.get('/home', userController.home)
+router.get('/home', userController.homePage)
 
 
 
