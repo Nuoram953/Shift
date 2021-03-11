@@ -41,4 +41,8 @@ exports.loginVerif = function (req, res, next) {
       
 }
 
+exports.addUser = function (req, res, next) {
+    res.send('NOT IMPLEMENTED: addUser: ' + req.params.id);
+}
+
 
