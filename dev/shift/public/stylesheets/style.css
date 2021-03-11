@@ -1,8 +1,76 @@
+/*
+ Description: Shift Website 
+ Author: Antoine Auger-Maroun
+*/
+
+
+:root{
+  --navbar-height: 10vh;
+  --primaryColor: #27abd3;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+  color: white;
+  text-decoration: none;
 }
+
+/*
+*NAVBAR
+*/
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color:var(--primaryColor);
+  height: var(--navbar-height);
+  line-height: var(--navbar-height);
+  text-align: center;
+  vertical-align: middle;
+}
+
+.navbar-links {
+  display: flex;
+}
+
+.navbar-links-list {
+  display: inherit;
+  flex-direction: row;
+  justify-content:center;
+  padding:  0 15px;
+}
+
+
+.navbar-links-list > *{
+  margin: 0 5vh;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.navbar-button{
+  height: calc(var(--navbar-height)/2);
+  background-color:white;
+  border-radius: 16px;
+
+  
+  
+
+}
+
+.navbar-button>li>a{
+  color:black;
+
+}
+
+
+
+
