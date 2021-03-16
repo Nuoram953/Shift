@@ -2,30 +2,56 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-
-    <nav class='navbar'>
-      <div class='navbar-logo'></div>
-      <div class='navbar-links'>
-        <ul class='navbar-links-list'>
-          <div class='navbar-button'>
-            <li><a href="/director/login" name="login">Se connecter</a></li>
-          </div>
+    <nav class="navbar">
+      <img src="" alt="logo" class="navbar-logo" />
+      <div class="navbar-links">
+        <ul class="navbar-links-list">
+          <li><a href="/director/login" name="login">Se connecter</a></li>
           <li><a href="" name="inscription">S'inscrire</a></li>
           <li><a href="" name="details">Service</a></li>
           <li><a href="" name="contact">Nous contacter</a></li>
         </ul>
-        
       </div>
     </nav>
 
+    <div class="page" id="page1">
+      <div id="background-index"></div>
+      <div class="title">
+        <h1>SHIFT</h1>
+        <h2>Développer votre rapidité</h2>
+      </div>
 
+      
+    </div>
 
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <div class="page" id="page2">
+      <div class="body-desc">
+        <div class="body-desc-image">
+          <img src="/images/shift_desc.jpg" alt="personne lente au clavier" />
+          <div class="body-desc-text">
+            <p>
+              asdfjklsdadjflkjsd asldfjlk asjdflkd jaslkjfdlk ajslkf jdakls
+              asdfjklsdadjflkjsd asldfjlk asjdflkd jaslkjfdlk ajslkf jdakls
+              asdfjklsdadjflkjsd asldfjlk asjdflkd jaslkjfdlk ajslkf jdakls
+              asdfjklsdadjflkjsd asldfjlk asjdflkd jaslkjfdlk ajslkf jdakls
+              asdfjklsdadjflkjsd asldfjlk asjdflkd jaslkjfdlk ajslkf jdakls
+            </p>
+            <button><a href="">Commancer votre aventure!</a></button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    
+    <div class="page-break"></div>
+
+    <div class="page" id="page3"></div>
   </body>
 </html>

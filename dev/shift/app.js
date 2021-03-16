@@ -85,7 +85,7 @@ const init = () => {
 
   let db = mongoose.connection;
 
-  //Checking if BD contains all csv files otherwise adding them to the collection "Language"
+  //Checking if BD contains all csv languages files otherwise adding them to the collection "Language"
   let file = null;
   let json = null;
   fs.readdir(language, (err, files) => {
