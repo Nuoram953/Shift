@@ -26,6 +26,11 @@ a {
   text-decoration: none;
 }
 
+img:not(.navbar-logo){
+  border: 10px var(--primaryColor) solid;
+  box-shadow: 1px 2px 5px grey;
+}
+
 /*
 *NAVBAR
 */
@@ -43,6 +48,10 @@ a {
   /* box-shadow: 1px 1px 5px grey; */
 }
 
+.navbar-link-color{
+  color: var(--primaryColor);
+}
+
 .navbar-logo {
   align-items: center;
   vertical-align: middle;
@@ -53,6 +62,7 @@ a {
 
 .navbar-links {
   display: flex;
+  
 }
 
 .navbar-links-list {
@@ -64,13 +74,14 @@ a {
 
 .navbar-links-list > * {
   margin: 0 5vh;
+  
 }
 
 .navbar-links-list > li:first-child > a {
-  color: black;
-  border: 2px solid black;
-  border-color: white;
-  background: white;
+  color: white;
+  border: 1px solid black;
+  border-color: black;
+  background: var(--primaryColor);
   border-radius: 16px;
   padding: 2px 10px;
 }
@@ -82,7 +93,8 @@ a {
 }
 
 .navbar-links-list > li:first-child > a:hover {
-  background-color: blue;
+  background-color: white;
+  color: black;
 }
 
 .navbar-links-list > li:not(:first-child):hover {
@@ -121,8 +133,7 @@ a {
 .title > h2 {
   overflow: hidden;
   font-size: 2em;
-  animation: typewriter 4s steps(44) 1s 1 normal both,
-    
+  animation: typewriter 4s steps(44) 1s 1 normal both;
 }
 
 .body-desc {
@@ -135,10 +146,7 @@ a {
   flex-direction: row;
 }
 
-.body-desc-image > img {
-  border: 10px var(--primaryColor) solid;
-  box-shadow: 1px 2px 5px grey;
-}
+
 .body-desc-text {
   margin: 20px 20px;
   width: 500px;
@@ -156,10 +164,48 @@ a {
 #page2 {
   background: rgb(75, 78, 78);
   background: linear-gradient(0deg, rgba(75, 78, 78, 1) 0%, whitesmoke 100%);
+  height:150vh;
 }
 
 #page3 {
   background-color: var(--secondaryColor);
+}
+
+
+
+.body-positive{
+  margin-top:15%;
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+}
+
+.body-positive>div{
+  padding: 25px 0;
+  display: flex;
+  flex-direction: row;
+  width: 400px;
+
+
+}
+
+.body-positive>div>img{
+  height: 200px;
+  width: 200px;
+}
+
+.positive-left-side{
+  margin-right:250px
+}
+.positive-right-side{
+  margin-left:250px ;
+}
+
+
+#positive1>p,#positive3>p{
+  padding-left: 10px;
+  color: red;
 }
 
 /*This code was found on the side CSS-Tricks
@@ -168,11 +214,8 @@ a {
 @keyframes typewriter {
   from {
     width: 0;
-    height: 20;
   }
   to {
     width: 24em;
-    height: 60;
   }
 }
-
