@@ -26,8 +26,8 @@ a {
   text-decoration: none;
 }
 
-img:not(.navbar-logo){
-  border: 10px var(--primaryColor) solid;
+img:not(.navbar-logo) {
+  border: 5px var(--primaryColor) solid;
   box-shadow: 1px 2px 5px grey;
 }
 
@@ -48,7 +48,7 @@ img:not(.navbar-logo){
   /* box-shadow: 1px 1px 5px grey; */
 }
 
-.navbar-link-color{
+.navbar-link-color {
   color: var(--primaryColor);
 }
 
@@ -62,7 +62,6 @@ img:not(.navbar-logo){
 
 .navbar-links {
   display: flex;
-  
 }
 
 .navbar-links-list {
@@ -74,13 +73,11 @@ img:not(.navbar-logo){
 
 .navbar-links-list > * {
   margin: 0 5vh;
-  
 }
 
 .navbar-links-list > li:first-child > a {
   color: white;
-  border: 1px solid black;
-  border-color: black;
+
   background: var(--primaryColor);
   border-radius: 16px;
   padding: 2px 10px;
@@ -95,6 +92,7 @@ img:not(.navbar-logo){
 .navbar-links-list > li:first-child > a:hover {
   background-color: white;
   color: black;
+  border: 1px solid black;
 }
 
 .navbar-links-list > li:not(:first-child):hover {
@@ -146,7 +144,6 @@ img:not(.navbar-logo){
   flex-direction: row;
 }
 
-
 .body-desc-text {
   margin: 20px 20px;
   width: 500px;
@@ -164,48 +161,94 @@ img:not(.navbar-logo){
 #page2 {
   background: rgb(75, 78, 78);
   background: linear-gradient(0deg, rgba(75, 78, 78, 1) 0%, whitesmoke 100%);
-  height:150vh;
+  height: 200vh;
 }
 
 #page3 {
   background-color: var(--secondaryColor);
 }
 
-
-
-.body-positive{
-  margin-top:15%;
-  display:flex;
-  flex-direction: column;
-  justify-content:center;
-  align-items:center;
-}
-
-.body-positive>div{
-  padding: 25px 0;
+.body-positive {
+  margin-top: 15%;
   display: flex;
-  flex-direction: row;
-  width: 400px;
-
-
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.body-positive>div>img{
+.positive-container {
+  background-color: white;
+  border-radius: 50px;
+  width: fit-content;
+  border: var(--primaryColor) 2px solid;
+  margin: 85px 0;
+}
+
+.positive-left-side {
+  margin-right: 350px;
+  float: left;
+  justify-content: left;
+}
+
+.positive-right-side {
+  margin-left: 350px;
+  float: right;
+}
+
+.positive {
+  background-color: gainsboro;
+  border-radius: 50px;
+  box-shadow: 3px 2px 2px 2px var(--primaryColor);
   height: 200px;
-  width: 200px;
+  width: 800px;
+  display: -webkit-flexbox;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  justify-content: center;
+  margin: 25px;
 }
 
-.positive-left-side{
-  margin-right:250px
-}
-.positive-right-side{
-  margin-left:250px ;
+.positive > img {
+  height: 175px;
+  width: 175px;
+  border-radius: 16px;
 }
 
-
-#positive1>p,#positive3>p{
+#positive1 > p,
+#positive3 > p {
   padding-left: 10px;
   color: red;
+}
+#positive2 > p {
+  margin-right: 10px;
+}
+
+
+.page-break{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size:3em;
+  box-shadow:5px 5px 5px 5px  black;
+}
+
+.page-break>p{
+  height:auto;
+}
+
+.page-break>a{
+  color: white;
+  text-decoration-line: underline;
+  border-radius:16px;
+  width: fit-content;
+  padding: 10px;
 }
 
 /*This code was found on the side CSS-Tricks
