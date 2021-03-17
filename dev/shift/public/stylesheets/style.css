@@ -16,7 +16,8 @@
 }
 
 body {
-  background-color: whitesmoke;
+  background: rgb(75, 78, 78);
+  background: linear-gradient(0deg, rgba(75, 78, 78, 1) 0%, whitesmoke 100%);
   font-size: 1.5em;
   font-family: "Caveat", cursive;
   font-weight: 450;
@@ -135,6 +136,7 @@ img:not(.navbar-logo) {
 }
 
 .body-desc {
+  padding: 50px 50px 150px 50px;
   display: flex;
   justify-content: center;
 }
@@ -159,9 +161,8 @@ img:not(.navbar-logo) {
 }
 
 #page2 {
-  background: rgb(75, 78, 78);
-  background: linear-gradient(0deg, rgba(75, 78, 78, 1) 0%, whitesmoke 100%);
-  height: 200vh;
+  height: fit-content;
+  background-color:whitesmoke;
 }
 
 #page3 {
@@ -169,19 +170,21 @@ img:not(.navbar-logo) {
 }
 
 .body-positive {
-  margin-top: 15%;
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
 }
 
 .positive-container {
   background-color: white;
-  border-radius: 50px;
+
   width: fit-content;
-  border: var(--primaryColor) 2px solid;
-  margin: 85px 0;
+
+  margin: 40px 0;
+
 }
 
 .positive-left-side {
@@ -196,59 +199,65 @@ img:not(.navbar-logo) {
 }
 
 .positive {
-  background-color: gainsboro;
-  border-radius: 50px;
-  box-shadow: 3px 2px 2px 2px var(--primaryColor);
+  
+
+ 
   height: 200px;
-  width: 800px;
+  width: 500px;
+  word-wrap: normal;
   display: -webkit-flexbox;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  -webkit-flex-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
   align-items: center;
   justify-content: center;
   margin: 25px;
+
 }
 
 .positive > img {
-  height: 175px;
-  width: 175px;
+  height: 250px;
+  width: 250px;
   border-radius: 16px;
 }
 
-#positive1 > p,
-#positive3 > p {
-  padding-left: 10px;
-  color: red;
-}
-#positive2 > p {
-  margin-right: 10px;
-}
-
-
-.page-break{
+.page-break {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   color: white;
-  font-size:3em;
-  box-shadow:5px 5px 5px 5px  black;
+  font-size: 3em;
+  box-shadow: 5px 5px 5px 5px black;
 }
 
-.page-break>p{
-  height:auto;
+.page-break > p {
+  height: auto;
 }
 
-.page-break>a{
+.page-break > a {
   color: white;
   text-decoration-line: underline;
-  border-radius:16px;
+  border-radius: 16px;
   width: fit-content;
   padding: 10px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.section-positive{
+  background-color:white;
+  padding: 30px 0px;
+}
+
+.positive-text{
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+  padding-left: 10px;
 }
 
 /*This code was found on the side CSS-Tricks
