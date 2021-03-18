@@ -149,6 +149,8 @@ img:not(.navbar-logo) {
 .body-desc-text {
   margin: 20px 20px;
   width: 500px;
+  display:flex;
+  flex-direction: column;
 }
 
 .page {
@@ -259,6 +261,22 @@ img:not(.navbar-logo) {
   margin-right: 10px;
   padding-left: 10px;
 }
+
+.button-link{
+  margin: 25px;
+  background-color:var(--primaryColor);
+  padding: 10px;
+  border-radius: 16px;
+  color: white;
+  width: fit-content;
+}
+
+.button-link:hover{
+  background-color:white;
+  border: 1px black solid;
+  color:black;
+}
+
 
 /*This code was found on the side CSS-Tricks
 *https://css-tricks.com/snippets/css/typewriter-effect/

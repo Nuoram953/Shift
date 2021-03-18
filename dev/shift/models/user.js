@@ -9,7 +9,7 @@ var UserSchema = new Schema({
   highScore_trad: { type: Number, default: 0 },
   highScore_adventure: { type: Number, default: 0 },
   firstPlayed: { type: Date, default: Date.now() },
-  fastPlayed: { type: Date },
+  lastPlayed: { type: Date },
   gamePlayed: { type: Number, default: 0 },
 });
 //test
