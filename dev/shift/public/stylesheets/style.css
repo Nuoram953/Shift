@@ -15,9 +15,15 @@
   list-style-type: none;
 }
 
-body {
+.body {
   background: rgb(75, 78, 78);
   background: linear-gradient(0deg, rgba(75, 78, 78, 1) 0%, whitesmoke 100%);
+  font-size: 1.5em;
+  font-family: "Caveat", cursive;
+  font-weight: 450;
+}
+
+.body-header{
   font-size: 1.5em;
   font-family: "Caveat", cursive;
   font-weight: 450;
@@ -275,6 +281,14 @@ img:not(.navbar-logo) {
   background-color:white;
   border: 1px black solid;
   color:black;
+}
+
+.header{
+  background-color:var(--primaryColor);
+}
+
+.navbar-link-color-header{
+  color: white;
 }
 
 

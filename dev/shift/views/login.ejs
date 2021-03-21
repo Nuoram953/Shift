@@ -9,7 +9,7 @@
 </head>
 <body>
     <p><%= title %> </p>
-    <form action="/director/login/verif" method="post">
+    <form action="/login/verif" method="post">
         <input type="text" for="username" name="username" placeholder="Nom d'utilisateur" id="username" value=<%=typeof(username) != "undefined" ? username : ""  %> >
         <input type="password" for="password" name="password" placeholder="Mot de passe" id="password" >
         <button id="login_confirm" type='submit'>Se connecter</button>

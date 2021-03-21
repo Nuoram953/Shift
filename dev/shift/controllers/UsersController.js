@@ -1,6 +1,9 @@
 var User = require('../models/user');
 var bcrypt = require('bcrypt');
+const { select } = require('async');
+const { body,validationResult } = require('express-validator');
 
+const saltRounds = 10;
 
 
 exports.loginPage = function (req, res, next) {
@@ -9,6 +12,10 @@ exports.loginPage = function (req, res, next) {
 
 exports.homePage = function (req, res, next) {
     res.render('home',{username:req.session.username})
+}
+
+exports.signupPage = function (req, res, next){
+    res.render('signup')
 }
 
 
@@ -28,7 +35,7 @@ exports.loginVerif = function (req, res, next) {
             bcrypt.compare(req.body.password,user[0].password,function (err,result) {
                 if (result){
                     req.session.username = req.body.username;
-                    res.redirect('/director/home'); // Login info valid
+                    res.redirect('/home'); // Login info valid
                 }else{                   
                     res.render('login',{title:"Connexion",error:"Mauvais mot de passe",username:user[0].username}); // password invalid
                 }  
@@ -41,8 +48,33 @@ exports.loginVerif = function (req, res, next) {
       
 }
 
+
+
 exports.addUser = function (req, res, next) {
-    res.send('NOT IMPLEMENTED: addUser: ' + req.params.id);
+
+
+
+
+    
+    bcrypt.genSalt(saltRounds, function (err, salt){
+        bcrypt.hash(req.body.password, salt, function (err, hash) {
+            let user = new User({
+                username:req.body.username,
+                password:hash,
+                isAdmin:false
+            })
+            user.save(function (err){
+                if (err) {
+                    res.render('signup',{error:"Nom d'utilisateur est déjà existant"})
+                }
+                else{
+                    res.render('home',{username:req.body.username})
+                }
+            });
+        })
+    })
+    
+    
 }
 
 

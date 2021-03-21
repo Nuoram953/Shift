@@ -1,0 +1,13 @@
+<%- include('partials/header.ejs') %>
+
+<form action="/signup/newUser" method="post" class="form-signup">
+    <input type="text" for="username" name="username" placeholder="Nom d'utilisateur" id="username">
+    <input type="text" for="username" name="password" placeholder="Mot de passe" id="password">
+    <button type="submit">Completer</button>
+</form>
+
+<% if (typeof(error) != "undefined") { %> 
+    <p class="error"><%= error %> </p>
+<% } %>
+    </body>
+</html>
