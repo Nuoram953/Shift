@@ -17,29 +17,43 @@
       <img src="" alt="logo" class="navbar-logo" />
       <div class="navbar-links">
         <ul class="navbar-links-list">
-          <li>
-            <a href="/login" name="login" class="navbar-link-color-header"
-              >Se connecter</a
-            >
-          </li>
-          <li>
-            <a
-              href="/signup"
-              name="inscription"
-              class="navbar-link-color-header"
-              >S'inscrire</a
-            >
-          </li>
-          <li>
-            <a href="" name="details" class="navbar-link-color-header"
-              >Service</a
-            >
-          </li>
-          <li>
-            <a href="" name="contact" class="navbar-link-color-header"
-              >Nous contacter</a
-            >
-          </li>
+
+
+          <% if (typeof(currentUser) != "undefined") { %>
+            <li>Administrateur</li>
+            <li>Historique</li>
+          <% } else {%>
+          
+            <li>
+              <a href="/login" name="login" class="navbar-link-color-header"
+                >Se connecter</a
+              >
+            </li>
+            <li>
+              <a
+                href="/signup"
+                name="inscription"
+                class="navbar-link-color-header"
+                >S'inscrire</a
+              >
+            </li>
+            <li>
+              <a href="" name="details" class="navbar-link-color-header"
+                >Service</a
+              >
+            </li>
+            <li>
+              <a href="" name="contact" class="navbar-link-color-header"
+                >Nous contacter</a
+              >
+            </li>
+
+          <% } %>
+           
+          <% if (typeof(error) != "undefined") { %> 
+            <p class="error"><%= error %> </p>
+          <% } %>
+          
         </ul>
       </div>
     </nav>
