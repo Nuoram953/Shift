@@ -1,10 +1,14 @@
 <%- include('partials/header.ejs') %>
 
-<form action="/signup/newUser" method="post" class="form-signup">
-    <input type="text" for="username" name="username" placeholder="Nom d'utilisateur" id="username">
-    <input type="text" for="username" name="password" placeholder="Mot de passe" id="password">
-    <button type="submit">Completer</button>
-</form>
+
+<div class="signup-container">
+    <form action="/signup/newUser" method="post" class="form-signup">
+        <h2>Inscrivez-vous gratuitement!</h2>
+        <input type="text" for="username" name="username" placeholder="Nom d'utilisateur" id="username">
+        <input type="text" for="username" name="password" placeholder="Mot de passe" id="password">
+        <button type="submit">Completer</button>
+    </form>
+</div>
 
 <% if (typeof(error) != "undefined") { %> 
     <p class="error"><%= error %> </p>

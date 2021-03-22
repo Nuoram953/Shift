@@ -291,6 +291,39 @@ img:not(.navbar-logo) {
   color: white;
 }
 
+/*
+*signup
+*/
+
+.signup-container{
+
+  height: 95vh;
+  width: auto;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content: space-around;
+  background-color: var(--primaryColor);
+  
+}
+
+
+.form-signup{
+  padding: 85px 10px ;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+
+  background-color:white;
+}
+
+.form-signup>*{
+  margin: 25px;
+  padding: 15px;
+}
+
+
 
 /*This code was found on the side CSS-Tricks
 *https://css-tricks.com/snippets/css/typewriter-effect/
