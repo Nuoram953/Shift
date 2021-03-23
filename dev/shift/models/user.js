@@ -4,12 +4,12 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
   username: { type: String, required: true, maxlength: 25,unique:true},
-  password: { type: String, required: true, },
+  password: { type: String, required: true, minlength:8},
   Admin: { type: Boolean, default: false },
   highScore_trad: { type: Number, default: 0 },
   highScore_adventure: { type: Number, default: 0 },
   firstPlayed: { type: Date, default: Date.now() },
-  fastPlayed: { type: Date },
+  lastPlayed: { type: Date },
   gamePlayed: { type: Number, default: 0 },
 });
 //test

@@ -3,6 +3,9 @@ var bcrypt = require('bcrypt');
 const { select } = require('async');
 const { body, validationResult } = require('express-validator');
 
+const saltRounds = 10;
+
+let currentUser = null;
 
 
 exports.loginPage = function (req, res, next) {
@@ -46,6 +49,8 @@ exports.loginVerif = function (req, res, next) {
         })
 
 }
+
+
 
 exports.addUser = function (req, res, next) {
 

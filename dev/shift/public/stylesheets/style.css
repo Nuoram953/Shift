@@ -1,8 +1,355 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+/*
+ Description: Shift Website 
+ Author: Antoine Auger-Maroun
+*/
+
+:root {
+  --navbar-height: 8vh;
+  --primaryColor: #13355a;
+  --secondaryColor: whitesmoke;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.body {
+  background: rgb(75, 78, 78);
+  background: linear-gradient(0deg, rgba(75, 78, 78, 1) 0%, whitesmoke 100%);
+  font-size: 1.5em;
+  font-family: "Caveat", cursive;
+  font-weight: 450;
+}
+
+.body-header {
+  font-size: 1.5em;
+  font-family: "Caveat", cursive;
+  font-weight: 450;
 }
 
 a {
-  color: #00B7FF;
+  text-decoration: none;
+}
+
+img:not(.navbar-logo) {
+  border: 5px var(--primaryColor) solid;
+  box-shadow: 1px 2px 5px grey;
+}
+.error{
+  color: red;
+  text-align: center;
+
+ 
+}
+
+/*
+*NAVBAR
+*/
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* background-color: var(--primaryColor); */
+  height: var(--navbar-height);
+  line-height: var(--navbar-height);
+  text-align: center;
+  vertical-align: middle;
+  flex-wrap: wrap;
+  overflow: hidden;
+  /* box-shadow: 1px 1px 5px grey; */
+}
+
+.navbar-link-color {
+  color: var(--primaryColor);
+}
+
+.navbar-logo {
+  align-items: center;
+  vertical-align: middle;
+  height: 8vh;
+  width: 15vh;
+  margin: 0 25px;
+}
+
+.navbar-links {
+  display: flex;
+}
+
+.navbar-links-list {
+  display: inherit;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 15px;
+}
+
+.navbar-links-list > * {
+  margin: 0 5vh;
+}
+
+.navbar-links-list > li:first-child > a {
+  color: white;
+
+  background: var(--primaryColor);
+  border-radius: 16px;
+  padding: 2px 10px;
+}
+
+.navbar-button {
+  height: calc(var(--navbar-height) / 2);
+  background-color: white;
+  border-radius: 16px;
+}
+
+.navbar-links-list > li:first-child > a:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+.navbar-links-list > li:not(:first-child):hover {
+  text-decoration: underline 3px white;
+}
+
+#background-index {
+  display: flex;
+  justify-content: center;
+  background-image: url(../images/test.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 75%;
+  width: auto;
+  margin: 100px;
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+}
+
+.title {
+  color: white;
+  padding-top: 50px;
+  position: absolute;
+  text-align: center;
+  top: 40%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.title > h1 {
+  font-size: 5em;
+}
+
+.title > h2 {
+  overflow: hidden;
+  font-size: 2em;
+  animation: typewriter 4s steps(44) 1s 1 normal both;
+}
+
+.body-desc {
+  padding: 50px 50px 150px 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.body-desc-image {
+  display: flex;
+  flex-direction: row;
+}
+
+.body-desc-text {
+  margin: 20px 20px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.page {
+  height: 100vh;
+}
+
+.page-break {
+  height: 15vh;
+  background-color: var(--primaryColor);
+}
+
+#page2 {
+  height: fit-content;
+  background-color: whitesmoke;
+}
+
+#page3 {
+  background-color: var(--secondaryColor);
+}
+
+.body-positive {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.positive-container {
+  background-color: white;
+
+  width: fit-content;
+
+  margin: 40px 0;
+}
+
+.positive-left-side {
+  margin-right: 350px;
+  float: left;
+  justify-content: left;
+}
+
+.positive-right-side {
+  margin-left: 350px;
+  float: right;
+}
+
+.positive {
+  height: 200px;
+  width: 500px;
+  word-wrap: normal;
+  display: -webkit-flexbox;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 25px;
+}
+
+.positive > img {
+  height: 250px;
+  width: 250px;
+  border-radius: 16px;
+}
+
+.page-break {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 3em;
+  box-shadow: 5px 5px 5px 5px black;
+}
+
+.page-break > p {
+  height: auto;
+}
+
+.page-break > a {
+  color: white;
+  text-decoration-line: underline;
+  border-radius: 16px;
+  width: fit-content;
+  padding: 10px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.section-positive {
+  background-color: white;
+  padding: 30px 0px;
+}
+
+.positive-text {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+  padding-left: 10px;
+}
+
+.button-link {
+  margin: 25px;
+  background-color: var(--primaryColor);
+  padding: 10px;
+  border-radius: 16px;
+  color: white;
+  width: fit-content;
+}
+
+.button-link:hover {
+  background-color: white;
+  border: 1px black solid;
+  color: black;
+}
+
+.header {
+  background-color: var(--primaryColor);
+}
+
+.navbar-link-color-header {
+  color: white;
+}
+
+/*
+*signup
+*/
+
+.signup-container {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  margin: 100px 100px;
+}
+
+.signup-background {
+  background-image: url("/images/abstractDesign.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  overflow-y: hidden;
+  height: 100vh;
+  width: auto;
+}
+
+.signup-form {
+  padding: 50px 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+}
+
+.signup-entry{
+  display: flex;
+  flex-direction: column;
+  margin: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-entry>*{
+  padding: 5px;
+  margin: 15px;
+  width: 100%;
+  
+}
+
+
+
+
+#signup-login{
+
+  font-size:18px;
+
+}
+/*This code was found on the side CSS-Tricks
+*https://css-tricks.com/snippets/css/typewriter-effect/
+*/
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 24em;
+  }
 }
