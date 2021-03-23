@@ -1,17 +1,23 @@
 <%- include('partials/header.ejs') %>
 
+<div class="signup-background">
+    <div class="signup-container">
+        <form action="/signup/newUser" method="post" class="signup-form">
+            <h2 id="signup-title">Inscrivez-vous gratuitement!</h2>
+            <div class="signup-entry">
+                <input type="text" for="username" name="username" placeholder="Nom d'utilisateur" id="username">
+                <input type="text" for="username" name="password" placeholder="Mot de passe" id="password">
+                <button type="submit">Completer</button>
+                <% if (typeof(error) != "undefined") { %> 
+                    <p class="error"><%= error %> </p>
+                <% } %>
+            </div>
 
-<div class="signup-container">
-    <form action="/signup/newUser" method="post" class="form-signup">
-        <h2>Inscrivez-vous gratuitement!</h2>
-        <input type="text" for="username" name="username" placeholder="Nom d'utilisateur" id="username">
-        <input type="text" for="username" name="password" placeholder="Mot de passe" id="password">
-        <button type="submit">Completer</button>
-    </form>
+            <p id="signup-login">Vous avez déjà compte? Connectez-vous <a href="/login">ici</a></p>
+        </form>
+    </div>
 </div>
 
-<% if (typeof(error) != "undefined") { %> 
-    <p class="error"><%= error %> </p>
-<% } %>
+
     </body>
 </html>

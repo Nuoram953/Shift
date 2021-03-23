@@ -13,7 +13,9 @@
 
 <body class="body-header">
   <nav class="navbar header">
-    <img src="" alt="logo" class="navbar-logo" />
+    <a href="/">
+      <img src="" alt="logo" class="navbar-logo" />
+    </a>
     <div class="navbar-links">
       <ul class="navbar-links-list">
         <% if (typeof(currentUser) !="undefined" ) { %>
@@ -38,11 +40,7 @@
                 </li>
 
               <% } %>
-                <% if (typeof(error) !="undefined" ) { %>
-                  <p class="error">
-                    <%= error %>
-                  </p>
-                  <% } %>
+
       </ul>
     </div>
   </nav>

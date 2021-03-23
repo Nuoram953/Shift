@@ -23,7 +23,7 @@
   font-weight: 450;
 }
 
-.body-header{
+.body-header {
   font-size: 1.5em;
   font-family: "Caveat", cursive;
   font-weight: 450;
@@ -36,6 +36,12 @@ a {
 img:not(.navbar-logo) {
   border: 5px var(--primaryColor) solid;
   box-shadow: 1px 2px 5px grey;
+}
+.error{
+  color: red;
+  text-align: center;
+
+ 
 }
 
 /*
@@ -155,7 +161,7 @@ img:not(.navbar-logo) {
 .body-desc-text {
   margin: 20px 20px;
   width: 500px;
-  display:flex;
+  display: flex;
   flex-direction: column;
 }
 
@@ -170,7 +176,7 @@ img:not(.navbar-logo) {
 
 #page2 {
   height: fit-content;
-  background-color:whitesmoke;
+  background-color: whitesmoke;
 }
 
 #page3 {
@@ -178,12 +184,10 @@ img:not(.navbar-logo) {
 }
 
 .body-positive {
-  
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
 }
 
 .positive-container {
@@ -192,7 +196,6 @@ img:not(.navbar-logo) {
   width: fit-content;
 
   margin: 40px 0;
-
 }
 
 .positive-left-side {
@@ -207,9 +210,6 @@ img:not(.navbar-logo) {
 }
 
 .positive {
-  
-
- 
   height: 200px;
   width: 500px;
   word-wrap: normal;
@@ -220,7 +220,6 @@ img:not(.navbar-logo) {
   align-items: center;
   justify-content: center;
   margin: 25px;
-
 }
 
 .positive > img {
@@ -256,38 +255,38 @@ img:not(.navbar-logo) {
   justify-content: center;
   align-items: center;
 }
-.section-positive{
-  background-color:white;
+.section-positive {
+  background-color: white;
   padding: 30px 0px;
 }
 
-.positive-text{
+.positive-text {
   display: flex;
   flex-direction: column;
   margin-right: 10px;
   padding-left: 10px;
 }
 
-.button-link{
+.button-link {
   margin: 25px;
-  background-color:var(--primaryColor);
+  background-color: var(--primaryColor);
   padding: 10px;
   border-radius: 16px;
   color: white;
   width: fit-content;
 }
 
-.button-link:hover{
-  background-color:white;
+.button-link:hover {
+  background-color: white;
   border: 1px black solid;
-  color:black;
+  color: black;
 }
 
-.header{
-  background-color:var(--primaryColor);
+.header {
+  background-color: var(--primaryColor);
 }
 
-.navbar-link-color-header{
+.navbar-link-color-header {
   color: white;
 }
 
@@ -295,36 +294,54 @@ img:not(.navbar-logo) {
 *signup
 */
 
-.signup-container{
+.signup-container {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  margin: 100px 100px;
+}
 
-  height: 95vh;
+.signup-background {
+  background-image: url("/images/abstractDesign.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  overflow-y: hidden;
+  height: 100vh;
   width: auto;
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  justify-content: space-around;
-  background-color: var(--primaryColor);
+}
+
+.signup-form {
+  padding: 50px 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+}
+
+.signup-entry{
+  display: flex;
+  flex-direction: column;
+  margin: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-entry>*{
+  padding: 5px;
+  margin: 15px;
+  width: 100%;
   
 }
 
 
-.form-signup{
-  padding: 85px 10px ;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 
 
-  background-color:white;
+#signup-login{
+
+  font-size:18px;
+
 }
-
-.form-signup>*{
-  margin: 25px;
-  padding: 15px;
-}
-
-
-
 /*This code was found on the side CSS-Tricks
 *https://css-tricks.com/snippets/css/typewriter-effect/
 */
