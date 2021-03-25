@@ -20,10 +20,16 @@
       <ul class="navbar-links-list">
         <% if (typeof(currentUser) !="undefined" ) { %>
           <% if (currentUser[0]['Admin']) { %>
-            <li>Administrateur</li>
+            <li>
+              <a href="" name=admin class="navbar-link-color-header">Administrateur</a>
+            </li>
             <% } %>
-              <li>Historique</li>
-              <li>Se déconnecter</li>
+              <li>
+                <a href="" name="history" class="navbar-link-color-header"> Historique</a>
+              </li>
+              <li>
+                <a href="/" name="signout" class="navbar-link-color-header">Se déconnecter</a>
+              </li>
               <% } else {%>
 
                 <li>
