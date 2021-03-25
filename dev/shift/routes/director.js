@@ -3,6 +3,9 @@ var router = express.Router();
 
 var userController = require('../controllers/UsersController')
 
+
+
+
 router.get('/', function(req, res, next) {
     res.render('index',{ title: 'Shift' });
   });

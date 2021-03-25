@@ -1,15 +1,22 @@
 var User = require('../models/user');
 var bcrypt = require('bcrypt');
-const { select } = require('async');
-const { body, validationResult } = require('express-validator');
 
 const saltRounds = 10;
 
 let currentUser = null;
 
+let error = {
+  001:"",
+  002:"Mauvais mot de passe",
+  003:"Mauvais nom d'utilisateur et mot de passe",
+  004:"Nom d'utilisateur est déjà existant",
+  005:"Les informations ne sont pas valides"
+};
+
+
 
 exports.loginPage = function (req, res, next) {
-    res.render('login', { title: "Connexion", error: "", })
+    res.render('login', { title: "Connexion" })
 }
 
 exports.homePage = function (req, res, next) {
@@ -39,11 +46,11 @@ exports.loginVerif = function (req, res, next) {
                         currentUser = user
                         res.redirect('/home'); // Login info valid
                     } else {
-                        res.render('login', { title: "Connexion", error: "Mauvais mot de passe", username: user[0].username }); // password invalid
+                        res.render('login', { title: "Connexion", error: error[002], username: user[0].username }); // password invalid
                     }
                 })
             } else {
-                res.render('login', { title: "Connexion", error: "Mauvais nom d'utilisateur et mot de passe" }); // Login info invalid
+                res.render('login', { title: "Connexion", error: error[003] }); // Login info invalid
             }
 
         })
@@ -64,7 +71,7 @@ exports.addUser = function (req, res, next) {
                 })
                 user.save(function (err) {
                     if (err) {
-                        res.render('signup', { error: "Nom d'utilisateur est déjà existant" })
+                        res.render('signup', { error: error[004]  })
                     }
                     else {
                         User.
@@ -85,7 +92,7 @@ exports.addUser = function (req, res, next) {
         })
 
     } else {
-        res.render('signup', { error: "Les informations ne sont pas valides" })
+        res.render('signup', { error: error[005] })
     }
 
 
