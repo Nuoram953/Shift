@@ -4,20 +4,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&display=swap" rel="stylesheet" />
     <title>Shift/Se connecter</title>
     
 </head>
-<body>
-    <p><%= title %> </p>
-    <form action="/login/verif" method="post">
-        <input type="text" for="username" name="username" placeholder="Nom d'utilisateur" id="username" value=<%=typeof(username) != "undefined" ? username : ""  %> >
-        <input type="password" for="password" name="password" placeholder="Mot de passe" id="password" >
-        <button id="login_confirm" type='submit'>Se connecter</button>
-    </form>
+<div class="login-goback">
+    <img src="/images/arrow.png" alt="" id="login-arrow">
+    <a href="/">Retour au menu</a>
+</div>
+<body class="body-login">
+    <div class="container-login">
+        <div class="login-border">
+            <form action="/login/verif" method="post" class="form-login">
+                <input type="text" for="username" name="username" placeholder="Nom d'utilisateur" id="username" value=<%=typeof(username) != "undefined" ? username : ""  %> >
+                <input type="password" for="password" name="password" placeholder="Mot de passe" id="password" >
+                <button id="login_confirm" type='submit'>Se connecter</button>
+                <% if (typeof(error) != "undefined") { %> 
+                    <p class="error"><%= error %> </p>
+                <% } %>
+            </form>
+        </div>
+    </div>
    
-    <% if (typeof(error) != "undefined") { %> 
-        <p class="error"><%= error %> </p>
-    <% } %>
+
 
 </body>
 </html>
