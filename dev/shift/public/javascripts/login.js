@@ -1,18 +1,18 @@
-window.addEventListener('load',()=>{
-    console.log("test page login");
+window.addEventListener('load', () => {
 
-    let button = document.getElementById('login_confirm')
-
-    button.addEventListener('click',()=>{
-        let username = document.getElementById('username').value;
-        let password = document.getElementById('password').value;
-        
-        fetch("/login/connection",{
-            method: 'POST',
-            body:JSON.stringify({"username":username,"password":password}),
-            headers: {"Content-Type": "application/json"}
-        })
-        
+    setInterval(() => {
+        if (document.querySelector('.error') != null ){
+            setTimeout(() => {
+                document.querySelector('.error').remove();
+            }, 5000);
+        }
+    }, 500);
 
 
-})})
+})
+
+
+
+
+
+

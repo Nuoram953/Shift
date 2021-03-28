@@ -20,12 +20,14 @@ exports.loginPage = function (req, res, next) {
 }
 
 exports.homePage = function (req, res, next) {
-    res.render('home', { currentUser })
+    res.render('home', { currentUser:req.session.user })
 }
 
 exports.signupPage = function (req, res, next) {
     res.render('signup')
 }
+
+
 
 
 
@@ -43,7 +45,7 @@ exports.loginVerif = function (req, res, next) {
             if (user.length == 1) {
                 bcrypt.compare(req.body.password, user[0].password, function (err, result) {
                     if (result) {
-                        currentUser = user
+                        req.session.user = user
                         res.redirect('/home'); // Login info valid
                     } else {
                         res.render('login', { title: "Connexion", error: error[002], username: user[0].username }); // password invalid
@@ -82,8 +84,8 @@ exports.addUser = function (req, res, next) {
                             exec(function (err, user) {
 
                                 if (user.length == 1) {
-                                    currentUser = user;
-                                    res.render('home', { currentUser });
+                                    req.session.user = user;
+                                    res.render('home', {currentUser:req.session.user} );
                                 }
                             })
                     }

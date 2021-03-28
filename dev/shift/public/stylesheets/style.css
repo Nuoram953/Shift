@@ -53,6 +53,7 @@ img:not(.navbar-logo, #login-arrow) {
 .error{
   color: red;
   text-align: center;
+  width: fit-content;
 
  
 }
@@ -362,10 +363,11 @@ img:not(.navbar-logo, #login-arrow) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 20%;
+  width: fit-content;
+  min-width:20%;
   border-radius:16px;
-  padding: 50px 50px;
-  margin: 15% auto;
+  padding: 5% 5%;
+  margin: 10% auto;
   border: var(--primaryColor) 5px solid;
   
 }
@@ -375,6 +377,7 @@ img:not(.navbar-logo, #login-arrow) {
 .form-login>*{
   padding: 5px;
   margin: 10px;
+  width: fit-content;
 }
 
 .login-goback{
@@ -385,7 +388,7 @@ img:not(.navbar-logo, #login-arrow) {
 
 .login-border{
   border: gray 0.5px solid;
-  padding:50px;
+  padding:15%; /*Value to change for mobile layout*/
   border-radius: 16px;
 
 }

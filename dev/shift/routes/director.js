@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var userController = require('../controllers/UsersController')
+var gameController = require('../controllers/GameController')
 
 
 
@@ -19,6 +20,8 @@ router.get('/home', userController.homePage)
 router.get('/signup', userController.signupPage)
 
 router.post('/signup/newUser', userController.addUser)
+
+router.get('/game/prep', gameController.preGame_trad)
 
 
 
