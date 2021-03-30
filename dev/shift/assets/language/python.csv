@@ -1,4 +1,4 @@
-expression;difficuty;language
+expression;difficulty;language
 and;easy;python
 as;easy;python
 assert;easy;python
@@ -44,7 +44,7 @@ if placeholder:;medium;python
 for placeholder in placeholder:;hard;python
 while placeholder:;hard;python
 class placeholder:;hard;python
-f"Bonjour, ceci est {placeholder}";hard;python
+"f""Bonjour"," ceci est {placeholder}"";hard;python
 def __placeholder__:;hard;python
 placeholder.pop(placeholder);hard;python
 placeholder.remove(placeholder);hard;python

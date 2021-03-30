@@ -102,6 +102,7 @@ const init = () => {
 
           if (document == 0) {
             json = csvToJson.getJsonFromCsv(`./assets/language/${file}.csv`);
+            console.log(json);
             db.collection("Language").insertMany(json, function (err, res) {
               if (err) throw err;
             });

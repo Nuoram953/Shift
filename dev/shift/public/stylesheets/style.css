@@ -40,8 +40,6 @@
   font-weight: 450;
 }
 
-
-
 a {
   text-decoration: none;
 }
@@ -50,12 +48,10 @@ img:not(.navbar-logo, #login-arrow) {
   border: 5px var(--primaryColor) solid;
   box-shadow: 1px 2px 5px grey;
 }
-.error{
+.error {
   color: red;
   text-align: center;
   width: fit-content;
-
- 
 }
 
 /*
@@ -333,7 +329,7 @@ img:not(.navbar-logo, #login-arrow) {
   background-color: white;
 }
 
-.signup-entry{
+.signup-entry {
   display: flex;
   flex-direction: column;
   margin: 50px;
@@ -341,69 +337,92 @@ img:not(.navbar-logo, #login-arrow) {
   align-items: center;
 }
 
-.signup-entry>*{
+.signup-entry > * {
   padding: 5px;
   margin: 15px;
   width: 100%;
-  
 }
 
 /*
 *Login page
 */
-.form-login{
+.form-login {
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 
-.container-login{
+.container-login {
   background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: fit-content;
-  min-width:20%;
-  border-radius:16px;
+  min-width: 20%;
+  border-radius: 16px;
   padding: 5% 5%;
   margin: 10% auto;
   border: var(--primaryColor) 5px solid;
-  
 }
 
-
-
-.form-login>*{
+.form-login > * {
   padding: 5px;
   margin: 10px;
   width: fit-content;
 }
 
-.login-goback{
+.login-goback {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.login-border{
+.login-border {
   border: gray 0.5px solid;
-  padding:15%; /*Value to change for mobile layout*/
+  padding: 15%; /*Value to change for mobile layout*/
   border-radius: 16px;
-
 }
 
-#login-arrow{
+#login-arrow {
   height: 50px;
   width: 50px;
 }
 
-
-#signup-login{
-
-  font-size:18px;
-
+#signup-login {
+  font-size: 18px;
 }
+
+/*
+*Pregame page
+*/
+
+.container-pregame{
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.container-items{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content: center;
+}
+
+
+.language {
+  padding: 35px 15px;
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  background-color: blue;
+  height: 100%;
+  width: 10%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+}
+
 /*This code was found on the side CSS-Tricks
 *https://css-tricks.com/snippets/css/typewriter-effect/
 */

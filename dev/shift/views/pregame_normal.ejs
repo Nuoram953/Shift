@@ -1,4 +1,32 @@
 <%- include('partials/header.ejs') %>
+  
+<div class="container-pregame">
+    <div class="container-items">
+        <% language.forEach(element => { %>
+            <div class="language">
+                <img src="/images/<%= element %>.png" alt= <%= element %> >
+                <p><%= element %> </p>
+                
+            </div>
+        <% }) %>
+    </div>
     
+    <div class="container-items">
+        <% difficulty.forEach(element => { %>
+            <div class="language">
+                <img src="/images/<%= element %>.png" alt= <%= element %> >
+                <p><%= element %> </p>
+                
+            </div>
+        <% }) %>
+    
+    </div>
+    
+    <Button>Commencer</Button>
+</div>
+
+
+
+
 </body>
 </html>
