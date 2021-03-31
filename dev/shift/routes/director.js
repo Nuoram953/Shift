@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+
 var userController = require('../controllers/UsersController')
 var gameController = require('../controllers/GameController')
 
@@ -23,22 +24,12 @@ router.post('/signup/newUser', userController.addUser)
 
 router.get('/game/prep', gameController.preGame_trad)
 
+router.post('/gameStart', gameController.startGame)
+
+router.get('/game',gameController.gamePage)
 
 
 
- //router.post('/login/connection', function(req, res) {
- //  let username = req.body.username;
- //  console.log(req.body.username);
- //  if(username != "Antoine"){
- //    res.render('login',{title:"Connexion",error:"Mauvais nom"});
- //  }else{
- //    res.redirect('/director/home');
- //  }
- //});
 
- //router.get('/home', function(req, res) {
- //  res.render('home',{title:"Connexion",error:""});
- //  
- //});
 
 module.exports = router;

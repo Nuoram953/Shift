@@ -44,10 +44,13 @@ a {
   text-decoration: none;
 }
 
-img:not(.navbar-logo, #login-arrow) {
+
+
+.body img{
   border: 5px var(--primaryColor) solid;
   box-shadow: 1px 2px 5px grey;
 }
+
 .error {
   color: red;
   text-align: center;
@@ -357,8 +360,7 @@ img:not(.navbar-logo, #login-arrow) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: fit-content;
-  min-width: 20%;
+  width: 10%;
   border-radius: 16px;
   padding: 5% 5%;
   margin: 10% auto;
@@ -366,7 +368,7 @@ img:not(.navbar-logo, #login-arrow) {
 }
 
 .form-login > * {
-  padding: 5px;
+  padding: 15px;
   margin: 10px;
   width: fit-content;
 }
@@ -399,6 +401,13 @@ img:not(.navbar-logo, #login-arrow) {
 .container-pregame{
   display: flex;
   flex-direction: column;
+  align-items: center;
+  
+}
+
+.container-pregame button{
+  width: 15%;
+  padding: 15px;
   
 }
 
@@ -407,6 +416,9 @@ img:not(.navbar-logo, #login-arrow) {
   flex-direction:row;
   align-items:center;
   justify-content: center;
+  width: 100%;
+  margin: 100px 0;
+
 }
 
 
@@ -415,12 +427,76 @@ img:not(.navbar-logo, #login-arrow) {
   margin: 15px;
   display: flex;
   flex-direction: column;
-  background-color: blue;
+  background-color: whitesmoke;
   height: 100%;
   width: 10%;
   justify-content: center;
   align-items: center;
   border-radius: 16px;
+  margin: 0 50px;
+
+}
+
+.language > img{
+  height: 75px;
+  width:75px;
+  border: none;
+  box-shadow: none;
+  pointer-events: none;
+  cursor: default;
+  
+}
+
+.language > p{
+  pointer-events: none;
+  cursor: default;
+}
+.difficulty {
+  padding: 35px 15px;
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  background-color: whitesmoke;
+  height: 100%;
+  width: 10%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  margin: 0 50px;
+}
+
+.difficulty > img{
+  height: 75px;
+  width:75px;
+  border: none;
+  box-shadow: none;
+  pointer-events: none;
+  cursor: default;
+}
+
+.difficulty>p{
+  pointer-events: none;
+  cursor: default;
+}
+
+
+/*
+* Normal Game
+*/
+
+.container-gameUI{
+  display: flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+#canvas{
+
+
+  
+  margin: 0 auto;
+
+
 }
 
 /*This code was found on the side CSS-Tricks

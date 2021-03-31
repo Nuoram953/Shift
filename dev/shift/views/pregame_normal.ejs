@@ -1,10 +1,12 @@
 <%- include('partials/header.ejs') %>
+
+<script src="/javascripts/preGame.js"></script>
   
 <div class="container-pregame">
     <div class="container-items">
         <% language.forEach(element => { %>
             <div class="language">
-                <img src="/images/<%= element %>.png" alt= <%= element %> >
+                <img src="/images/language/<%= element %>.png" alt= <%= element %> >
                 <p><%= element %> </p>
                 
             </div>
@@ -13,8 +15,8 @@
     
     <div class="container-items">
         <% difficulty.forEach(element => { %>
-            <div class="language">
-                <img src="/images/<%= element %>.png" alt= <%= element %> >
+            <div class="difficulty">
+                <img src="/images/difficulty/<%= element %>.png" alt= <%= element %> >
                 <p><%= element %> </p>
                 
             </div>
@@ -22,7 +24,7 @@
     
     </div>
     
-    <Button>Commencer</Button>
+    <Button id="btnStartGame" type="submit" onclick="location.href='/game'">Commencer</Button>
 </div>
 
 
