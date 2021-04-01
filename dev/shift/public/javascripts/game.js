@@ -1,3 +1,6 @@
+import {factory} from './factory.js'
+
+
 let ctx = null;
 let canvas = null;
 let index = 0;
@@ -16,6 +19,11 @@ window.addEventListener("load", () => {
     word=prep(currentWord)
 
     x = 600-(currentWord.length*25)+ctx.measureText(currentWord).width;
+
+    let value = factory(10);
+    value.then((data) => {
+      console.log(data);
+    })
     
 
   window.addEventListener("keydown", (event) => {
@@ -75,3 +83,4 @@ const prep = (currentWord) =>{
 
     }
 }
+

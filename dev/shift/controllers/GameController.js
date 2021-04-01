@@ -1,6 +1,7 @@
 var Game = require("../models/game");
 
 var Language = require("../models/language");
+var Noun = require("../models/noun");
 
 let difficultyIndex = {
   easy: 0,
@@ -11,15 +12,12 @@ let difficultyIndex = {
 let params = {
   language: null,
   difficulty: null,
-}
-let language =null;
-
-
+};
 
 
 exports.gamePage = function (req, res, next) {
-  res.render("game_normal",{params})
-}
+  res.render("game_normal", { params });
+};
 
 exports.preGame_trad = function (req, res, next) {
   Language.aggregate([
@@ -29,10 +27,8 @@ exports.preGame_trad = function (req, res, next) {
         language: { $addToSet: "$language" },
         difficulty: { $addToSet: "$difficulty" },
       },
-    }
-    
+    },
   ]).exec(function (err, language) {
-
     let difficulty = [];
 
     //Without thoses lines, the difficulties aren't in order
@@ -48,10 +44,44 @@ exports.preGame_trad = function (req, res, next) {
   });
 };
 
-exports.startGame = function (req, res, next){
-  params['language'] = req.body.language;
-  params['difficulty'] = req.body.difficulty;
-}
+exports.startGame = function (req, res, next) {
+  params["language"] = req.body.language;
+  params["difficulty"] = req.body.difficulty;
+};
+
+exports.gameGetNoun = function (req, res, next) {
+  Noun.aggregate([
+    {
+      $sample: {size: req.body.quantity}
+    },
+  ]).exec(function (err, language) {
+
+    let noun = [];
+
+    language.forEach(element => {
+      noun.push(element['expression'])
+    })
+
+    res.send(noun);
+  });
+};
+
+exports.gameGetExpression = function (req, res, next) {
+  Language.aggregate([
+    {
+      $sample: {size: req.body.quantity}
+    },
+  ]).exec(function (err, test) {
+
+    let language = [];
+
+    test.forEach(element => {
+      language.push(element['expression'])
+    })
+
+    res.send(language);
+  });
+};
 
 //OPTIONEL - Fonction d'admin
 exports.addGame = function (req, res, next) {
