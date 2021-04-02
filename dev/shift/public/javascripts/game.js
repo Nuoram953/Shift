@@ -8,8 +8,12 @@ let inputHistory = [];
 let temp = [];
 let word
 let x = null;
+let newWord = false;
+let wordIndex = 0
 
-let currentWord = "test";
+let words = ["test","new","blabla"]
+
+let currentWord = words[0];
 
 window.addEventListener("load", () => {
     canvas = document.getElementById("canvas");
@@ -20,50 +24,50 @@ window.addEventListener("load", () => {
 
     x = 600-(currentWord.length*25)+ctx.measureText(currentWord).width;
 
-    let value = factory(10);
-    value.then((data) => {
-      console.log(data);
-    })
+    //let value = factory(10);
+    //value.then((data) => {
+    //  console.log(data);
+    //})
     
 
-  window.addEventListener("keydown", (event) => {
-    console.log(event);
+      window.addEventListener("keydown", (event) => {
 
-    if (event.key == currentWord[index] && event.key != "Backspace") {
-      inputHistory.push({ color: "green", position: x, key: event.key });
 
-    } else if (event.key != currentWord[index] && event.key != "Backspace") {
-      inputHistory.push({ color: "red", position: x, key: currentWord[index] });
-      
-    } else if (event.key == "Backspace") {
-      console.log(event.key);
-    }
-
-    event.key != "Backspace" ? index++ : (index -= 1);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    inputHistory.forEach((element) => {
-       
-      ctx.fillStyle = element.color;
-      ctx.fillText(element.key, element.position, 50);
-      
-    });
-    x += 25;
-    console.log(x);
-
+        console.log(event);
     
-  if (inputHistory.length < currentWord.length && inputHistory.length != 0){
-      
-    let tempX = x
+        keyInput(event.key);
+    
 
-      for(let temp = inputHistory.length; temp <=currentWord.length; temp++){
-        ctx.fillStyle = "black";
-        ctx.fillText(currentWord.charAt(temp), tempX, 50);
-        tempX += 25;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        inputHistory.forEach((element) => {
+         
+          ctx.fillStyle = element.color;
+          ctx.fillText(element.key, element.position, 50);
+          
+        });
+    
+
+        x += 25;
+        console.log(x);
+    
+      console.log(inputHistory.length);
+      if (inputHistory.length < currentWord.length){
+          
+        let tempX = x
+    
+          for(let temp = inputHistory.length; temp <=currentWord.length; temp++){
+            ctx.fillStyle = "black";
+            ctx.fillText(currentWord.charAt(temp), tempX, 50);
+            tempX += 25;
+          }
+    
       }
+      });
 
-  }
-  });
+    
+
+  
 
 
 
@@ -82,5 +86,34 @@ const prep = (currentWord) =>{
         x+= 25;
 
     }
+}
+
+const keyInput = (key) =>{
+  
+  if (event.key == currentWord[index] && event.key != "Backspace" && event.key != "Enter") {
+    inputHistory.push({ color: "green", position: x, key: event.key });
+    index++;
+
+  } else if (event.key != currentWord[index] && event.key != "Backspace" && event.key != "Enter") {
+    inputHistory.push({ color: "red", position: x, key: currentWord[index] });
+    index++;
+
+    
+  } else if (event.key == "Backspace") {
+    console.log(event.key);
+    index--;
+  } else if (event.key == "Enter") {
+    console.log("key is Enter");
+    wordIndex++;
+    currentWord = words[wordIndex];
+    index = 0;
+    inputHistory = [];
+    prep(currentWord)
+
+    x = 600-(currentWord.length*25)+ctx.measureText(currentWord).width;
+  }
+
+
+
 }
 
