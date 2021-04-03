@@ -14,6 +14,10 @@ let params = {
   difficulty: null,
 };
 
+exports.homePage = function (req, res, next) {
+  res.render("home");
+};
+
 
 exports.gamePage = function (req, res, next) {
   res.render("game_normal", { params });
@@ -70,7 +74,7 @@ exports.gameGetExpression = function (req, res, next) {
   console.log("test game expression");
   Language.aggregate([
     {
-      $sample: {size:10}
+      $sample: {size:req.body.quantity}
     },
   ]).exec(function (err, test) {
 
@@ -87,7 +91,8 @@ exports.gameGetExpression = function (req, res, next) {
 
 //OPTIONEL - Fonction d'admin
 exports.addGame = function (req, res, next) {
-  res.send("NOT IMPLEMENTED: addGame: " + req.params.id);
+  console.log(req.body.test);
+  res.send({url:"/signup"})
 };
 
 exports.listGames = function (req, res, next) {

@@ -32,6 +32,9 @@ router.post('/game/Noun', gameController.gameGetNoun)
 
 router.post('/game/Expression', gameController.gameGetExpression)
 
+router.post('/game/result', gameController.addGame)
+
+router.get('/game/end',gameController.homePage)
 
 
 

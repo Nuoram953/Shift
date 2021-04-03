@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/style.css">
     <title>Document</title>
-    <script type="module" src="/javascripts/gameCowBoy.js"></script>
+    <script type="module" src="/javascripts/game.js"></script>
     <script type="module" src="/javascripts/factory.js"></script>
 </head>
 <body>
     <div class="container-gameUI" style="text-align: center">
         <p><%= params['language'] %> </p>
         <p><%= params['difficulty'] %> </p>
+        <p id="cpm"></p>
         <canvas height="500px" width="1200px" id="canvas"></canvas>
 
     </div>

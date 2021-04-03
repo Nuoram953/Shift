@@ -24,6 +24,7 @@ exports.homePage = function (req, res, next) {
 }
 
 exports.signupPage = function (req, res, next) {
+    console.log(req.session.user);
     res.render('signup')
 }
 

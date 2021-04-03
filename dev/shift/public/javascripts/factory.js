@@ -1,22 +1,25 @@
 let noun = []
 
-async function factory(num) {
-  const value = await asyncFunction();
+async function factory(num,canvas,ctx) {
+  const value = await asyncFunction(num);
   for (let i = 0; i < num; i++) {
     if (value['expressions'][i].toString().includes("placeholder")) {
       value['expressions'][i] = value['expressions'][i].replace("placeholder", value['nouns'][i]);
     }
   }
+  let words = [];
   noun = value['expressions'];
-  console.log(noun);
-  return noun;
+  for (let word in noun) {
+    words.push({word:prep(noun[word],canvas.width,ctx),start:null,end:null,cpm:null});
+}
+  return words;
   
 }
 
-const asyncFunction = async () => {
-  const nouns = await getNouns(10);
+const asyncFunction = async (num) => {
+  const nouns = await getNouns(num);
 
-  const expressions = await getExpressions(10);
+  const expressions = await getExpressions(num);
 
   let temp = {
     nouns: nouns,
@@ -52,6 +55,26 @@ async function getExpressions(num) {
 
   const test = await response.json();
   return test;
+}
+
+const prep = (word,width,ctx) => {
+  let x = (width / 2) - caclPX(word,ctx);
+  let test = [];
+
+  for (let char in word) {
+      test.push({ color: "black", position: x, char: word[char] })
+      x += 25;
+  }
+  return test
+}
+
+const caclPX = (word,ctx) => {
+  let distance = 0;
+  for (let index = 0; index < word.length; index++) {
+      distance += ctx.measureText(word[index]).width;
+
+  }
+  return distance
 }
 
 export { factory };
