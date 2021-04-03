@@ -22,12 +22,12 @@ window.addEventListener("load", () => {
   nodesLanguage.forEach((node) => {
     node.addEventListener("click", (node) => {
       if (language) {
-        language["target"].style.backgroundColor = "whitesmoke";
+        language["target"].style.border = "None";
       }
 
       language = node;
 
-      node["target"].style.backgroundColor = "black";
+      node["target"].style.border = "3px solid #13355a";
 
       selected["language"] = language["target"].innerText;
       console.log(selected["language"]);
@@ -37,12 +37,12 @@ window.addEventListener("load", () => {
   nodesDifficulty.forEach((node) => {
     node.addEventListener("click", (node) => {
       if (difficulty) {
-        difficulty["target"].style.backgroundColor = "whitesmoke";
+        difficulty["target"].style.border = "None";
       }
 
       difficulty = node;
 
-      node["target"].style.backgroundColor = "black";
+      node["target"].style.border = "3px solid #13355a";
 
       selected["difficulty"] = difficulty["target"].innerText;
       console.log(selected["difficulty"]);

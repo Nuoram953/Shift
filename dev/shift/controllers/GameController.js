@@ -67,9 +67,10 @@ exports.gameGetNoun = function (req, res, next) {
 };
 
 exports.gameGetExpression = function (req, res, next) {
+  console.log("test game expression");
   Language.aggregate([
     {
-      $sample: {size: req.body.quantity}
+      $sample: {size:10}
     },
   ]).exec(function (err, test) {
 
@@ -79,7 +80,8 @@ exports.gameGetExpression = function (req, res, next) {
       language.push(element['expression'])
     })
 
-    res.send(language);
+    console.log(language);
+    res.json(language);
   });
 };
 
