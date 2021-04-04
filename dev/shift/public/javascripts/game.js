@@ -30,7 +30,7 @@ window.addEventListener("load", () => {
     factory(WORDS, canvas, ctx).then((data) => {
 
         words = data;
-
+        console.log(words);
         words[index]['start'] = Date.now();
         show(words[index]['word'])
 
@@ -114,18 +114,15 @@ const calculateCPM = () => {
 
 const toJSON = () => {
 
-
-    console.log(calculateCPM());
-    let temp = parseInt(calculateCPM(), 10)
-
     fetch("/game/result", {
         method: "POST",
         body: JSON.stringify({
             date: Date.now(),
             words: words,
-            cpm: temp,
+            cpm: parseInt(calculateCPM(), 10)*60,
             type: "normal",
-            score: null
+            score: null,
+            stats: calculateStats()
         }),
         headers: { "Content-Type": "application/json" },
         redirect: "manual"
@@ -136,4 +133,30 @@ const toJSON = () => {
         })
 
         .catch(console.error);
+}
+
+const calculateStats = () => {
+    let stats = {
+        good:0,
+        corrected:0,
+        wrong:0
+    }
+
+
+    words.forEach(word => {
+        word['word'].forEach(letter => {
+            if (letter['color'] == "red"){
+                stats['wrong']+=1
+            }
+            else if (letter['color'] == "rgb(212, 212, 25)"){
+                stats['corrected']+=1
+            }else{
+                stats['good']+=1
+            }
+        })
+    })
+
+
+
+    return stats
 }

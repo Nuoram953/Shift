@@ -8,8 +8,12 @@ var GameSchema = new Schema({
   cpm: { type: Number },
   user: { type: Schema.Types.ObjectId, ref: "Users", required: true },
   language: { type: String },
+  difficulty:{type: String},
   score: { type: Number, default: 0 },
   words: { type: Array },
+  error:{type:Number},
+  stats: { type: Object },
+
 });
 
 //Export model

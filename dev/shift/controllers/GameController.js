@@ -124,8 +124,10 @@ exports.addGame = function (req, res, next) {
     cpm:  req.body.cpm,
     user: req.session.user[0],
     language: params['language'],
+    difficulty:params['difficulty'],
     score: req.body.score,
-    words: req.body.words
+    words: req.body.words,
+    stats: req.body.stats
   })
 
   game.save(function (err){
