@@ -8,11 +8,8 @@ var UserSchema = new Schema({
   Admin: { type: Boolean, default: false },
   highScore_trad: { type: Number, default: 0 },
   highScore_adventure: { type: Number, default: 0 },
-  firstPlayed: { type: Date, default: Date.now() },
-  lastPlayed: { type: Date },
-  gamePlayed: { type: Number, default: 0 },
 });
-//test
+
 
 UserSchema.virtual("url").get(function () {
   return "/director/history/user/" + this._id;

@@ -23,6 +23,12 @@ exports.gamePage = function (req, res, next) {
   res.render("game_normal", { params });
 };
 
+exports.resultPage = function (req, res, next) {
+  res.render("result", );
+};
+
+
+
 exports.preGame_trad = function (req, res, next) {
   Language.aggregate([
     {
@@ -91,8 +97,23 @@ exports.gameGetExpression = function (req, res, next) {
 
 //OPTIONEL - Fonction d'admin
 exports.addGame = function (req, res, next) {
-  console.log(req.body.test);
-  res.send({url:"/signup"})
+
+
+  let game = new Game({
+    type: req.body.type,
+    time: req.body.date,
+    cpm:  req.body.cpm,
+    user: req.session.user[0],
+    language: params['language'],
+    score: req.body.score,
+    words: req.body.words
+  })
+
+  game.save(function (err){
+    if (err) throw err;
+  })
+
+  res.send({url:"/result"})
 };
 
 exports.listGames = function (req, res, next) {

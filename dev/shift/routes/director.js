@@ -36,6 +36,8 @@ router.post('/game/result', gameController.addGame)
 
 router.get('/game/end',gameController.homePage)
 
+router.get('/result', gameController.resultPage)
+
 
 
 

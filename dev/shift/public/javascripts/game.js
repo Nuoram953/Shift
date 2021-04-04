@@ -10,8 +10,7 @@ import { factory } from './factory.js'
 
 const HEIGHT = 50;
 const WORDS = 2;
-
-const INVALID_KEY = ['Shift','Enter','Backspace']
+const INVALID_KEY = ['Shift', 'Enter', 'Backspace']
 
 let words = []
 let index = 0
@@ -28,14 +27,18 @@ window.addEventListener("load", () => {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
-    factory(WORDS,canvas,ctx).then((data) => {
-        
+    factory(WORDS, canvas, ctx).then((data) => {
+
         words = data;
 
         words[index]['start'] = Date.now();
         show(words[index]['word'])
 
+
         window.addEventListener('keydown', (event) => {
+
+            console.log(currentChar);
+
             keyInput(event.key);
             show(words[index]['word'])
 
@@ -50,77 +53,76 @@ const show = (word) => {
     for (let i = 0; i < word.length; i++) {
         ctx.fillStyle = word[i]['color'];
         ctx.fillText(word[i]['char'], word[i]['position'], HEIGHT);
+        if (i == currentChar) {
+            ctx.fillRect(word[i]['position'] - 5, 70, ctx.measureText(word[i]['char']).width, 2);
+        }
     }
 }
 
 
 const keyInput = (key) => {
 
-    console.log(key);
     if (key == "Enter") {
 
-        if (index == WORDS-1){
+        if (index == WORDS - 1) {
             toJSON();
         }
 
         words[index]['end'] = Date.now();
-        words[index]['cpm'] = (words[index]['end']-words[index]['start'])/1000
+        words[index]['cpm'] = (words[index]['end'] - words[index]['start']) / 1000
         calculateCPM();
         index++;
         words[index]['start'] = Date.now();
         currentChar = 0
     }
     else if (key == words[index]['word'][currentChar]['char'] && !INVALID_KEY.includes(key)) {
-        words[index]['word'][currentChar]['color'] = "green"
-        currentChar++
+        words[index]['word'][currentChar]['color'] = (words[index]['word'][currentChar]['color'] == "red") ? "rgb(212, 212, 25)" : "green"
+
+        if (currentChar < words[index]['word'].length - 1) {
+            currentChar++
+        }
 
     } else if (key != words[index]['word'][currentChar]['char'] && !INVALID_KEY.includes(key)) {
         words[index]['word'][currentChar]['color'] = "red"
         currentChar++;
 
-    } else if (key == "Backspace") {
+    } else if (key == "Backspace") {    
         currentChar--;
-
-    } 
-
-    
+    }
 }
 
-const calculateCPM = () =>{
-
+const calculateCPM = () => {
     let avg = 0
     let count = 0
 
-    for(let i in words){
+    for (let i in words) {
         console.log(words[i]['cpm']);
-        if (words[i]['cpm'] != null){
-            avg += parseFloat(words[i]['cpm']); 
+        if (words[i]['cpm'] != null) {
+            avg += parseFloat(words[i]['cpm']);
             count++;
         }
     }
-
-    avg = avg/count
-
-    console.log(avg);
-    document.getElementById('cpm').innerText = avg
+    document.getElementById('cpm').innerText =  avg / count
 }
 
-const toJSON = () =>{
+const toJSON = () => {
 
-   
     fetch("/game/result", {
         method: "POST",
         body: JSON.stringify({
-          "test": "test fin de partie",
-
+            date: Date.now(),
+            words: words,
+            cpm: calculateCPM(),
+            type: "normal",
+            score: null
         }),
         headers: { "Content-Type": "application/json" },
-        redirect:"manual"
-        }).then((response) => response.json())
-        .then((data)=>{
+        redirect: "manual"
+    }).then((response) => response.json())
+        .then((data) => {
             console.log(data);
             window.location.replace(data['url'])
         })
- 
+
         .catch(console.error);
 }
