@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var GameSchema = new Schema({
   type: { type: String, enum: ["adventure", "normal"] },
   time: { type: Date, defaut: Date.now() },
-  cpm: { tyep: Number },
+  cpm: { type: Number },
   user: { type: Schema.Types.ObjectId, ref: "Users", required: true },
   language: { type: String },
   score: { type: Number, default: 0 },

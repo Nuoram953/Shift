@@ -44,11 +44,16 @@ async function getNouns(num) {
 }
 
 async function getExpressions(num) {
+
+
+
+
   const response = await fetch("/game/Expression", {
     method: "POST",
     mode: "cors",
     body: JSON.stringify({
       quantity: num,
+      difficulty:document.getElementById('difficulty').innerHTML.toString().trim()
     }),
     headers: { "Content-Type": "application/json" },
   });

@@ -1,3 +1,4 @@
+const { select } = require("async");
 var Game = require("../models/game");
 
 var Language = require("../models/language");
@@ -24,7 +25,19 @@ exports.gamePage = function (req, res, next) {
 };
 
 exports.resultPage = function (req, res, next) {
-  res.render("result", );
+  Game.
+  find().
+  where('user').equals(req.session.user).
+  sort({time:-1}).
+  select().
+  limit(1).
+  exec(function (err, game) {
+    console.log(game);
+    res.render("result", {result:game[0]});
+  })
+
+
+
 };
 
 
@@ -77,11 +90,17 @@ exports.gameGetNoun = function (req, res, next) {
 };
 
 exports.gameGetExpression = function (req, res, next) {
-  console.log("test game expression");
+
   Language.aggregate([
     {
-      $sample: {size:req.body.quantity}
-    },
+      '$match': {
+        'difficulty': req.body.difficulty
+      }
+    }, {
+      '$sample': {
+        'size': req.body.quantity
+      }
+    }
   ]).exec(function (err, test) {
 
     let language = [];

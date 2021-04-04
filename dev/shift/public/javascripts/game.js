@@ -64,16 +64,20 @@ const keyInput = (key) => {
 
     if (key == "Enter") {
 
-        if (index == WORDS - 1) {
-            toJSON();
-        }
+
 
         words[index]['end'] = Date.now();
         words[index]['cpm'] = (words[index]['end'] - words[index]['start']) / 1000
         calculateCPM();
-        index++;
-        words[index]['start'] = Date.now();
-        currentChar = 0
+
+        if (index == WORDS - 1) {
+            toJSON();
+        }else{
+            index++;
+            words[index]['start'] = Date.now();
+            currentChar = 0
+        }
+
     }
     else if (key == words[index]['word'][currentChar]['char'] && !INVALID_KEY.includes(key)) {
         words[index]['word'][currentChar]['color'] = (words[index]['word'][currentChar]['color'] == "red") ? "rgb(212, 212, 25)" : "green"
@@ -102,17 +106,24 @@ const calculateCPM = () => {
             count++;
         }
     }
-    document.getElementById('cpm').innerText =  avg / count
+
+    let total = avg / count
+    document.getElementById('cpm').innerText =  total
+    return total
 }
 
 const toJSON = () => {
+
+
+    console.log(calculateCPM());
+    let temp = parseInt(calculateCPM(), 10)
 
     fetch("/game/result", {
         method: "POST",
         body: JSON.stringify({
             date: Date.now(),
             words: words,
-            cpm: calculateCPM(),
+            cpm: temp,
             type: "normal",
             score: null
         }),
