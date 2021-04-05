@@ -2,9 +2,33 @@
 <%- include('partials/header.ejs') %>
 
 
+    <div class="home-history">
+        <p>Consultez l'historique de vos parties précédentes </p>
+        <button>Historique</button>
+    </div>
+
+    <div class="container-home">
+        <div class="home-game-type">   
+            <h2>Normal</h2>
+            <img src="/images/mode_normal.png" alt="">
+            <p>Testez votre rapidité selon un language et difficulé choisi. Écrivez le plus rapidement possible 10 expressions.</p>
+            <button> <a href="/game/prep">Commencer</a></button>
+        </div>
+    
+        <div class="home-game-type">
+            <h2>Adventure</h2>
+            <img src="/images/mode_adventure.png" alt="">
+
+            <p>Le test ultime pour tester votre rapidité. Tous les languages et les difficultés mélangées dans une partie </p>
+            <button>Commencer</button>
+        </div>
+    </div>
+
+
+
     <p>Welcome back <%= currentUser[0]['username'] %> </p>
     <a href="/">Se déconnecter</a>
-    <a href="/game/prep">Trad</a>
+   
     <a href="/">aventure</a>
     <a href="/">Historique</a>
 

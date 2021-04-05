@@ -4,14 +4,34 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <title>Document</title>
 </head>
 <body>
-    <p> Type: <%= result['type'] %> </p>
-    <p> Temps: <%= result['time'] %> </p>
-    <p> Caractère par minute: ~<%= result['cpm'] %> </p>
-    <p> Language: <%= result['language'] %> </p>
-    <p> Difficulté: <%= result['difficulty'] %> </p>
+    <div class="container-result">
+        <h1>Fin de partie</h2>
+        <p> Type: <%= result['type'] %> </p>
+        <p> Caractère par minute: ~<%= result['cpm'] %> </p>
+        <p> Language: <%= result['language'] %> </p>
+        <p> Difficulté: <%= result['difficulty'] %> </p>
+        <div class="result-stats">
+            <div class="result-stats-circle" id="result-wrong">
+                <%= result['stats']['wrong'] %>
+            </div>
+            <div class="result-stats-circle"  id="result-corrected">
+                <p><%= result['stats']['corrected'] %> </p>
+            </div>
+            <div class="result-stats-circle"  id="result-good">
+                <p><%= result['stats']['good'] %> </p>
+            </div>
+        </div>
+
+        <% if ( result['stats']['wrong'] < 3 ) { %>
+            <p>Félicitation! Vous avez seulement <%= result['stats']['wrong'] %> erreurs! </p>
+        <% } %>
+
+
+    </div>
     <a href="/home">Retour au menu</a>
 </body>
 </html>
