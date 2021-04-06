@@ -27,23 +27,25 @@ window.addEventListener("load", () => {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
-    factory(WORDS, canvas, ctx).then((data) => {
-
-        words = data;
-        console.log(words);
-        words[index]['start'] = Date.now();
-        show(words[index]['word'])
 
 
-        window.addEventListener('keydown', (event) => {
-
-            console.log(currentChar);
-
-            keyInput(event.key);
+        factory(WORDS, canvas, ctx).then((data) => {
+            words = data;
+            console.log(words);
+            words[index]['start'] = Date.now();
             show(words[index]['word'])
-
+    
+    
+            window.addEventListener('keydown', (event) => {
+    
+                console.log(currentChar);
+    
+                keyInput(event.key);
+                show(words[index]['word'])
+    
+            })
         })
-    })
+
 })
 
 
@@ -63,8 +65,6 @@ const show = (word) => {
 const keyInput = (key) => {
 
     if (key == "Enter") {
-
-
 
         words[index]['end'] = Date.now();
         words[index]['cpm'] = (words[index]['end'] - words[index]['start']) / 1000

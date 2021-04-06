@@ -26,9 +26,19 @@
             </div>
         </div>
 
+
+
+
         <% if ( result['stats']['wrong'] < 3 ) { %>
             <p>Félicitation! Vous avez seulement <%= result['stats']['wrong'] %> erreurs! </p>
-        <% } %>
+
+        <% } else if (result['stats']['wrong'] == 0) { %>
+            <p>Bravo! Vous avez aucune erreur! Vous êtes prêt pour essayer le mode aventure</p>
+        <% } else { %>
+            <p>Meilleure chance la prochaine fois</p>
+            <% } %>
+         
+          
 
 
     </div>

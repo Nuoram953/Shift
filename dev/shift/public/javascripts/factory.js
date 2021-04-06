@@ -63,7 +63,7 @@ async function getExpressions(num) {
 }
 
 const prep = (word,width,ctx) => {
-  let x = (width / 2) - caclPX(word,ctx);
+  let x = (width / 2) - caclPX(word,ctx)/2;
   let test = [];
 
   for (let char in word) {
@@ -75,8 +75,11 @@ const prep = (word,width,ctx) => {
 
 const caclPX = (word,ctx) => {
   let distance = 0;
+  let whitespace = 5
+  distance += whitespace
   for (let index = 0; index < word.length; index++) {
       distance += ctx.measureText(word[index]).width;
+      distance += whitespace
 
   }
   return distance

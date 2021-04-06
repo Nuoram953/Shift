@@ -52,6 +52,13 @@ window.addEventListener("load", () => {
   btn.addEventListener("click", () => {
 
 
+    if (selected["language"] == null){
+      selected["language"] = "pyton"
+    }
+
+    if (selected['difficulty'] == null){
+      selected['difficulty'] = "medium"
+    }
 
     fetch("/gameStart", {
       method: "POST",
