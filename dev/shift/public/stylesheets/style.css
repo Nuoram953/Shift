@@ -13,7 +13,6 @@
   margin: 0;
   padding: 0;
   list-style-type: none;
-
 }
 
 .body {
@@ -31,8 +30,7 @@
 }
 
 .body-login {
-  background: rgb(75, 78, 78);
-  background: linear-gradient(0deg, rgba(75, 78, 78, 1) 0%, whitesmoke 100%);
+  background:white;
   height: 100vh;
   width: auto;
   overflow: hidden;
@@ -45,9 +43,7 @@ a {
   text-decoration: none;
 }
 
-
-
-.body img{
+.body img {
   border: 5px var(--primaryColor) solid;
   box-shadow: 1px 2px 5px grey;
 }
@@ -305,6 +301,71 @@ a {
 }
 
 /*
+* Footer
+*/
+
+footer {
+  background-color: rgb(63, 62, 62);
+  width: 100%;
+  height: fit-content;
+  color:white;
+}
+
+.container-footer{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-around;
+  align-items: center;
+  padding: 50px;
+}
+
+.footer-links > a > img {
+  border: none;
+  box-shadow: none;
+  height: 50px;
+  width: 50px;
+  margin: 0 10px;
+}
+
+
+
+.footer-info{
+
+  display:flex;
+  flex-direction: column;
+  text-align:center;
+  justify-content:center;
+}
+
+.footer-info>p{
+  margin-top: 50px;
+}
+
+.footer-info-copyright{
+  padding-top: 50px;
+  text-align:center;
+  font-size:20px;
+}
+
+.footer-info-other{
+  display:flex;
+  flex-direction: row;
+  margin: 0 5px;
+  font-family:'Courier New', Courier, monospace;
+  justify-content: space-between;
+  text-align: center;
+  width: 100%;
+  color: white;
+  vertical-align: middle;
+  
+}
+.footer-info-other > a {
+  width: 75%;
+  word-wrap: break-word;
+}
+
+
+/*
 *signup
 */
 
@@ -357,7 +418,7 @@ a {
 }
 
 .container-login {
-  background-color: white;
+  background-color: whitesmoke;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -395,32 +456,32 @@ a {
   font-size: 18px;
 }
 
-
 /*
 * Home Page
 */
-.home-history{
-  display:flex;
+.home-history {
+  display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   background-color: var(--primaryColor);
   border-radius: 16px;
-  margin:75px auto;
+  margin: 75px auto;
   width: 50%;
   padding: 20px;
   font-size: 35px;
   color: white;
 }
 
-.container-home{
+.container-home {
   display: flex;
   flex-direction: row;
   margin: 0 auto;
   justify-content: space-evenly;
   width: 50%;
+  height: 50%;
 }
 
-.home-game-type{
+.home-game-type {
   display: flex;
   flex-direction: column;
   width: 35%;
@@ -429,72 +490,56 @@ a {
   align-items: center;
   background-color: whitesmoke;
   border-radius: 16px;
-  padding: 25px;
+  padding: 35px;
   justify-content: space-around;
-  
+  height: 35%;
 }
-.home-game-type>p{
- max-height: 100px;
- 
+.home-game-type > p {
+  max-height: 100px;
 }
 
-.home-game-type>img{
+.home-game-type > a {
+  border: 1px solid whitesmoke;
+}
+
+.home-game-type > img {
   height: 50px;
   width: 50px;
   margin: 10px 0;
 }
 
-.home-game-type>button{
+.home-game-type > button {
   background-color: var(--primaryColor);
   border-radius: 16px;
   color: white;
   padding: 15px;
   margin-top: 5%;
-  
 }
-
-.home-game-type>button:hover{
-  background-color: white;
-  color: black;
-}
-
-.home-game-type>button>a{
-  text-decoration: none;
-  color: white;
-}
-
-
-
-
 
 
 
 /*
 *Pregame page
 */
-.container-pregame{
+.container-pregame {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 }
 
-.container-pregame button{
+.container-pregame button {
   width: 15%;
   padding: 15px;
-  
 }
 
-.container-items{
-  display:flex;
-  flex-direction:row;
-  align-items:center;
+.container-items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   justify-content: center;
   width: 100%;
   margin: 100px 0;
-
 }
-
 
 .language {
   padding: 35px 15px;
@@ -508,21 +553,19 @@ a {
   align-items: center;
   border-radius: 16px;
   margin: 0 50px;
-  border:3px solid white;
-
+  border: 3px solid white;
 }
 
-.language > img{
+.language > img {
   height: 75px;
-  width:75px;
+  width: 75px;
   border: none;
   box-shadow: none;
   pointer-events: none;
   cursor: default;
-  
 }
 
-.language > p{
+.language > p {
   pointer-events: none;
   cursor: default;
 }
@@ -538,79 +581,67 @@ a {
   align-items: center;
   border-radius: 16px;
   margin: 0 50px;
-  border:3px solid white;
+  border: 3px solid white;
 }
 
-.difficulty > img{
+.difficulty > img {
   height: 75px;
-  width:75px;
+  width: 75px;
   border: none;
   box-shadow: none;
   pointer-events: none;
   cursor: default;
 }
 
-.difficulty>p{
+.difficulty > p {
   pointer-events: none;
   cursor: default;
 }
-
 
 /*
 * Normal Game
 */
 
-.container-gameUI{
+.container-gameUI {
   display: flex;
-  flex-direction:column;
-  align-items:center;
+  flex-direction: column;
+  align-items: center;
 }
 
-#canvas{
-
-
-  
+#canvas {
   margin: 0 auto;
-
-
 }
 
 /*
 * Result Page
 */
 
-.container-result{
+.container-result {
   display: flex;
   flex-direction: column;
-  align-items:center;
+  align-items: center;
   justify-content: center;
   width: 50%;
   margin: 50px auto 50px auto;
-  
-  padding: 50px;;
+
+  padding: 50px;
   border: 4px solid var(--primaryColor);
   border-radius: 16px;
-  background-color:whitesmoke;
-  
+  background-color: whitesmoke;
 }
 
-.container-result>h1{
+.container-result > h1 {
   padding: 0 0 50px 0;
 }
 
-.result-stats{
+.result-stats {
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
   width: fit-content;
-  padding-top:50px;
-  
-
+  padding-top: 50px;
 }
 
-
-
-
-.result-stats-circle{
+.result-stats-circle {
   margin: 20px;
   border-radius: 50%;
   width: 36px;
@@ -622,19 +653,18 @@ a {
   font: 32px Arial, sans-serif;
 }
 
-#result-wrong{
+#result-wrong {
   border: red 2px solid;
-  background-color:red ;
+  background-color: red;
 }
-#result-corrected{
+#result-corrected {
   border: rgb(212, 212, 25) 2px solid;
-  background-color:rgb(212, 212, 25) ;
+  background-color: rgb(212, 212, 25);
 }
-#result-good{
+#result-good {
   border: green 2px solid;
-  background-color:green ;
+  background-color: green;
 }
-
 
 /*This code was found on the side CSS-Tricks
 *https://css-tricks.com/snippets/css/typewriter-effect/

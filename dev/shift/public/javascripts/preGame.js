@@ -60,6 +60,7 @@ window.addEventListener("load", () => {
       selected['difficulty'] = "medium"
     }
 
+    console.log(selected['difficulty']);
     fetch("/gameStart", {
       method: "POST",
       mode:'cors',

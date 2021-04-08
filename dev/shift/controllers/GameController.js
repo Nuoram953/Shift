@@ -15,6 +15,8 @@ let params = {
   difficulty: null,
 };
 
+
+
 exports.homePage = function (req, res, next) {
   res.render("home");
 };
@@ -83,14 +85,16 @@ exports.gameGetNoun = function (req, res, next) {
 
     language.forEach(element => {
       noun.push(element['expression'])
-    })
+    })  
 
+    console.log(noun);
     res.send(noun);
   });
 };
 
 exports.gameGetExpression = function (req, res, next) {
 
+  console.log(`${req.body.difficulty} ---- ${req.body.quantity}`);
   Language.aggregate([
     {
       '$match': {
