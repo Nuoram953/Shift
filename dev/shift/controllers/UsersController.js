@@ -20,12 +20,12 @@ exports.loginPage = function (req, res, next) {
 }
 
 exports.homePage = function (req, res, next) {
-    res.render('home', { currentUser:req.session.user })
+    res.render('home', { currentUser:req.session.user,title:"Page d'accueuil" })
 }
 
 exports.signupPage = function (req, res, next) {
     console.log(req.session.user);
-    res.render('signup')
+    res.render('signup',{title:"Inscription"})
 }
 
 

@@ -32,7 +32,7 @@
 .body-login {
   background:white;
   height: 100vh;
-  width: auto;
+  width: 100%;
   overflow: hidden;
   font-size: 1.5em;
   font-family: "Caveat", cursive;
@@ -66,8 +66,8 @@ a {
   line-height: var(--navbar-height);
   text-align: center;
   vertical-align: middle;
-  flex-wrap: wrap;
-  overflow: hidden;
+  
+
   /* box-shadow: 1px 1px 5px grey; */
 }
 
@@ -76,11 +76,8 @@ a {
 }
 
 .navbar-logo {
-  align-items: center;
-  vertical-align: middle;
-  height: 8vh;
-  width: 15vh;
-  margin: 0 25px;
+
+  
 }
 
 .navbar-links {
@@ -411,28 +408,44 @@ footer {
 /*
 *Login page
 */
+.container-login{
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  margin-top: 50px;
+
+}
+
+.container-login > img{
+
+  margin-bottom:50px;
+}
+
+
 .form-login {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.container-login {
-  background-color: whitesmoke;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 10%;
+  width: 50%;
   border-radius: 16px;
-  padding: 5% 5%;
-  margin: 10% auto;
-  border: var(--primaryColor) 5px solid;
+
+  margin: 0 auto;
 }
 
-.form-login > * {
+
+
+.form-login > input {
+  padding: 15px;
+  margin: 35px;
+  width: inherit;
+}
+.form-login > button {
   padding: 15px;
   margin: 10px;
-  width: fit-content;
+  width: 25%;
 }
 
 .login-goback {
@@ -442,7 +455,7 @@ footer {
 }
 
 .login-border {
-  border: gray 0.5px solid;
+
   padding: 15%; /*Value to change for mobile layout*/
   border-radius: 16px;
 }
