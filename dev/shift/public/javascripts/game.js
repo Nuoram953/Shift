@@ -9,12 +9,18 @@
 import { factory } from './factory.js'
 
 const HEIGHT = 50;
-const WORDS = 2;
+const WORDS = 5;
 const INVALID_KEY = ['Shift', 'Enter', 'Backspace']
+const DOUBLE_KEY = {
+    "(":["Shift","9"],
+    ")":["Shift","0"]
+}
 
 let words = []
 let index = 0
 let currentChar = 0;
+let key = null;
+//let keyAudio = new Audio('/sounds/key.mp3');
 
 let ctx = null;
 let canvas = null;
@@ -27,21 +33,23 @@ window.addEventListener("load", () => {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
-
+        
 
         factory(WORDS, canvas, ctx).then((data) => {
             words = data;
             console.log(words);
             words[index]['start'] = Date.now();
             show(words[index]['word'])
+            keyboardPrep();
+            changeColor();
     
     
             window.addEventListener('keydown', (event) => {
     
-                console.log(currentChar);
-    
+                //keyAudio.play()
                 keyInput(event.key);
                 show(words[index]['word'])
+                changeColor();
     
             })
         })
@@ -159,4 +167,41 @@ const calculateStats = () => {
 
 
     return stats
+}
+
+const keyboardPrep = () => {
+    let keyboard = document.querySelector('.keyboard-base').childNodes
+    console.log(keyboard)
+    for (let i = 1;i<keyboard.length;i+=2){
+        keyboard[i].setAttribute("id",keyboard[i]['innerHTML'])
+    }
+}
+
+const changeColor = () => {
+
+
+    document.querySelectorAll(".key").forEach(node =>{
+        node.style.backgroundColor = "rgb(243, 243, 243)"
+    })
+
+    let current;
+
+    try {
+         current = words[index]['word'][currentChar]['char'][0].toString().toUpperCase();
+
+    } catch (error) {
+        
+    }
+    
+    if (current in DOUBLE_KEY){
+        DOUBLE_KEY[current].forEach(element =>{
+            document.getElementById(element).style.backgroundColor = "#13355a"
+        })
+    }
+
+
+    //document.querySelectorAll('.key').style.backgroundColor = "rgb(243, 243, 243)"
+    key = document.getElementById(current)
+    console.log(current);
+    key.style.backgroundColor = "#13355a";
 }

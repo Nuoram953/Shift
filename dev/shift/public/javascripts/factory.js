@@ -3,9 +3,11 @@ let noun = []
 async function factory(num,canvas,ctx) {
   const value = await asyncFunction(num);
   for (let i = 0; i < num; i++) {
-    if (value['expressions'][i].toString().includes("placeholder")) {
-      value['expressions'][i] = value['expressions'][i].replace("placeholder", value['nouns'][i]);
+    
+    while(value['expressions'][i].toString().includes("placeholder")){
+      value['expressions'][i] = value['expressions'][i].replace("placeholder", value['nouns'][Math.floor(Math.random()*value['nouns'].length)]);
     }
+
   }
   let words = [];
   noun = value['expressions'];
@@ -73,9 +75,13 @@ const prep = (word,width,ctx) => {
   return test
 }
 
+
+//11,4,3,6 - trop sur la gauche
 const caclPX = (word,ctx) => {
   let distance = 0;
-  let whitespace = 5
+  let whitespace = (word.length/2)*0.98;
+
+
   distance += whitespace
   for (let index = 0; index < word.length; index++) {
       distance += ctx.measureText(word[index]).width;

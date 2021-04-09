@@ -65,6 +65,7 @@ exports.preGame_trad = function (req, res, next) {
       currentUser: req.session.user,
       language: language[0]["language"],
       difficulty: difficulty,
+      title: "Préparation de la partie"
     });
   });
 };
@@ -94,7 +95,6 @@ exports.gameGetNoun = function (req, res, next) {
 
 exports.gameGetExpression = function (req, res, next) {
 
-  console.log(`${req.body.difficulty} ---- ${req.body.quantity}`);
   Language.aggregate([
     {
       '$match': {
