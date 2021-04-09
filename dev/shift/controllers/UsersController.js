@@ -1,5 +1,8 @@
 var User = require('../models/user');
+var Game = require('../models/game');
+
 var bcrypt = require('bcrypt');
+var async = require('async');
 
 const saltRounds = 10;
 
@@ -35,11 +38,40 @@ exports.signupPage = function (req, res, next) {
 
 exports.historyPage = function (req, res, next) {
 
-    //Informations wanted : cpm for the last 10 games, list of game (click for details), basic player info
+    //Informations wanted : 
+    // cpm for the last 10 games 
+    // list of game (click for details)
+    // basic player info
+
+    async.parallel({
+        game: function(callback) {
+            Game.
+                find().
+                where('user').equals(req.session.user).
+                select().
+                exec(callback)
+        },
+        player: function(callback) {
+            User.
+                findById(req.params.id).
+                select().
+                exec(callback)
+            
+        },
+    }, function (err, results){
+        if (err) return next(err);
+        res.render("history", {
+          currentUser: req.session.user,
+          title: "Historique de parties",
+          game: results.game,
+          player: results.player,
+        });
+    })
+
+
     console.log(req.session.user);
 
-        res.render('history',{ currentUser:req.session.user,title:"Historique de parties"})
-    }
+}
 
 
 
