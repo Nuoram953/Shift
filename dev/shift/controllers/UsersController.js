@@ -60,6 +60,7 @@ exports.historyPage = function (req, res, next) {
         },
     }, function (err, results){
         if (err) return next(err);
+        console.log(results);
         res.render("history", {
           currentUser: req.session.user,
           title: "Historique de parties",

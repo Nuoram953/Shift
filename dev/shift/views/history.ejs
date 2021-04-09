@@ -4,7 +4,31 @@
 <canvas id ="canvas" width="400" height="400"></canvas>
     
 <div class="player-info"></div>
-<div class="player-game-played"></div>
+<div class="player-game-played">
+
+    <div class="game" id="headers">
+        <p>Date</p>
+        <p>Type</p>
+        <p>Langage</p>
+        <p>Difficulté</p>
+        <p>CPM</p>
+        <p>Stats g/c/m</p>
+    </div>
+
+
+    <% game.forEach(element => { %>
+        <a href=<%= element.url %> >
+            <div class="game">
+                <p><%= `${element.time.getDay()}/${element.time.getMonth()}/${element.time.getFullYear()}` %></p>
+                <p><%= element.type %> </p>
+                <p><%= element.language %> </p>
+                <p><%= element.difficulty %> </p>
+                <p><%= element.cpm %> </p>
+                <p><%= `${element.stats['good']}/${element.stats['corrected']}/${element.stats['wrong']}` %> </p>
+            </div>
+        </a>
+    <% }) %>
+</div>
 
 
 <%= game %>

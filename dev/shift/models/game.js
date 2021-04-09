@@ -15,6 +15,9 @@ var GameSchema = new Schema({
   stats: { type: Object },
 
 });
+GameSchema.virtual("url").get(function () {
+  return "/game/details/" + this._id;
+});
 
 //Export model
 module.exports = mongoose.model("Game", GameSchema, "Game");

@@ -530,6 +530,35 @@ footer {
   margin-top: 5%;
 }
 
+/*
+* History page
+*/
+
+.player-game-played{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-around;
+  
+
+}
+
+.game{
+  display:flex;
+  flex-direction: row;
+  justify-content:space-around;
+  align-items:center;
+  text-align: center;
+  background-color: whitesmoke; 
+}
+
+.game:hover:not(#headers){
+  background-color:grey;
+}
+
+.game > *{
+  flex-basis: 10%;
+  flex-wrap: wrap;
+}
 
 
 /*

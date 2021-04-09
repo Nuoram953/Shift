@@ -24,6 +24,8 @@ router.get('/history/user/:id', userController.historyPage)
 
 router.post('/signup/newUser', userController.addUser)
 
+router.get('/game/details/:id', gameController.detailsGame)
+
 router.get('/game/prep', gameController.preGame_trad)
 
 router.post('/gameStart', gameController.startGame)
