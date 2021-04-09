@@ -3,9 +3,7 @@ var bcrypt = require('bcrypt');
 
 const saltRounds = 10;
 
-let currentUser = null;
-
-let error = {
+const ERROR = {
   001:"",
   002:"Mauvais mot de passe",
   003:"Mauvais nom d'utilisateur et mot de passe",
@@ -20,7 +18,14 @@ exports.loginPage = function (req, res, next) {
 }
 
 exports.homePage = function (req, res, next) {
-    res.render('home', { currentUser:req.session.user,title:"Page d'accueuil" })
+    User.
+        find().
+        where('username').equals(req.session.user[0]['username']).
+        select().
+        limit(1).
+        exec(function (err, user) {
+            res.render('home', { currentUser:user,title:"Page d'accueuil" })
+        })
 }
 
 exports.signupPage = function (req, res, next) {
@@ -28,6 +33,13 @@ exports.signupPage = function (req, res, next) {
     res.render('signup',{title:"Inscription"})
 }
 
+exports.historyPage = function (req, res, next) {
+
+    //Informations wanted : cpm for the last 10 games, list of game (click for details), basic player info
+    console.log(req.session.user);
+
+        res.render('history',{ currentUser:req.session.user,title:"Historique de parties"})
+    }
 
 
 
@@ -49,11 +61,11 @@ exports.loginVerif = function (req, res, next) {
                         req.session.user = user
                         res.redirect('/home'); // Login info valid
                     } else {
-                        res.render('login', { title: "Connexion", error: error[002], username: user[0].username }); // password invalid
+                        res.render('login', { title: "Connexion", error: ERROR[002], username: user[0].username }); // password invalid
                     }
                 })
             } else {
-                res.render('login', { title: "Connexion", error: error[003] }); // Login info invalid
+                res.render('login', { title: "Connexion", error: ERROR[003] }); // Login info invalid
             }
 
         })
@@ -74,7 +86,7 @@ exports.addUser = function (req, res, next) {
                 })
                 user.save(function (err) {
                     if (err) {
-                        res.render('signup', { error: error[004]  })
+                        res.render('signup', { error: ERROR[004]  })
                     }
                     else {
                         User.
@@ -86,7 +98,7 @@ exports.addUser = function (req, res, next) {
 
                                 if (user.length == 1) {
                                     req.session.user = user;
-                                    res.render('home', {currentUser:req.session.user} );
+                                    res.render('home', {currentUser:req.session.user,title:"Page d'accueuil"} );
                                 }
                             })
                     }
@@ -95,10 +107,12 @@ exports.addUser = function (req, res, next) {
         })
 
     } else {
-        res.render('signup', { error: error[005] })
+        res.render('signup', { error: ERROR[005] })
     }
 
 
 }
+
+
 
 

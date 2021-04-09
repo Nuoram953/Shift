@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/stylesheets/style.css" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link rel="icon" href="/images/logo/logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&display=swap" rel="stylesheet" />
   <title><%= title %> </title>
 </head>
@@ -25,7 +26,7 @@
             </li>
             <% } %>
               <li>
-                <a href="" name="history" class="navbar-link-color-header"> Historique</a>
+                <a href= <%= currentUser[0].url %>  name="history" class="navbar-link-color-header"> Historique</a>
               </li>
               <li>
                 <a href="/" name="signout" class="navbar-link-color-header">Se déconnecter</a>

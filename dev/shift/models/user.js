@@ -12,7 +12,7 @@ var UserSchema = new Schema({
 
 
 UserSchema.virtual("url").get(function () {
-  return "/director/history/user/" + this._id;
+  return "/history/user/" + this._id;
 });
 
 UserSchema.virtual("timePlayed").get(function () {

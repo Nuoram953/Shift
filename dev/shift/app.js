@@ -15,6 +15,7 @@ var mongoose = require("mongoose");
 var fs = require("fs");
 var csvToJson = require("convert-csv-to-json");
 var bcrypt = require("bcrypt");
+var favicon = require('serve-favicon');
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -46,6 +47,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(favicon(path.join(__dirname, 'public', '/images/logo.png')))
 
 
 

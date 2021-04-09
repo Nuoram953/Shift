@@ -13,14 +13,16 @@ const WORDS = 5;
 const INVALID_KEY = ['Shift', 'Enter', 'Backspace']
 const DOUBLE_KEY = {
     "(":["Shift","9"],
-    ")":["Shift","0"]
+    ")":["Shift","0"],
+    ":":["Shift",";"],
+    " ":["Space"]
 }
 
 let words = []
 let index = 0
 let currentChar = 0;
 let key = null;
-//let keyAudio = new Audio('/sounds/key.mp3');
+let keyAudio = new Audio('/sounds/key.mp3');
 
 let ctx = null;
 let canvas = null;
@@ -46,7 +48,6 @@ window.addEventListener("load", () => {
     
             window.addEventListener('keydown', (event) => {
     
-                //keyAudio.play()
                 keyInput(event.key);
                 show(words[index]['word'])
                 changeColor();
@@ -184,24 +185,26 @@ const changeColor = () => {
         node.style.backgroundColor = "rgb(243, 243, 243)"
     })
 
-    let current;
+    console.log(currentChar);
 
-    try {
-         current = words[index]['word'][currentChar]['char'][0].toString().toUpperCase();
+    let regExp = new RegExp("([0-9A-Za-z])");
 
-    } catch (error) {
-        
-    }
-    
-    if (current in DOUBLE_KEY){
+    let current = words[index]['word'][currentChar]['char'][0];
+
+    if (regExp.test(words[index]['word'][currentChar]['char'][0].toString()) == 1){
+        current = words[index]['word'][currentChar]['char'][0].toString().toUpperCase();
+    }else{
+        current = words[index]['word'][currentChar]['char'][0].toString()
         DOUBLE_KEY[current].forEach(element =>{
             document.getElementById(element).style.backgroundColor = "#13355a"
         })
     }
 
+    
 
-    //document.querySelectorAll('.key').style.backgroundColor = "rgb(243, 243, 243)"
     key = document.getElementById(current)
     console.log(current);
     key.style.backgroundColor = "#13355a";
+
+    
 }

@@ -20,6 +20,8 @@ router.get('/home', userController.homePage)
 
 router.get('/signup', userController.signupPage)
 
+router.get('/history/user/:id', userController.historyPage)
+
 router.post('/signup/newUser', userController.addUser)
 
 router.get('/game/prep', gameController.preGame_trad)
