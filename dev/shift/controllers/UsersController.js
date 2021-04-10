@@ -49,6 +49,7 @@ exports.historyPage = function (req, res, next) {
                 find().
                 where('user').equals(req.session.user).
                 select().
+                sort({time:-1}).
                 exec(callback)
         },
         player: function(callback) {
@@ -60,12 +61,26 @@ exports.historyPage = function (req, res, next) {
         },
     }, function (err, results){
         if (err) return next(err);
+
+        let count = (results.game.length <=6)?results.game.length :6;
+        let date = []
+        let cpm = []
+
+        console.log(results.game[0].cpm);
+        for(let i = 0; i < count; i++){
+            cpm.push(results.game[i].cpm)
+            date.push(results.game[i].time)
+            
+        }
+
         console.log(results);
         res.render("history", {
           currentUser: req.session.user,
           title: "Historique de parties",
           game: results.game,
           player: results.player,
+          cpm: cpm,
+          date: date
         });
     })
 

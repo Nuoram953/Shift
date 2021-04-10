@@ -5,31 +5,69 @@
 *FICHIER: history.js
 /*******************************************************************/
 
+
+
 let canvas = null;
 let ctx = null;
 
+let player = null;
+let games = null;
+let cpm = null;
+let date = null;
+
 window.addEventListener("load", () =>{
-    canvas = document.getElementById("canvas");
+    canvas = document.getElementById("chart");
     ctx = canvas.getContext("2d");
 
+    ctx.canvas.parentNode.style.width = "400px";
+    ctx.canvas.parentNode.style.height = "400px";
 
-    fetch("/history", {
-        method: "POST",
-        body: JSON.stringify({
-            date: Date.now(),
-            words: words,
-            cpm: parseInt(calculateCPM(), 10)*60,
-            type: "normal",
-            score: null,
-            stats: calculateStats()
-        }),
-        headers: { "Content-Type": "application/json" },
-        redirect: "manual"
-    }).then((response) => response.json())
-        .then((data) => {
-            console.log(data);
-            window.location.replace(data['url'])
-        })
+    player = document.getElementById("player").textContent;
+    cpm = document.getElementById('cpm').textContent.split(",");
+    date = document.getElementById('date').textContent.split(",").forEach(element => element = Date.parse(element));
 
-        .catch(console.error);
+    console.log(cpm);
+    console.log(date);
+
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: date,
+            datasets: [{
+                label: '# of Votes',
+                data: cpm,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1,
+                barPercentage: 0.5,
+                barThickness: 6,
+                maxBarThickness: 8,
+                minBarLength: 2,
+            }]
+        },
+        options: {
+            responsive: true, 
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 })
+
