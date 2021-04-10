@@ -12,6 +12,9 @@ router.get('/', function(req, res, next) {
     res.render('index',{ title: 'Shift' });
   });
 
+
+  
+
 router.get('/login',userController.loginPage)
 
 router.post('/login/verif', userController.loginVerif)
@@ -23,6 +26,9 @@ router.get('/signup', userController.signupPage)
 router.get('/history/user/:id', userController.historyPage)
 
 router.post('/signup/newUser', userController.addUser)
+
+
+
 
 router.get('/game/details/:id', gameController.detailsGame)
 

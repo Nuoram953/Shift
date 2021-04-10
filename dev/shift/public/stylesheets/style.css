@@ -534,12 +534,35 @@ footer {
 * History page
 */
 
+.container-history{
+  display:flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.player-info{
+  display:flex;
+  flex-direction: column;
+  height: 30vh;
+  background-color: red;
+  margin: 50px;
+}
+
+.player-stats{
+  display:flex;
+  flex-direction: row;
+  margin: 50px;
+  justify-content: space-around;
+  
+}
 .player-game-played{
   display:flex;
   flex-direction:column;
-  justify-content:space-around;
-  
+  min-width: 50%;
 
+
+  
 }
 
 .game{
