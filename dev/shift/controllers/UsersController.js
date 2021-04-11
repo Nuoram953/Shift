@@ -7,33 +7,40 @@ var async = require('async');
 const saltRounds = 10;
 
 const ERROR = {
-  001:"",
-  002:"Mauvais mot de passe",
-  003:"Mauvais nom d'utilisateur et mot de passe",
-  004:"Nom d'utilisateur est déjà existant",
-  005:"Les informations ne sont pas valides"
+    001: "",
+    002: "Mauvais mot de passe",
+    003: "Mauvais nom d'utilisateur et mot de passe",
+    004: "Nom d'utilisateur est déjà existant",
+    005: "Les informations ne sont pas valides"
 };
 
 
 
 exports.loginPage = function (req, res, next) {
-    res.render('login', { title: "Connexion" })
+    res.render('login', {
+        title: "Connexion"
+    })
 }
 
 exports.homePage = function (req, res, next) {
     User.
-        find().
-        where('username').equals(req.session.user[0]['username']).
-        select().
-        limit(1).
-        exec(function (err, user) {
-            res.render('home', { currentUser:user,title:"Page d'accueuil" })
+    find().
+    where('username').equals(req.session.user[0]['username']).
+    select().
+    limit(1).
+    exec(function (err, user) {
+        res.render('home', {
+            currentUser: user,
+            title: "Page d'accueuil"
         })
+    })
 }
 
 exports.signupPage = function (req, res, next) {
     console.log(req.session.user);
-    res.render('signup',{title:"Inscription"})
+    res.render('signup', {
+        title: "Inscription"
+    })
 }
 
 exports.historyPage = function (req, res, next) {
@@ -44,46 +51,48 @@ exports.historyPage = function (req, res, next) {
     // basic player info
 
     async.parallel({
-        game: function(callback) {
+        game: function (callback) {
             Game.
-                find().
-                where('user').equals(req.session.user).
-                select().
-                sort({time:-1}).
-                exec(callback)
+            find().
+            where('user').equals(req.session.user).
+            select().
+            sort({
+                time: -1
+            }).
+            exec(callback)
         },
-        player: function(callback) {
+        player: function (callback) {
             User.
-                findById(req.params.id).
-                select().
-                exec(callback)
-            
+            findById(req.params.id).
+            select().
+            exec(callback)
+
         },
-    }, function (err, results){
+    }, function (err, results) {
         if (err) return next(err);
 
-        let count = (results.game.length <=6)?results.game.length :6;
+        let count = (results.game.length <= 6) ? results.game.length : 6;
         let date = []
         let cpm = []
 
-        if (results.game != 0){
+        if (results.game != 0) {
             console.log(results.game[0].cpm);
-            for(let i = 0; i < count; i++){
+            for (let i = 0; i < count; i++) {
                 cpm.push(results.game[i].cpm)
                 date.push(results.game[i].time)
-                
+
             }
         }
 
 
         console.log(results);
         res.render("history", {
-          currentUser: req.session.user,
-          title: "Historique de parties",
-          game: results.game,
-          player: results.player,
-          cpm: cpm,
-          date: date
+            currentUser: req.session.user,
+            title: "Historique de parties",
+            game: results.game,
+            player: results.player,
+            cpm: cpm,
+            date: date
         });
     })
 
@@ -100,26 +109,33 @@ exports.historyPage = function (req, res, next) {
  */
 exports.loginVerif = function (req, res, next) {
     User.
-        find().
-        where('username').equals(req.body.username).
-        select().
-        limit(1).
-        exec(function (err, user) {
+    find().
+    where('username').equals(req.body.username).
+    select().
+    limit(1).
+    exec(function (err, user) {
 
-            if (user.length == 1) {
-                bcrypt.compare(req.body.password, user[0].password, function (err, result) {
-                    if (result) {
-                        req.session.user = user
-                        res.redirect('/home'); // Login info valid
-                    } else {
-                        res.render('login', { title: "Connexion", error: ERROR[002], username: user[0].username }); // password invalid
-                    }
-                })
-            } else {
-                res.render('login', { title: "Connexion", error: ERROR[003] }); // Login info invalid
-            }
+        if (user.length == 1) {
+            bcrypt.compare(req.body.password, user[0].password, function (err, result) {
+                if (result) {
+                    req.session.user = user
+                    res.redirect('/home'); // Login info valid
+                } else {
+                    res.render('login', {
+                        title: "Connexion",
+                        error: ERROR[002],
+                        username: user[0].username
+                    }); // password invalid
+                }
+            })
+        } else {
+            res.render('login', {
+                title: "Connexion",
+                error: ERROR[003]
+            }); // Login info invalid
+        }
 
-        })
+    })
 
 }
 
@@ -137,33 +153,35 @@ exports.addUser = function (req, res, next) {
                 })
                 user.save(function (err) {
                     if (err) {
-                        res.render('signup', { error: ERROR[004]  })
-                    }
-                    else {
+                        res.render('signup', {
+                            error: ERROR[004]
+                        })
+                    } else {
                         User.
-                            find().
-                            where('username').equals(req.body.username).
-                            select().
-                            limit(1).
-                            exec(function (err, user) {
+                        find().
+                        where('username').equals(req.body.username).
+                        select().
+                        limit(1).
+                        exec(function (err, user) {
 
-                                if (user.length == 1) {
-                                    req.session.user = user;
-                                    res.render('home', {currentUser:req.session.user,title:"Page d'accueuil"} );
-                                }
-                            })
+                            if (user.length == 1) {
+                                req.session.user = user;
+                                res.render('home', {
+                                    currentUser: req.session.user,
+                                    title: "Page d'accueuil"
+                                });
+                            }
+                        })
                     }
                 });
             })
         })
 
     } else {
-        res.render('signup', { error: ERROR[005] })
+        res.render('signup', {
+            error: ERROR[005]
+        })
     }
 
 
 }
-
-
-
-

@@ -6,16 +6,18 @@
 /*******************************************************************/
 
 
-import { factory } from './factory.js'
+import {
+    factory
+} from './factory.js'
 
 const HEIGHT = 50;
 const WORDS = 5;
 const INVALID_KEY = ['Shift', 'Enter', 'Backspace']
 const DOUBLE_KEY = {
-    "(":["Shift","9"],
-    ")":["Shift","0"],
-    ":":["Shift",";"],
-    " ":["Space"]
+    "(": ["Shift", "9"],
+    ")": ["Shift", "0"],
+    ":": ["Shift", ";"],
+    " ": ["Space"]
 }
 
 let words = []
@@ -35,25 +37,25 @@ window.addEventListener("load", () => {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
-        
 
-        factory(WORDS, canvas, ctx).then((data) => {
-            words = data;
-            console.log(words);
-            words[index]['start'] = Date.now();
+
+    factory(WORDS, canvas, ctx).then((data) => {
+        words = data;
+        console.log(words);
+        words[index]['start'] = Date.now();
+        show(words[index]['word'])
+        keyboardPrep();
+        changeColor();
+
+
+        window.addEventListener('keydown', (event) => {
+
+            keyInput(event.key);
             show(words[index]['word'])
-            keyboardPrep();
             changeColor();
-    
-    
-            window.addEventListener('keydown', (event) => {
-    
-                keyInput(event.key);
-                show(words[index]['word'])
-                changeColor();
-    
-            })
+
         })
+    })
 
 })
 
@@ -81,14 +83,13 @@ const keyInput = (key) => {
 
         if (index == WORDS - 1) {
             toJSON();
-        }else{
+        } else {
             index++;
             words[index]['start'] = Date.now();
             currentChar = 0
         }
 
-    }
-    else if (key == words[index]['word'][currentChar]['char'] && !INVALID_KEY.includes(key)) {
+    } else if (key == words[index]['word'][currentChar]['char'] && !INVALID_KEY.includes(key)) {
         words[index]['word'][currentChar]['color'] = (words[index]['word'][currentChar]['color'] == "red") ? "rgb(212, 212, 25)" : "green"
 
         if (currentChar < words[index]['word'].length - 1) {
@@ -99,7 +100,7 @@ const keyInput = (key) => {
         words[index]['word'][currentChar]['color'] = "red"
         currentChar++;
 
-    } else if (key == "Backspace") {    
+    } else if (key == "Backspace") {
         currentChar--;
     }
 }
@@ -117,25 +118,27 @@ const calculateCPM = () => {
     }
 
     let total = avg / count
-    document.getElementById('cpm').innerText =  total
+    document.getElementById('cpm').innerText = total
     return total
 }
 
 const toJSON = () => {
 
     fetch("/game/result", {
-        method: "POST",
-        body: JSON.stringify({
-            date: Date.now(),
-            words: words,
-            cpm: parseInt(calculateCPM(), 10)*60,
-            type: "normal",
-            score: null,
-            stats: calculateStats()
-        }),
-        headers: { "Content-Type": "application/json" },
-        redirect: "manual"
-    }).then((response) => response.json())
+            method: "POST",
+            body: JSON.stringify({
+                date: Date.now(),
+                words: words,
+                cpm: parseInt(calculateCPM(), 10) * 60,
+                type: "normal",
+                score: null,
+                stats: calculateStats()
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            redirect: "manual"
+        }).then((response) => response.json())
         .then((data) => {
             console.log(data);
             window.location.replace(data['url'])
@@ -146,21 +149,20 @@ const toJSON = () => {
 
 const calculateStats = () => {
     let stats = {
-        good:0,
-        corrected:0,
-        wrong:0
+        good: 0,
+        corrected: 0,
+        wrong: 0
     }
 
 
     words.forEach(word => {
         word['word'].forEach(letter => {
-            if (letter['color'] == "red"){
-                stats['wrong']+=1
-            }
-            else if (letter['color'] == "rgb(212, 212, 25)"){
-                stats['corrected']+=1
-            }else{
-                stats['good']+=1
+            if (letter['color'] == "red") {
+                stats['wrong'] += 1
+            } else if (letter['color'] == "rgb(212, 212, 25)") {
+                stats['corrected'] += 1
+            } else {
+                stats['good'] += 1
             }
         })
     })
@@ -173,15 +175,15 @@ const calculateStats = () => {
 const keyboardPrep = () => {
     let keyboard = document.querySelector('.keyboard-base').childNodes
     console.log(keyboard)
-    for (let i = 1;i<keyboard.length;i+=2){
-        keyboard[i].setAttribute("id",keyboard[i]['innerHTML'])
+    for (let i = 1; i < keyboard.length; i += 2) {
+        keyboard[i].setAttribute("id", keyboard[i]['innerHTML'])
     }
 }
 
 const changeColor = () => {
 
 
-    document.querySelectorAll(".key").forEach(node =>{
+    document.querySelectorAll(".key").forEach(node => {
         node.style.backgroundColor = "rgb(243, 243, 243)"
     })
 
@@ -191,20 +193,20 @@ const changeColor = () => {
 
     let current = words[index]['word'][currentChar]['char'][0];
 
-    if (regExp.test(words[index]['word'][currentChar]['char'][0].toString()) == 1){
+    if (regExp.test(words[index]['word'][currentChar]['char'][0].toString()) == 1) {
         current = words[index]['word'][currentChar]['char'][0].toString().toUpperCase();
-    }else{
+    } else {
         current = words[index]['word'][currentChar]['char'][0].toString()
-        DOUBLE_KEY[current].forEach(element =>{
+        DOUBLE_KEY[current].forEach(element => {
             document.getElementById(element).style.backgroundColor = "#13355a"
         })
     }
 
-    
+
 
     key = document.getElementById(current)
     console.log(current);
     key.style.backgroundColor = "#13355a";
 
-    
+
 }

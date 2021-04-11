@@ -52,24 +52,26 @@ window.addEventListener("load", () => {
   btn.addEventListener("click", () => {
 
 
-    if (selected["language"] == null){
+    if (selected["language"] == null) {
       selected["language"] = "pyton"
     }
 
-    if (selected['difficulty'] == null){
+    if (selected['difficulty'] == null) {
       selected['difficulty'] = "medium"
     }
 
     console.log(selected['difficulty']);
     fetch("/gameStart", {
-      method: "POST",
-      mode:'cors',
-      body: JSON.stringify({
-        "language": selected["language"],
-        "difficulty": selected["difficulty"],
-      }),
-      headers: { "Content-Type": "application/json" },
-    })
+        method: "POST",
+        mode: 'cors',
+        body: JSON.stringify({
+          "language": selected["language"],
+          "difficulty": selected["difficulty"],
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        },
+      })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

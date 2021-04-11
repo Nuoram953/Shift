@@ -14,7 +14,7 @@ let player = null;
 let games = null;
 
 
-window.addEventListener("load", () =>{
+window.addEventListener("load", () => {
     canvas = document.getElementById("chart");
     ctx = canvas.getContext("2d");
 
@@ -26,7 +26,8 @@ window.addEventListener("load", () =>{
     let dateFormat = [];
     document.getElementById('date').textContent.split(",").forEach(element => {
         let temp = new Date(element)
-        dateFormat.push(`${temp.getDay()}/${temp.getMonth()}/${temp.getFullYear()}`)
+        dateFormat.push(`${temp.getDate()}/${temp.getMonth()+1}/${temp.getFullYear()}`)
+
     })
 
     var myChart = new Chart(ctx, {
@@ -43,22 +44,21 @@ window.addEventListener("load", () =>{
             }]
         },
         options: {
-            responsive: true, 
+            responsive: true,
             maintainAspectRatio: false,
             scales: {
                 y: {
                     beginAtZero: true
                 },
-                x:{
-                    borderWidth:5
+                x: {
+                    borderWidth: 5
 
                 }
 
-         
-                
+
+
             },
-            spanGaps:true
+            spanGaps: true
         },
     });
 })
-

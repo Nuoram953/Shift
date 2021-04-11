@@ -1,15 +1,20 @@
 let noun = []
 
-async function factory(num,canvas,ctx) {
+async function factory(num, canvas, ctx) {
   const value = await asyncFunction(num);
 
   let words = [];
   noun = value['expressions'];
   for (let word in noun) {
-    words.push({word:prep(noun[word],canvas.width,ctx,value['nouns']),start:null,end:null,cpm:null});
-}
+    words.push({
+      word: prep(noun[word], canvas.width, ctx, value['nouns']),
+      start: null,
+      end: null,
+      cpm: null
+    });
+  }
   return words;
-  
+
 }
 
 const asyncFunction = async (num) => {
@@ -32,7 +37,9 @@ async function getNouns(num) {
     body: JSON.stringify({
       quantity: num,
     }),
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json"
+    },
   });
 
   const test = await response.json();
@@ -49,44 +56,52 @@ async function getExpressions(num) {
     mode: "cors",
     body: JSON.stringify({
       quantity: num,
-      difficulty:document.getElementById('difficulty').innerHTML.toString().trim()
+      difficulty: document.getElementById('difficulty').innerHTML.toString().trim()
     }),
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json"
+    },
   });
 
   const test = await response.json();
   return test;
 }
 
-const prep = (word,width,ctx,nouns) => {
-  let x = (width / 2) - caclPX(word,ctx)/2;
+const prep = (word, width, ctx, nouns) => {
+  let x = (width / 2) - caclPX(word, ctx) / 2;
   let test = [];
 
-  while(word.toString().includes("placeholder")){
-    word = word.replace("placeholder", nouns[Math.floor(Math.random()*nouns.length)]);
-  }  
+  while (word.toString().includes("placeholder")) {
+    word = word.replace("placeholder", nouns[Math.floor(Math.random() * nouns.length)]);
+  }
 
   for (let char in word) {
-      test.push({ color: "black", position: x, char: word[char] })
-      x += 25;
+    test.push({
+      color: "black",
+      position: x,
+      char: word[char]
+    })
+    x += 25;
   }
   return test
 }
 
 
 //11,4,3,6 - trop sur la gauche
-const caclPX = (word,ctx) => {
+const caclPX = (word, ctx) => {
   let distance = 0;
-  let whitespace = (word.length/2)*0.98;
+  let whitespace = (word.length / 2) * 0.98;
 
 
   distance += whitespace
   for (let index = 0; index < word.length; index++) {
-      distance += ctx.measureText(word[index]).width;
-      distance += whitespace
+    distance += ctx.measureText(word[index]).width;
+    distance += whitespace
 
   }
   return distance
 }
 
-export { factory };
+export {
+  factory
+};

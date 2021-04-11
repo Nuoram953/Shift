@@ -24,7 +24,7 @@
             <% game.forEach(element => { %>
                 <a href=<%= element.url %> >
                     <div class="game">
-                        <p><%= `${element.time.getDay()}/${element.time.getMonth()}/${element.time.getFullYear()}` %></p>
+                        <p><%= `${element.time.getDate()}/${element.time.getMonth()+1}/${element.time.getFullYear()}` %></p>
                         <p><%= element.type %> </p>
                         <p><%= element.language %> </p>
                         <p><%= element.difficulty %> </p>

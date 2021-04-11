@@ -8,14 +8,16 @@ var gameController = require('../controllers/GameController')
 
 
 
-router.get('/', function(req, res, next) {
-    res.render('index',{ title: 'Shift' });
+router.get('/', function (req, res, next) {
+  res.render('index', {
+    title: 'Shift'
   });
+});
 
 
-  
 
-router.get('/login',userController.loginPage)
+
+router.get('/login', userController.loginPage)
 
 router.post('/login/verif', userController.loginVerif)
 
@@ -36,7 +38,7 @@ router.get('/game/prep', gameController.preGame_trad)
 
 router.post('/gameStart', gameController.startGame)
 
-router.get('/game',gameController.gamePage)
+router.get('/game', gameController.gamePage)
 
 router.post('/game/Noun', gameController.gameGetNoun)
 
@@ -44,7 +46,7 @@ router.post('/game/Expression', gameController.gameGetExpression)
 
 router.post('/game/result', gameController.addGame)
 
-router.get('/game/end',gameController.homePage)
+router.get('/game/end', gameController.homePage)
 
 router.get('/result', gameController.resultPage)
 
