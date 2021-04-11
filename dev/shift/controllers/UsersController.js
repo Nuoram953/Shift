@@ -66,12 +66,15 @@ exports.historyPage = function (req, res, next) {
         let date = []
         let cpm = []
 
-        console.log(results.game[0].cpm);
-        for(let i = 0; i < count; i++){
-            cpm.push(results.game[i].cpm)
-            date.push(results.game[i].time)
-            
+        if (results.game != 0){
+            console.log(results.game[0].cpm);
+            for(let i = 0; i < count; i++){
+                cpm.push(results.game[i].cpm)
+                date.push(results.game[i].time)
+                
+            }
         }
+
 
         console.log(results);
         res.render("history", {

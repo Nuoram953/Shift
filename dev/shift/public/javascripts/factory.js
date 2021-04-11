@@ -2,17 +2,11 @@ let noun = []
 
 async function factory(num,canvas,ctx) {
   const value = await asyncFunction(num);
-  for (let i = 0; i < num; i++) {
-    
-    while(value['expressions'][i].toString().includes("placeholder")){
-      value['expressions'][i] = value['expressions'][i].replace("placeholder", value['nouns'][Math.floor(Math.random()*value['nouns'].length)]);
-    }
 
-  }
   let words = [];
   noun = value['expressions'];
   for (let word in noun) {
-    words.push({word:prep(noun[word],canvas.width,ctx),start:null,end:null,cpm:null});
+    words.push({word:prep(noun[word],canvas.width,ctx,value['nouns']),start:null,end:null,cpm:null});
 }
   return words;
   
@@ -64,9 +58,13 @@ async function getExpressions(num) {
   return test;
 }
 
-const prep = (word,width,ctx) => {
+const prep = (word,width,ctx,nouns) => {
   let x = (width / 2) - caclPX(word,ctx)/2;
   let test = [];
+
+  while(word.toString().includes("placeholder")){
+    word = word.replace("placeholder", nouns[Math.floor(Math.random()*nouns.length)]);
+  }  
 
   for (let char in word) {
       test.push({ color: "black", position: x, char: word[char] })

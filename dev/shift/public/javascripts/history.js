@@ -32,10 +32,10 @@ window.addEventListener("load", () =>{
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: dateFormat,
+            labels: dateFormat.reverse(),
             datasets: [{
                 label: 'CPM pour les dernières parties',
-                data: cpm,
+                data: cpm.reverse(),
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1

@@ -141,10 +141,14 @@ exports.addGame = function (req, res, next) {
   res.send({url:"/result"})
 };
 
-exports.listGames = function (req, res, next) {
-  res.send("NOT IMPLEMENTED: listGames: " + req.params.id);
-};
 
 exports.detailsGame = function (req, res, next) {
-  res.send("NOT IMPLEMENTED: detailsGame: " + req.params.id);
+  Game.
+  findById(req.params.id).
+  select().
+  exec(function (err, game) {
+    if (err) throw err;
+    console.log(game);
+    res.render('historyDetails',{title:"Detail de la partie",game:game,currentUser:req.session.user})
+  })
 };

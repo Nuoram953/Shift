@@ -545,8 +545,9 @@ footer {
   display:flex;
   flex-direction: column;
   height: 30vh;
-  background-color: red;
+  background-color: whitesmoke;
   margin: 50px;
+  border-radius: 16px;
 }
 
 .player-stats{
@@ -560,9 +561,16 @@ footer {
   display:flex;
   flex-direction:column;
   min-width: 50%;
-
-
+  border-radius: 16px;
   
+}
+
+.player-game-played>a{
+  color:black;
+}
+
+.player-game-played>a:visited{
+  color:black;
 }
 
 .game{
@@ -578,10 +586,78 @@ footer {
   background-color:grey;
 }
 
+.game:visited{
+  color: black;
+}
+
 .game > *{
   flex-basis: 10%;
   flex-wrap: wrap;
 }
+
+
+/*
+* History details page
+*/
+.details-words{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 50px auto;
+}
+
+.one-word{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 50%;
+  margin: 50px auto;
+  padding: 75px 15px;
+  background-color:whitesmoke;
+}
+
+.one-word-info{
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
+.one-word-word{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  
+}
+
+
+
+.one-word-word > p{
+  min-width: 15px;
+}
+
+.letter-word{
+  display:flex;
+  flex-direction:row;
+  justify-content:space-evenly;
+}
+
+.char{
+  padding: 5px;
+  width: 15px;
+  text-align: center;
+  border-radius: 16px;
+}
+
+.green{
+  background-color: rgba(0, 255, 0, 0.6);;
+}
+.yellow{
+  background-color: rgba(255, 255, 0, 0.6);;
+}
+.red{
+  background-color: rgba(255, 0, 0, 0.6);;
+}
+
 
 
 /*

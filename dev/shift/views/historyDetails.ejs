@@ -1,0 +1,28 @@
+<%- include('partials/header.ejs') %>
+
+<div class="details-words">
+    <% game.words.forEach(element => { %>
+        <div class="one-word">
+            <div class="one-word-info">
+                <p>Temps: <%= element.end-element.start %> </p>
+                <p>CPM: <%= element.cpm %> </p>
+                <div class="one-word-word">
+                    
+                    <% element.word.forEach(letter => { %>
+                        <p><%= letter.char  %> </p>
+                    <% }) %>
+                </div>
+
+            </div>
+            <div class="letter-word">
+                <% element.word.forEach(letter => { %>
+                    <p class="char <%= (letter.color) != "rgb(212, 212, 25)" ? letter.color:"yellow" %>"><%= letter.char  %> </p>
+                <% }) %>
+            </div>
+
+        </div>
+    <% }) %>
+</div>
+
+</body>
+    </html> 
