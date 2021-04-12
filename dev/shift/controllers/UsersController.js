@@ -87,7 +87,7 @@ exports.historyPage = function (req, res, next) {
 
         console.log(results);
         res.render("history", {
-            currentUser: req.session.user,
+            currentUser: [results.player],
             title: "Historique de parties",
             game: results.game,
             player: results.player,

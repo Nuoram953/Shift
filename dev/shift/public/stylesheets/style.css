@@ -562,7 +562,13 @@ footer {
   flex-direction:column;
   min-width: 50%;
   border-radius: 16px;
-  
+  overflow-y: scroll;
+  height: 400px;
+ 
+}
+
+.player-game-played::-webkit-scrollbar{
+  display: none;
 }
 
 .player-game-played>a{
@@ -579,7 +585,21 @@ footer {
   justify-content:space-around;
   align-items:center;
   text-align: center;
-  background-color: whitesmoke; 
+  background-color: whitesmoke;
+  
+}
+
+
+#headers{
+  position:sticky;
+  display:flex;
+  flex-direction: row;
+  justify-content:space-around;
+  align-items:center;
+  text-align: center;
+  background-color: whitesmoke;
+  
+
 }
 
 .game:hover:not(#headers){

@@ -1,4 +1,6 @@
-const { select } = require("async");
+const {
+  select
+} = require("async");
 var Game = require("../models/game");
 
 var Language = require("../models/language");
@@ -23,19 +25,25 @@ exports.homePage = function (req, res, next) {
 
 
 exports.gamePage = function (req, res, next) {
-  res.render("game_normal", { params });
+  res.render("game_normal", {
+    params
+  });
 };
 
 exports.resultPage = function (req, res, next) {
   Game.
   find().
   where('user').equals(req.session.user).
-  sort({time:-1}).
+  sort({
+    time: -1
+  }).
   select().
   limit(1).
   exec(function (err, game) {
     console.log(game);
-    res.render("result", {result:game[0]});
+    res.render("result", {
+      result: game[0]
+    });
   })
 
 
@@ -45,15 +53,17 @@ exports.resultPage = function (req, res, next) {
 
 
 exports.preGame_trad = function (req, res, next) {
-  Language.aggregate([
-    {
-      $group: {
-        _id: null,
-        language: { $addToSet: "$language" },
-        difficulty: { $addToSet: "$difficulty" },
+  Language.aggregate([{
+    $group: {
+      _id: null,
+      language: {
+        $addToSet: "$language"
+      },
+      difficulty: {
+        $addToSet: "$difficulty"
       },
     },
-  ]).exec(function (err, language) {
+  }, ]).exec(function (err, language) {
     let difficulty = [];
 
     //Without thoses lines, the difficulties aren't in order
@@ -76,17 +86,17 @@ exports.startGame = function (req, res, next) {
 };
 
 exports.gameGetNoun = function (req, res, next) {
-  Noun.aggregate([
-    {
-      $sample: {size: req.body.quantity}
-    },
-  ]).exec(function (err, language) {
+  Noun.aggregate([{
+    $sample: {
+      size: req.body.quantity
+    }
+  }, ]).exec(function (err, language) {
 
     let noun = [];
 
     language.forEach(element => {
       noun.push(element['expression'])
-    })  
+    })
 
     console.log(noun);
     res.send(noun);
@@ -95,17 +105,15 @@ exports.gameGetNoun = function (req, res, next) {
 
 exports.gameGetExpression = function (req, res, next) {
 
-  Language.aggregate([
-    {
-      '$match': {
-        'difficulty': req.body.difficulty
-      }
-    }, {
-      '$sample': {
-        'size': req.body.quantity
-      }
+  Language.aggregate([{
+    '$match': {
+      'difficulty': req.body.difficulty
     }
-  ]).exec(function (err, test) {
+  }, {
+    '$sample': {
+      'size': req.body.quantity
+    }
+  }]).exec(function (err, test) {
 
     let language = [];
 
@@ -125,20 +133,22 @@ exports.addGame = function (req, res, next) {
   let game = new Game({
     type: req.body.type,
     time: req.body.date,
-    cpm:  req.body.cpm,
+    cpm: req.body.cpm,
     user: req.session.user[0],
     language: params['language'],
-    difficulty:params['difficulty'],
+    difficulty: params['difficulty'],
     score: req.body.score,
     words: req.body.words,
     stats: req.body.stats
   })
 
-  game.save(function (err){
+  game.save(function (err) {
     if (err) throw err;
   })
 
-  res.send({url:"/result"})
+  res.send({
+    url: "/result"
+  })
 };
 
 
@@ -149,6 +159,10 @@ exports.detailsGame = function (req, res, next) {
   exec(function (err, game) {
     if (err) throw err;
     console.log(game);
-    res.render('historyDetails',{title:"Detail de la partie",game:game,currentUser:req.session.user})
+    res.render('historyDetails', {
+      title: "Detail de la partie",
+      game: game,
+      currentUser: req.session.user
+    })
   })
 };

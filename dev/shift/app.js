@@ -38,13 +38,15 @@ app.use(
     secret: "secret",
     resave: false,
     saveUninitialized: true,
-    maxAge:  24 * 60 * 60 * 1000
+    maxAge: 24 * 60 * 60 * 1000
   })
 );
 
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(favicon(path.join(__dirname, 'public', '/images/logo.png')))
@@ -77,7 +79,7 @@ module.exports = app;
  *
  */
 const init = () => {
-  const language = "./assets/language";
+  const LANGUAGE = "./assets/language";
 
   //Connection to BD
   let mongoDB = "mongodb://localhost/Shift";
@@ -90,9 +92,9 @@ const init = () => {
   let db = mongoose.connection;
 
   //Checking if BD contains all csv languages files otherwise adding them to the collection "Language"
-  let file = null;
+
   let json = null;
-  fs.readdir(language, (err, files) => {
+  fs.readdir(LANGUAGE, (err, files) => {
     files.forEach((file) => {
       file = file.split(".")[0];
 
@@ -141,15 +143,15 @@ const init = () => {
 
 
   Noun.find()
-  .countDocuments()
-  .exec(function (err, noun){
-    if(noun == 0){
-      json = csvToJson.getJsonFromCsv(`./assets/noun/Noun.csv`);
-      db.collection("Noun").insertMany(json,function (err,result){
-        if (err) throw err;
-      })
-    }
-  })
+    .countDocuments()
+    .exec(function (err, noun) {
+      if (noun == 0) {
+        json = csvToJson.getJsonFromCsv(`./assets/noun/Noun.csv`);
+        db.collection("Noun").insertMany(json, function (err, result) {
+          if (err) throw err;
+        })
+      }
+    })
 
 
 
