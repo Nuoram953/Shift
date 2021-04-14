@@ -1,5 +1,7 @@
 window.addEventListener('load', () => {
 
+
+    //Remove error message each 5 seconds
     setInterval(() => {
         if (document.querySelector('.error') != null ){
             setTimeout(() => {

@@ -16,7 +16,9 @@ router.get('/', function (req, res, next) {
 
 
 
-
+/**
+ * User Controller
+ */
 router.get('/login', userController.loginPage)
 
 router.post('/login/verif', userController.loginVerif)
@@ -31,7 +33,9 @@ router.post('/signup/newUser', userController.addUser)
 
 
 
-
+/**
+ * Game Controller
+ */
 router.get('/game/details/:id', gameController.detailsGame)
 
 router.get('/game/prep', gameController.preGame_trad)

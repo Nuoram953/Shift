@@ -1,8 +1,8 @@
 /*******************************************************************
 *NAME: ANTOINE AUGER-MAROUN
-*DATE: 
-*OBJECT: 
-*FICHIER: 
+*DATE: 06/04/2021
+*OBJECT: Game loop of normal game.
+*FICHIER: game.js
 /*******************************************************************/
 
 
@@ -37,8 +37,6 @@ window.addEventListener("load", () => {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
-
-
     factory(WORDS, canvas, ctx).then((data) => {
         words = data;
         console.log(words);
@@ -47,9 +45,7 @@ window.addEventListener("load", () => {
         keyboardPrep();
         changeColor();
 
-
         window.addEventListener('keydown', (event) => {
-
             keyInput(event.key);
             show(words[index]['word'])
             changeColor();
@@ -60,6 +56,11 @@ window.addEventListener("load", () => {
 })
 
 
+
+/**
+ * Output each letter with it's color
+ * @param {string} word 
+ */
 const show = (word) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -73,8 +74,12 @@ const show = (word) => {
 }
 
 
-const keyInput = (key) => {
 
+/**
+ * Check if the key input by the user is the one currently selected by the currentChar
+ * @param {event} key -> key from the event listener
+ */
+const keyInput = (key) => {
     if (key == "Enter") {
 
         words[index]['end'] = Date.now();
@@ -105,12 +110,18 @@ const keyInput = (key) => {
     }
 }
 
+
+
+
+/**
+ * Calculate the character per minute of the player per word.
+ * @returns {float} -> cpm for one word
+ */
 const calculateCPM = () => {
     let avg = 0
     let count = 0
 
-    for (let i in words) {
-        console.log(words[i]['cpm']);
+    for (let i in words) {    
         if (words[i]['cpm'] != null) {
             avg += parseFloat(words[i]['cpm']);
             count++;
@@ -122,8 +133,14 @@ const calculateCPM = () => {
     return total
 }
 
-const toJSON = () => {
 
+
+
+/**
+ * When the game is over, we put every info needed by the DB in json format and send it to the server.
+ * If successful, we go the page result.
+ */
+const toJSON = () => {
     fetch("/game/result", {
             method: "POST",
             body: JSON.stringify({
@@ -143,17 +160,23 @@ const toJSON = () => {
             console.log(data);
             window.location.replace(data['url'])
         })
-
         .catch(console.error);
 }
 
+
+
+
+
+/**
+ * Calculate stats of the game based on the color of each letter at the end; Green is good, Red is bad and yellow is 'was corrected'
+ * @returns {dict} -> 3 stats needed for calculation results
+ */
 const calculateStats = () => {
     let stats = {
         good: 0,
         corrected: 0,
         wrong: 0
     }
-
 
     words.forEach(word => {
         word['word'].forEach(letter => {
@@ -166,12 +189,17 @@ const calculateStats = () => {
             }
         })
     })
-
-
-
     return stats
 }
 
+
+
+
+
+
+/**
+ * We give id dynamicaly to each key on the keyboard. It will be usefull when we want to change color
+ */
 const keyboardPrep = () => {
     let keyboard = document.querySelector('.keyboard-base').childNodes
     console.log(keyboard)
@@ -180,17 +208,20 @@ const keyboardPrep = () => {
     }
 }
 
+
+
+
+
+
+/**
+ * Change color of the keyboard to inform which key the user should press
+ */
 const changeColor = () => {
-
-
     document.querySelectorAll(".key").forEach(node => {
         node.style.backgroundColor = "rgb(243, 243, 243)"
     })
 
-    console.log(currentChar);
-
     let regExp = new RegExp("([0-9A-Za-z])");
-
     let current = words[index]['word'][currentChar]['char'][0];
 
     if (regExp.test(words[index]['word'][currentChar]['char'][0].toString()) == 1) {
@@ -202,10 +233,7 @@ const changeColor = () => {
         })
     }
 
-
-
     key = document.getElementById(current)
-    console.log(current);
     key.style.backgroundColor = "#13355a";
 
 

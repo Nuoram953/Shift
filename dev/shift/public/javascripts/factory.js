@@ -1,10 +1,16 @@
-let noun = []
+/*******************************************************************
+*NAME: ANTOINE AUGER-MAROUN
+*DATE: 12/04/2021
+*OBJECT: Ask for expressions and nouns to server. It also prepares them for game.js
+*FICHIER: factory.js
+/*******************************************************************/
+
 
 async function factory(num, canvas, ctx) {
   const value = await asyncFunction(num);
 
   let words = [];
-  noun = value['expressions'];
+  let noun = value['expressions'];
   for (let word in noun) {
     words.push({
       word: prep(noun[word], canvas.width, ctx, value['nouns']),
@@ -17,17 +23,20 @@ async function factory(num, canvas, ctx) {
 
 }
 
+
+/**
+ * Ask the server for the expressions and nouns
+ * @param {int} num -> The number of word needed
+ * @returns {dict}
+ */
 const asyncFunction = async (num) => {
   const nouns = await getNouns(num);
-
   const expressions = await getExpressions(num);
-
-  let temp = {
+  let data = {
     nouns: nouns,
     expressions: expressions,
   };
-
-  return temp;
+  return data;
 };
 
 async function getNouns(num) {
@@ -42,62 +51,73 @@ async function getNouns(num) {
     },
   });
 
-  const test = await response.json();
-  return test;
+  const data = await response.json();
+  return data;
 }
 
 async function getExpressions(num) {
-
-
-
-
   const response = await fetch("/game/Expression", {
     method: "POST",
     mode: "cors",
     body: JSON.stringify({
       quantity: num,
-      difficulty: document.getElementById('difficulty').innerHTML.toString().trim()
+      difficulty: document.getElementById('difficulty').innerHTML.toString().trim(),
+      language:document.getElementById('language').innerHTML.toString().trim()
     }),
     headers: {
       "Content-Type": "application/json"
     },
   });
 
-  const test = await response.json();
-  return test;
+  const data = await response.json();
+  return data;
 }
 
+
+/**
+ * Creates a dictionary for each letter. It conains the color, the position and the letter itself.
+ * The color gives us the state of the letter (if it's the corrected one when it's green etc...)
+ * Also remove placeholder in word and replace it with a random noun
+ * @param {string} word -> Current expression
+ * @param {int} width -> Width of the canvas
+ * @param {*} ctx -> Context of the canvas
+ * @param {array} nouns -> Array of 10 words picked randomly from MongoDB
+ * @returns {dict} -> An array of dict that contains the info needed for each letter in the word
+ */
 const prep = (word, width, ctx, nouns) => {
   let x = (width / 2) - caclPX(word, ctx) / 2;
-  let test = [];
+  let letter = [];
 
   while (word.toString().includes("placeholder")) {
     word = word.replace("placeholder", nouns[Math.floor(Math.random() * nouns.length)]);
   }
 
   for (let char in word) {
-    test.push({
+    letter.push({
       color: "black",
       position: x,
       char: word[char]
     })
     x += 25;
   }
-  return test
+  return letter
 }
 
 
-//11,4,3,6 - trop sur la gauche
+/**
+ * Since can't individually select a letter within the canvas, we calculate the position for each letter individually and added manually whitespaces
+ * @param {string} word -> Current expression
+ * @param {*} ctx -> Context of the canvas
+ * @returns {int} -> Width of a word and the whitespaces in px.
+ */
 const caclPX = (word, ctx) => {
   let distance = 0;
-  let whitespace = (word.length / 2) * 0.98;
-
+  let whitespace = (word.length / 2) * 0.98; //@TODO: Better center align
 
   distance += whitespace
   for (let index = 0; index < word.length; index++) {
     distance += ctx.measureText(word[index]).width;
     distance += whitespace
-
   }
   return distance
 }

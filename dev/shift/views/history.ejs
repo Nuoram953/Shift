@@ -7,7 +7,20 @@
 <script id="player" type="application/json"><%= player %></script>
 
 <div class="container-history">
-    <div class="player-info"></div>
+    <div class="player-info">
+
+        <div class="info"></div>
+            <p> Nom d'utilisateur: <%= player.username %> </p>
+            <p> Nombre de jours depuis la création:  <%= player.timePlayed %> </p>
+        <div class="language-count">
+            <% count.forEach(element => { %>
+                <div class="one-count">
+                    <img src="/images/language/<%= element._id.language %>.png"  alt="">
+                    <p><%= element.total %> </p>
+                </div>
+            <% }) %>
+        </div>
+    </div>
     <div class="player-stats">
         <div class="player-game-played">
 

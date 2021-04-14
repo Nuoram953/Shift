@@ -107,7 +107,8 @@ exports.gameGetExpression = function (req, res, next) {
 
   Language.aggregate([{
     '$match': {
-      'difficulty': req.body.difficulty
+      'difficulty': req.body.difficulty,
+      'language':req.body.language
     }
   }, {
     '$sample': {

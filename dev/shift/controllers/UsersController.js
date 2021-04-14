@@ -1,6 +1,7 @@
 var User = require('../models/user');
 var Game = require('../models/game');
 
+var mongoose = require("mongoose");
 var bcrypt = require('bcrypt');
 var async = require('async');
 
@@ -68,6 +69,25 @@ exports.historyPage = function (req, res, next) {
             exec(callback)
 
         },
+        fav: function (callback) {
+            Game.aggregate([
+                {
+                  '$match': {
+                    'user': mongoose.Types.ObjectId(req.params.id) 
+                  }
+                }, {
+                  '$group': {
+                    '_id': {
+                      'language': '$language'
+                    }, 
+                    'total': {
+                      '$sum': 1
+                    }
+                  }
+                }
+              ]).exec(callback)
+   
+        }
     }, function (err, results) {
         if (err) return next(err);
 
@@ -85,14 +105,19 @@ exports.historyPage = function (req, res, next) {
         }
 
 
-        console.log(results);
+        console.log(results.player.timePlayed);
+        console.log(results.fav);
+        
         res.render("history", {
             currentUser: [results.player],
             title: "Historique de parties",
             game: results.game,
             player: results.player,
             cpm: cpm,
-            date: date
+            date: date,
+            count:results.fav,
+
+
         });
     })
 

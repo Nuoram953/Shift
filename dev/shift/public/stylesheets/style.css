@@ -155,9 +155,10 @@ a {
 }
 
 .body-desc {
-  padding: 50px 50px 150px 50px;
+  padding: 350px 50px 350px 50px;
   display: flex;
   justify-content: center;
+  
 }
 
 .body-desc-image {
@@ -184,6 +185,7 @@ a {
 #page2 {
   height: fit-content;
   background-color: whitesmoke;
+  
 }
 
 #page3 {
@@ -195,6 +197,7 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 250px 50px;
 }
 
 .positive-container {
@@ -202,7 +205,7 @@ a {
 
   width: fit-content;
 
-  margin: 40px 0;
+  margin: 100px 0;
 }
 
 .positive-left-side {
@@ -218,7 +221,7 @@ a {
 
 .positive {
   height: 200px;
-  width: 500px;
+  width: 600px;
   word-wrap: normal;
   display: -webkit-flexbox;
   display: -ms-flexbox;
@@ -227,6 +230,8 @@ a {
   align-items: center;
   justify-content: center;
   margin: 25px;
+  background-color: whitesmoke;
+  border-radius:16px;
 }
 
 .positive > img {
@@ -234,6 +239,8 @@ a {
   width: 250px;
   border-radius: 16px;
 }
+
+
 
 .page-break {
   display: flex;
@@ -548,6 +555,22 @@ footer {
   background-color: whitesmoke;
   margin: 50px;
   border-radius: 16px;
+}
+
+
+.language-count{
+  display:flex;
+  flex-direction:row;
+  justify-content:space-evenly;
+}
+
+.one-count{
+  display:flex;
+  flex-direction: column;
+  height: 50px;
+  width: 75px;
+  text-align:center;
+  font-size: 25px
 }
 
 .player-stats{

@@ -17,8 +17,6 @@ var csvToJson = require("convert-csv-to-json");
 var bcrypt = require("bcrypt");
 var favicon = require('serve-favicon');
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
 var directorRouter = require("./routes/director");
 
 var Language = require("./models/language");
@@ -92,7 +90,6 @@ const init = () => {
   let db = mongoose.connection;
 
   //Checking if BD contains all csv languages files otherwise adding them to the collection "Language"
-
   let json = null;
   fs.readdir(LANGUAGE, (err, files) => {
     files.forEach((file) => {

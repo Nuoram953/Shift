@@ -8,6 +8,7 @@ var UserSchema = new Schema({
   Admin: { type: Boolean, default: false },
   highScore_trad: { type: Number, default: 0 },
   highScore_adventure: { type: Number, default: 0 },
+  date: { type:Date, default: Date.now()}
 });
 
 
@@ -16,7 +17,14 @@ UserSchema.virtual("url").get(function () {
 });
 
 UserSchema.virtual("timePlayed").get(function () {
-  return this.LastPlayed - this.FirstPlayed;
+
+  let currentDate = Date.now();
+  let firstDate = this.date
+
+  let diff = parseInt((currentDate - firstDate) / (1000 * 60 * 60 * 24), 10); 
+
+  console.log(diff);
+  return diff
 });
 
 //Export model
