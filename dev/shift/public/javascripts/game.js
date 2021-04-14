@@ -5,7 +5,7 @@
 *FICHIER: game.js
 /*******************************************************************/
 
-
+//test
 import {
     factory
 } from './factory.js'
