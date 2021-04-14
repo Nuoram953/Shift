@@ -18,13 +18,8 @@ UserSchema.virtual("url").get(function () {
 
 UserSchema.virtual("timePlayed").get(function () {
 
-  let currentDate = Date.now();
-  let firstDate = this.date
+  return parseInt((Date.now() - this.date) / (1000 * 60 * 60 * 24), 10); 
 
-  let diff = parseInt((currentDate - firstDate) / (1000 * 60 * 60 * 24), 10); 
-
-  console.log(diff);
-  return diff
 });
 
 //Export model

@@ -550,10 +550,23 @@ footer {
 
 .player-info{
   display:flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content:space-between;
   height: 30vh;
   background-color: whitesmoke;
   margin: 50px;
+  border-radius: 16px;
+}
+
+.player-info > div{
+  margin: auto;
+}
+
+#profil-icon{
+  
+  background-color: red;
+  height: 150px;
+  width: 150px;
   border-radius: 16px;
 }
 
