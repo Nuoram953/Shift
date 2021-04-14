@@ -12,6 +12,7 @@ import {
 
 const HEIGHT = 50;
 const WORDS = 5;
+const NOUNS = 25;
 const INVALID_KEY = ['Shift', 'Enter', 'Backspace']
 const DOUBLE_KEY = {
     "(": ["Shift", "9"],
@@ -26,10 +27,13 @@ let currentChar = 0;
 let key = null;
 let keyAudio = new Audio('/sounds/key.mp3');
 
+
 let ctx = null;
 let canvas = null;
 
 window.addEventListener("load", () => {
+
+    //keyAudio.preload();
 
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
@@ -37,18 +41,22 @@ window.addEventListener("load", () => {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
-    factory(WORDS, canvas, ctx).then((data) => {
+    factory(WORDS,NOUNS, canvas, ctx).then((data) => {
         words = data;
-        console.log(words);
         words[index]['start'] = Date.now();
         show(words[index]['word'])
         keyboardPrep();
         changeColor();
+        keyAudio.play();
 
         window.addEventListener('keydown', (event) => {
+            keyAudio.play();
             keyInput(event.key);
             show(words[index]['word'])
             changeColor();
+            
+            
+            
 
         })
     })
@@ -121,7 +129,7 @@ const calculateCPM = () => {
     let avg = 0
     let count = 0
 
-    for (let i in words) {    
+    for (let i in words) {
         if (words[i]['cpm'] != null) {
             avg += parseFloat(words[i]['cpm']);
             count++;

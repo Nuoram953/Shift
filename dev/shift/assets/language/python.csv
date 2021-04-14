@@ -48,3 +48,9 @@ class placeholder:;hard;python
 def __placeholder__:;hard;python
 placeholder.pop(placeholder);hard;python
 placeholder.remove(placeholder);hard;python
+from pathlib import Path as placeholder;medium;python
+csv_mapping_list.append(placeholder);hard;python
+csv_reader = csv.reader(my_placeholder, delimiter=",");hard;python
+with open("/path/to/dict.csv") as placeholder:;medium;python
+my_duplicate_placeholder = [placeholder for placeholder in my_placeholder];hard;python
+

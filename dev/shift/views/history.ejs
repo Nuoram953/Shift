@@ -4,12 +4,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
 <script id="cpm" type="application/json"><%=cpm%> </script>
 <script id="date" type="application/json"><%=date%> </script>
-<script id="player" type="application/json"><%=player%></script>
+
 
 <div class="container-history">
     <div class="player-info">
         <div class="info">
-            <div id="profil-icon"></div>
+            <img src="/images/defaultUser.jpg" alt="Default user" id="profil-icon">
             <p> Nom d'utilisateur: <%= player.username %> </p>
             <p> Nombre de jours depuis la création:  <%= player.timePlayed %> </p>
         </div>

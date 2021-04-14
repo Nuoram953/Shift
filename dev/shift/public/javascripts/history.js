@@ -10,7 +10,6 @@
 let canvas = null;
 let ctx = null;
 
-let player = null;
 let games = null;
 
 
@@ -21,7 +20,7 @@ window.addEventListener("load", () => {
     ctx.canvas.parentNode.style.width = "600px";
     ctx.canvas.parentNode.style.height = "400px";
 
-    player = document.getElementById("player").textContent;
+    
     let cpm = document.getElementById('cpm').textContent.split(",");
     let dateFormat = [];
     document.getElementById('date').textContent.split(",").forEach(element => {

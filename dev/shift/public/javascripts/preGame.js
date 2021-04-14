@@ -5,6 +5,11 @@
 *FICHIER: preGame.js
 /*******************************************************************/
 
+
+
+
+
+
 let btn = null;
 let language = null;
 let difficulty = null;
@@ -14,6 +19,9 @@ let selected = {
 };
 
 window.addEventListener("load", () => {
+
+
+
   btn = document.getElementById("btnStartGame");
 
   let nodesLanguage = document.querySelectorAll("div.language");

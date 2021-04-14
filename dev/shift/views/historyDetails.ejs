@@ -4,7 +4,7 @@
     <% game.words.forEach(element => { %>
     <div class="one-word">
         <div class="one-word-info">
-            <p>Temps: <%= element.end-element.start %> </p>
+            <p>Temps: <%= (element.end-element.start)/1000 %> </p>
             <p>CPM: <%= element.cpm %> </p>
             <div class="one-word-word">
 
@@ -12,7 +12,6 @@
                 <p><%= letter.char  %> </p>
                 <% }) %>
             </div>
-
         </div>
         <div class="letter-word">
             <% element.word.forEach(letter => { %>

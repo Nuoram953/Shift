@@ -6,8 +6,8 @@
 /*******************************************************************/
 
 
-async function factory(num, canvas, ctx) {
-  const value = await asyncFunction(num);
+async function factory(nExpression,nNoun, canvas, ctx) {
+  const value = await asyncFunction(nExpression, nNoun);
 
   let words = [];
   let noun = value['expressions'];
@@ -29,9 +29,9 @@ async function factory(num, canvas, ctx) {
  * @param {int} num -> The number of word needed
  * @returns {dict}
  */
-const asyncFunction = async (num) => {
-  const nouns = await getNouns(num);
-  const expressions = await getExpressions(num);
+const asyncFunction = async (num1, num2) => {
+  const nouns = await getNouns(num2);
+  const expressions = await getExpressions(num1);
   let data = {
     nouns: nouns,
     expressions: expressions,
@@ -112,7 +112,7 @@ const prep = (word, width, ctx, nouns) => {
  */
 const caclPX = (word, ctx) => {
   let distance = 0;
-  let whitespace = (word.length / 2) * 0.98; //@TODO: Better center align
+  let whitespace = (word.length / 4) * 0.98; //@TODO: Better center align
 
   distance += whitespace
   for (let index = 0; index < word.length; index++) {
