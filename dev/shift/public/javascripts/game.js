@@ -18,7 +18,10 @@ const DOUBLE_KEY = {
     "(": ["Shift", "9"],
     ")": ["Shift", "0"],
     ":": ["Shift", ";"],
-    " ": ["Space"]
+    " ": ["Space"],
+    "{": ["Shift", "["],
+    "}": ["Shift", "]"],
+    
 }
 
 let words = []
