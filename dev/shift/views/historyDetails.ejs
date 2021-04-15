@@ -5,7 +5,7 @@
     <div class="one-word">
         <div class="one-word-info">
             <p>Temps: <%= (element.end-element.start)/1000 %> </p>
-            <p>CPM: <%= element.cpm %> </p>
+            <p>CPM: <%= (element.cpm / element.word.length).toFixed(2)  %> </p>
             <div class="one-word-word">
 
                 <% element.word.forEach(letter => { %>

@@ -28,7 +28,7 @@ let words = []
 let index = 0
 let currentChar = 0;
 let key = null;
-let keyAudio = new Audio('/sounds/key.mp3');
+//let keyAudio = new Audio('/sounds/key.mp3');
 
 
 let ctx = null;
@@ -50,10 +50,10 @@ window.addEventListener("load", () => {
         show(words[index]['word'])
         keyboardPrep();
         changeColor();
-        keyAudio.play();
+        //keyAudio.play();
 
         window.addEventListener('keydown', (event) => {
-            keyAudio.play();
+            //keyAudio.play();
             keyInput(event.key);
             show(words[index]['word'])
             changeColor();

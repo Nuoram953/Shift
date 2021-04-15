@@ -179,7 +179,8 @@ exports.addUser = function (req, res, next) {
                 user.save(function (err) {
                     if (err) {
                         res.render('signup', {
-                            error: ERROR[004]
+                            error: ERROR[004],
+                            title: "Inscription"
                         })
                     } else {
                         User.
@@ -204,7 +205,8 @@ exports.addUser = function (req, res, next) {
 
     } else {
         res.render('signup', {
-            error: ERROR[005]
+            error: ERROR[005],
+            title: "Inscription"
         })
     }
 
