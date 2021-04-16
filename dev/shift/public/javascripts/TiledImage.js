@@ -1,4 +1,6 @@
-
+/**
+ * This file was given to us by Frédéric Thériault during Web II
+ */
 export function TiledImage(imagePath, columns, rows, refreshInterval, horizontal, scale, nodeID) {
 	this.nodeID = nodeID;
 

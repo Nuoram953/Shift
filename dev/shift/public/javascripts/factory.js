@@ -112,7 +112,7 @@ const prep = (word, width, ctx, nouns) => {
  */
 const caclPX = (word, ctx) => {
   let distance = 0;
-  let whitespace = (word.length / 4) * 0.98; //@TODO: Better center align
+  let whitespace = (word.length / 4) * 0.98; // @TODO: Better center align
 
   distance += whitespace
   for (let index = 0; index < word.length; index++) {
