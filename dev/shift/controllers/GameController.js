@@ -30,6 +30,10 @@ exports.gamePage = function (req, res, next) {
   });
 };
 
+exports.adventurePage = function (req, res, next) {
+  res.render("game_adventure");
+};
+
 exports.resultPage = function (req, res, next) {
   Game.
   find().

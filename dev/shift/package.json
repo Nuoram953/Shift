@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
     "webpack" : "webpack --watch",
-    "serverstart": "SET DEBUG=Shift:* npm run webpack & npm run devstart"
+    "serverstart": "SET DEBUG=Shift:* && npm run devstart"
   },
   "dependencies": {
     "async": "^3.2.0",

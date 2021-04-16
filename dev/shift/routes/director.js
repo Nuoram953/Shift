@@ -54,6 +54,9 @@ router.get('/game/end', gameController.homePage)
 
 router.get('/result', gameController.resultPage)
 
+router.get('/adventure', gameController.adventurePage)
+
+
 
 
 
