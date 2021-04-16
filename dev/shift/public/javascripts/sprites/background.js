@@ -151,4 +151,49 @@ export default class Background {
         ctx.drawImage(this.layer0,this.xLayer0,0,this.canvas.width,this.canvas.height)
         ctx.drawImage(this.layer0,this.xLayer0+this.canvas.width,0,this.canvas.width,this.canvas.height)
     }
+
+    still(){
+        ctx.drawImage(this.layer10,this.x,0,this.canvas.width,this.canvas.height)
+        ctx.drawImage(this.layer10,this.x+this.canvas.width,0,this.canvas.width,this.canvas.height)
+
+        //Layer -> 9
+        ctx.drawImage(this.layer9,this.x,0,this.canvas.width,this.canvas.height)
+        ctx.drawImage(this.layer9,this.x+this.canvas.width,0,this.canvas.width,this.canvas.height)
+
+        //Layer -> 8
+        ctx.drawImage(this.layer8,this.xLayer8,0,this.canvas.width,this.canvas.height)
+        ctx.drawImage(this.layer8,this.xLayer8+this.canvas.width,0,this.canvas.width,this.canvas.height)
+
+        //Layer -> 7
+        ctx.drawImage(this.layer7,this.xLayer7,0,this.canvas.width,this.canvas.height)
+        ctx.drawImage(this.layer7,this.xLayer7+this.canvas.width,0,this.canvas.width,this.canvas.height)
+
+        //Layer -> 6
+        ctx.drawImage(this.layer6,this.xLayer6,0,this.canvas.width,this.canvas.height)
+        ctx.drawImage(this.layer6,this.xLayer6+this.canvas.width,0,this.canvas.width,this.canvas.height)
+
+        //Layer -> 6
+        ctx.drawImage(this.layer5,this.xLayer5,0,this.canvas.width,this.canvas.height)
+        ctx.drawImage(this.layer5,this.xLayer5+this.canvas.width,0,this.canvas.width,this.canvas.height)        
+        
+        //Layer -> 6
+        ctx.drawImage(this.layer4,this.xLayer4,0,this.canvas.width,this.canvas.height)
+        ctx.drawImage(this.layer4,this.xLayer4+this.canvas.width,0,this.canvas.width,this.canvas.height)
+
+        //Layer -> 6
+        ctx.drawImage(this.layer3,this.xLayer3,0,this.canvas.width,this.canvas.height)
+        ctx.drawImage(this.layer3,this.xLayer3+this.canvas.width,0,this.canvas.width,this.canvas.height)
+        
+        //Layer -> 6
+        ctx.drawImage(this.layer2,this.xLayer2,0,this.canvas.width,this.canvas.height)
+        ctx.drawImage(this.layer2,this.xLayer2+this.canvas.width,0,this.canvas.width,this.canvas.height)
+
+                        //Layer -> 6
+        ctx.drawImage(this.layer1,this.xLayer1,0,this.canvas.width,this.canvas.height)
+        ctx.drawImage(this.layer1,this.xLayer1+this.canvas.width,0,this.canvas.width,this.canvas.height)
+
+        //Layer -> 6
+        ctx.drawImage(this.layer0,this.xLayer0,0,this.canvas.width,this.canvas.height)
+        ctx.drawImage(this.layer0,this.xLayer0+this.canvas.width,0,this.canvas.width,this.canvas.height)
+    }
 }
