@@ -36,7 +36,7 @@ export default class Player {
         this.totalSeconds = 0
         this.offsetX = 0
         this.x = 150;
-        this.y = 175;
+        this.y = 710;
         this.speed = 1;
         this.health = 3
         this.isControlable = true;

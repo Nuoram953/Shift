@@ -834,6 +834,15 @@ footer {
   margin: 0 auto;
 }
 
+
+.container-adventure{
+  margin: 50px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: blue 2px solid;
+  width: fit-content;
+}
 /*
 * Result Page
 */
