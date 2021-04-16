@@ -152,7 +152,7 @@ export default class Background {
         ctx.drawImage(this.layer0,this.xLayer0+this.canvas.width,0,this.canvas.width,this.canvas.height)
     }
 
-    still(){
+    idle(){
         ctx.drawImage(this.layer10,this.x,0,this.canvas.width,this.canvas.height)
         ctx.drawImage(this.layer10,this.x+this.canvas.width,0,this.canvas.width,this.canvas.height)
 

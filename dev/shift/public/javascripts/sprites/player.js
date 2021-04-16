@@ -5,49 +5,17 @@ import {
 import {
     TiledImage
 } from '../TiledImage.js'
+import Entity from './entity.js'
 
 
 
+export default class Player extends Entity {
 
-export default class Player {
-    constructor() {
-        this.ctx = ctx;
-        this.canvas = canvas;
-        this.background = new Image();
-        this.background.src = '../../images/background/Background.png'
-
-        this.state = {
-            ATTACK: "attack",
-            RUN: "run",
-            IDLE: "idle",
-            DEATH: "death"
-        }
-
-        this.createAnimation();
-
-        this.animation = {
-            "attack": this.animAttack,
-            "run": this.animRun,
-            "idle": this.animIdle
-        }
-
-        this.changeAnimation(this.state.RUN) //Default Animation
-
-        this.totalSeconds = 0
-        this.offsetX = 0
-        this.x = 150;
-        this.y = 710;
-        this.speed = 1;
-        this.health = 3
-        this.isControlable = true;
-
-        this.scrollVal = 0
-
-
-
-
+    constructor(){
+        super();
+        this.isMoving = true;
     }
-
+    
     tick() {
 
 
@@ -64,12 +32,13 @@ export default class Player {
         return this.health > 0;
     }
 
-
-
-
-    changeAnimation(state) {
-        this.currentState = state
-        this.currentAnimation = this.animation[state];
+    mouvement(){
+        if(this.isMoving){
+            this.isMoving = false;
+        }
+        else{
+            this.isMoving = true;
+        }
     }
 
     createAnimation() {

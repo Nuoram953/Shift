@@ -4,9 +4,11 @@ import Background from '/public/javascripts/sprites/background.js'
 
 export let ctx = null;
 export let canvas = null;
+
 let spriteList = [];
 let background = null;
 let nScore = 0;
+let currentState = "run"; // default state
 
 window.addEventListener("load", () =>{
     canvas = document.getElementById("canvas");
@@ -14,33 +16,41 @@ window.addEventListener("load", () =>{
 
     background = new Background();    
     spriteList.push(new Player())
-
-    console.log(spriteList);
-    tick()
+    tick();
+    randomEvent();
 })
 
 
 const tick = () =>{
 
+    //We check for state -> global state. If player is run then all entities should run 
+    // If run -> background should move
+    //else -> background still
+
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    for(let i = 0;i<spriteList.length;i++){
-        const sprite = spriteList[i];
+    if (currentState == "run"){
+        background.move();
+    }else{
+        background.idle();
+    }
 
-        if (sprite.currentState == "run"){
-            background.move()
-            score()
-        }else{
-            background.still()
-        }
+    for(let i = 0;i<spriteList.length;i++){
+        const sprite = spriteList[i]
+        sprite.changeAnimation(currentState);
         let alive = sprite.tick();
-        
+
 
         if(!alive){
             spriteList.splice(i,1);
             i--;
         }
     }
+    
+
+
+    
+    
 
     window.requestAnimationFrame(tick)
 }
@@ -50,5 +60,12 @@ const score = () => {
     ctx.font = "55px Arial";
     ctx.fillStyle = "white";
     ctx.fillText(nScore,(canvas.width/2)-(ctx.measureText(nScore).width/2),100);
+}
+
+const randomEvent = () => {
+
+    spriteList.push(new Enemy())
+
+    setTimeout(randomEvent, 10000)
 }
 
