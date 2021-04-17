@@ -7,17 +7,16 @@ import {
     TiledImage
 } from '../TiledImage.js'
 
-export default class Entity{
-    constructor() {
-        this.ctx = ctx;
-        this.canvas = canvas;
+import { state } from '../adventure.js'
 
-        this.state = {
-            ATTACK: "attack",
-            RUN: "run",
-            IDLE: "idle",
-            DEATH: "death"
-        }
+export default class Entity {
+    constructor() {
+        this.canvas = canvas;
+        this.state = state;
+        this.currentState = state.RUN;
+
+        
+
 
         this.createAnimation();
 
@@ -27,25 +26,12 @@ export default class Entity{
             "idle": this.animIdle
         }
 
-       
-
-
         this.x = 150;
         this.y = 710;
         this.speed = 1;
         this.health = 3
         this.isControlable = true;
-
- 
-
-
-
-
     }
-
-
-
-
 
 
     changeAnimation(state) {

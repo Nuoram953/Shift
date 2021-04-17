@@ -14,6 +14,7 @@ export default class Enemy extends Entity{
         this.speed = 1
         this.y = 670;
         this.isMoving = true
+        this.changeAnimation(this.state.RUN)
         
     }
 

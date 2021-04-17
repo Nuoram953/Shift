@@ -9,16 +9,25 @@ import Entity from './entity.js'
 
 
 
+
+
 export default class Player extends Entity {
 
     constructor(){
         super();
+        this.canvas = canvas
+        this.ctx = ctx;
         this.isMoving = true;
-    }
+        
+        this.changeAnimation(this.state.RUN)
+    }   
     
-    tick() {
+    tick(state) {
 
-
+        if (state != this.currentState){
+            this.changeAnimation(state);
+        }
+        
 
         if (this.health > 0) {
             if (this.currentState == this.state.RUN) {

@@ -2,22 +2,42 @@ import Player from '/public/javascripts/sprites/player.js'
 import Enemy from '/public/javascripts/sprites/enemy.js'
 import Background from '/public/javascripts/sprites/background.js'
 
+
 export let ctx = null;
 export let canvas = null;
+
+export let state = {
+    ATTACK: "attack",
+    RUN: "run",
+    IDLE: "idle",
+    DEATH: "death"
+}
 
 let spriteList = [];
 let background = null;
 let nScore = 0;
-let currentState = "run"; // default state
+let currentState = state.RUN; // default state
 
 window.addEventListener("load", () =>{
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
 
-    background = new Background();    
+    background = new Background(state.RUN);    
     spriteList.push(new Player())
+
+    document.addEventListener("keydown",(evt)=>{
+        if (evt.key == "w"){
+            if (currentState == state.RUN){
+                currentState = state.IDLE;
+            }else{
+                currentState = state.RUN;
+            }
+        }
+    })
     tick();
-    randomEvent();
+    // randomEvent();
+
+
 })
 
 
@@ -29,23 +49,35 @@ const tick = () =>{
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    if (currentState == "run"){
-        background.move();
-    }else{
-        background.idle();
-    }
+    background.tick(currentState)
 
     for(let i = 0;i<spriteList.length;i++){
-        const sprite = spriteList[i]
-        sprite.changeAnimation(currentState);
-        let alive = sprite.tick();
-
-
-        if(!alive){
-            spriteList.splice(i,1);
-            i--;
-        }
+        const sprite = spriteList[i];
+        let alive = sprite.tick(currentState);
     }
+
+
+    // for(let i = 0;i<spriteList.length;i++){
+    //     const sprite = spriteList[i]
+    //     let alive = sprite.tick();
+
+
+    //     if(!alive){
+    //         spriteList.splice(i,1);
+    //         i--;
+    //     }
+    // }
+
+    // if (spriteList.length > 1){
+    //     if (spriteList[0].x + 300 >= spriteList[1].x){
+    //         background.currentState == state.IDLE;
+    //         spriteList.forEach(sprite => {
+    //             sprite.changeAnimation(state.IDLE);
+    //         })
+    //     }
+    // }
+
+
     
 
 
