@@ -20,6 +20,7 @@ export default class Entity {
 
         this.createAnimation();
 
+        
         this.animation = {
             "attack": this.animAttack,
             "run": this.animRun,

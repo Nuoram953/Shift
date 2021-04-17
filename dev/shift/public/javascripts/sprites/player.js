@@ -21,7 +21,7 @@ export default class Player extends Entity {
         
         this.changeAnimation(this.state.RUN)
     }   
-    
+
     tick(state) {
 
         if (state != this.currentState){
