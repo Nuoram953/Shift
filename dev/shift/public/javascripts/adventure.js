@@ -1,11 +1,12 @@
 import Player from '/public/javascripts/sprites/player.js'
 import Enemy from '/public/javascripts/sprites/enemy.js'
 import Background from '/public/javascripts/sprites/background.js'
+import UI from '/public/javascripts/sprites/ui.js'
 
 
 export let ctx = null;
 export let canvas = null;
-
+export let player = null;
 export let state = {
     ATTACK: "attack",
     RUN: "run",
@@ -15,42 +16,37 @@ export let state = {
 
 const HEIGHT = 50;
 const WIDTH = 50;
+const MAXHEALTH = 3;
 
 let spriteList = [];
 let background = null;
-let nScore = 0;
+let ui = null
 let currentState = state.RUN; // default state
 let isCurrentEnemy = true;
 let index = 0;
 let currentEnemy = null;
-let expressions = []
+let imgHealth = null;
 
 window.addEventListener("load", () =>{
-    canvas = document.getElementById("canvas");
-    ctx = canvas.getContext("2d");
 
-    background = new Background(state.RUN);    
-    spriteList.push(new Player())
-
-    randomEvent();
+    start();
 
     document.addEventListener("keydown",(evt)=>{
 
         if (evt.key == expressions[index].alt){
            expressions.splice(index, 1);
-        }
+           if (expressions == 0){
+                spriteList[0].changeAnimation(state.ATTACK)
+               spriteList.splice(1,1)
+               changeAnimation(state.RUN);
+               isCurrentEnemy = true;
 
-
-        if (evt.key == "w"){
-            if (currentState == state.RUN){
-                currentState = state.IDLE;
-            }else{
-                currentState = state.RUN;
-            }
-        }else if(evt.key == "r"){
-
+           }
+        }else{
+            console.log('test');
             
         }
+
     })
     tick();
     
@@ -61,45 +57,44 @@ window.addEventListener("load", () =>{
 
 const tick = () =>{
 
-
+    //console.log(currentState);
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    background.tick(currentState)
+    spriteList.forEach(sprite =>{
 
-    for(let i = 0;i<spriteList.length;i++){
-        const sprite = spriteList[i];
-        let alive = sprite.tick(currentState);
 
-        if(i != 0){
-            checkForEnemyNear(sprite);
+
+        if (sprite.type instanceof UI){
+            sprite.type.playerHealth = spriteList[2].type.health
+            sprite.type.tick()
+        }else if (sprite.type instanceof Background){
+            sprite.type.changeAnimation(sprite.state)
+            sprite.type.tick()
+        }else{
+            sprite.type.changeAnimation(sprite.state)
+            let alive = sprite.type.tick()
+            if(!alive){
+                let index = spriteList.indexOf(sprite);
+                spriteList.splice(index,1);
+            }
         }
 
-        if(!alive){
-            spriteList.splice(i,1);
-            i--;
+
+
+
+        if(!sprite.type instanceof Player && !sprite.type instanceof UI && !sprite.type instanceof Background){
+            checkForEnemyNear(sprite.type)
         }
 
 
-        for(let i = 0;i<expressions.length; i++){
-            ctx.drawImage(expressions[i],currentEnemy.x+i*WIDTH,currentEnemy.y-65,expressions[i].width,expressions[i].height)
-        }
 
 
-    }
-
-    score();
+    })
 
     window.requestAnimationFrame(tick)
 }
 
-const score = () => {
-    if (currentState == state.RUN){
-        nScore++;
-    }
-    ctx.font = "55px Arial";
-    ctx.fillStyle = "white";
-    ctx.fillText(nScore,(canvas.width/2)-(ctx.measureText(nScore).width/2),100);
-}
+
 
 const randomEvent = () => {
 
@@ -111,13 +106,11 @@ const randomEvent = () => {
 }
 
 const checkForEnemyNear = (sprite) => {
-    let player = spriteList[0];
-    
+   
     if (player.x + 300 >= sprite.x){
-        currentState = state.IDLE
+        changeAnimation(state.IDLE)
         if(isCurrentEnemy){
-            currentEnemy = sprite;
-            addExpressions("a");
+            ui.addExpressions("a",sprite);
             isCurrentEnemy = false;
         }
     }
@@ -125,20 +118,31 @@ const checkForEnemyNear = (sprite) => {
 
 }
 
-const addExpressions = (sprite) => {
-    let key = new Image(WIDTH,HEIGHT);
-    key.src = '../../images/keyboard/a.png'
-    key.alt = "a";
-    expressions.push(key)
 
-    let key2 = new Image(WIDTH,HEIGHT);
-    key2.src = '../../images/keyboard/b.png'
-    key2.alt = "b";
-    expressions.push(key2)
-
-    let key3 = new Image(WIDTH,HEIGHT);
-    key3.src = '../../images/keyboard/c.png'
-    key3.alt = "c";
-    expressions.push(key3)
+const changeAnimation = (state) => {
+    currentState = state;
+    background.currentState = state;
+    spriteList.forEach((sprite)=>{
+        sprite.currentState = state
+    });
 }
 
+
+const start = () => {
+    canvas = document.getElementById("canvas");
+    ctx = canvas.getContext("2d");
+
+    spriteList.push({type:new Background(),state:state.RUN})
+    spriteList.push({type:new UI()})
+    spriteList.push({type:new Player(),state:state.ATTACK})
+
+
+
+    //randomEvent();
+    
+
+}
+
+export const doneEvent = () => {
+    spriteList[2].state = state.RUN;
+}

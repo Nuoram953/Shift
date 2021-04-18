@@ -7,12 +7,11 @@ import Entity from './entity.js';
 
 
 export default class Background extends Entity{
-    constructor(state) {
+    constructor() {
         super();
         this.ctx = ctx;
         this.canvas = canvas;
 
-        this.currentState = state;
 
         this.img = new Image();
         this.img.src = "../../images/background/Background.png"
@@ -77,12 +76,14 @@ export default class Background extends Entity{
 
     }
 
-    changeBackground() {
 
+    changeAnimation(state) {
+        this.currentState = state
     }
 
-    tick(state) {
-        if (state == "run"){
+    tick() {
+       
+        if (this.currentState == "run"){
             this.x += this.speed;
             this.x %= this.canvas.width
     

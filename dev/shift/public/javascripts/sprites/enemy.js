@@ -21,20 +21,18 @@ export default class Enemy extends Entity{
         this.y = 670;
         this.isMoving = true
         this.keys = [];
-        this.changeAnimation(this.state.RUN)
 
         
     }
 
-    tick(state) {
-        if (state != this.currentState){
-            this.changeAnimation(state);
-        }
+    tick() {
+
         
         if (this.health > 0) {
-            if (state == this.state.RUN) {
+            if (this.currentState == this.state.RUN) {
                 this.x -= this.speed; 
             }
+            
             this.currentAnimation.tick(this.x, this.y, this.ctx);
         }
         
@@ -53,10 +51,12 @@ export default class Enemy extends Entity{
         let scale = 2.5;
         let loopColum = true;
 
-        columnCount = 16
-        this.animAttack = new TiledImage('../../images/sprite/Boss/spr_Idle_strip.png', columnCount, rowCount, refreshDelay, loopColum, scale)
+        columnCount = 30
+        this.animAttack = new TiledImage('../../images/sprite/Boss/spr_Attack_strip.png', columnCount, rowCount, refreshDelay, false, scale)
+        this.animAttack.setFlipped(true)
         this.animAttack.changeRow(0)
         this.animAttack.changeMinMaxInterval(0, columnCount)
+        
         
         
         columnCount = 8

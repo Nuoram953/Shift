@@ -1,6 +1,7 @@
 import {
     canvas,
-    ctx
+    ctx,
+    doneEvent
 } from '../adventure.js'
 import {
     TiledImage
@@ -13,42 +14,37 @@ import Entity from './entity.js'
 
 export default class Player extends Entity {
 
-    constructor(){
+    constructor() {
         super();
         this.canvas = canvas
         this.ctx = ctx;
-        this.isMoving = true;
-        
-        this.changeAnimation(this.state.RUN)
-    }   
+        this.name = "Nuoram"
 
-    tick(state) {
+    }
 
-        if (state != this.currentState){
-            this.changeAnimation(state);
+    tick() {
+
+
+        switch (this.currentState) {
+            case this.state.ATTACK: this.attack();
+                break;
+            case this.state.ATTACK: this.idle();
+                break;
+            case this.state.ATTACK: this.run();
+                break;
         }
-        
+
 
         if (this.health > 0) {
-            if (this.currentState == this.state.RUN) {
-                
-               
-            }
-
             this.currentAnimation.tick(this.x, this.y, this.ctx);
         }
 
         return this.health > 0;
     }
 
-    mouvement(){
-        if(this.isMoving){
-            this.isMoving = false;
-        }
-        else{
-            this.isMoving = true;
-        }
-    }
+
+
+
 
     createAnimation() {
 
@@ -60,8 +56,10 @@ export default class Player extends Entity {
 
         columnCount = 22
         this.animAttack = new TiledImage('../../images/sprite/player_attack.png', columnCount, rowCount, refreshDelay, loopColum, scale)
+        this.animAttack.setLooped(false)
         this.animAttack.changeRow(0)
-        this.animAttack.changeMinMaxInterval(0, columnCount)
+        this.animAttack.changeMinMaxInterval(0, columnCount, doneEvent)
+
 
         columnCount = 8
         this.animRun = new TiledImage('../../images/sprite/player_run.png', columnCount, rowCount, refreshDelay, loopColum, scale)

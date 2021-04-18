@@ -14,6 +14,7 @@ export default class Entity {
         this.canvas = canvas;
         this.state = state;
         this.currentState = state.RUN;
+        this.currentAnimation = null;
 
         
 
@@ -39,4 +40,20 @@ export default class Entity {
         this.currentState = state
         this.currentAnimation = this.animation[state];
     }
+
+    attack(){
+        this.currentState = this.state.ATTACK
+        this.currentAnimation = this.animation[this.currentState]
+    }
+
+    run(){
+        this.currentState = this.state.RUN
+        this.currentAnimation = this.animation[this.currentState]
+    }
+
+    idle(){
+        this.currentState = this.state.RUN
+        this.currentAnimation = this.animation[this.currentState]
+    }
+    
 }
