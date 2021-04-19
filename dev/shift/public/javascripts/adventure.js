@@ -19,76 +19,63 @@ const WIDTH = 50;
 const MAXHEALTH = 3;
 
 let spriteList = [];
-let background = null;
-let ui = null
-let currentState = state.RUN; // default state
-let isCurrentEnemy = true;
 let index = 0;
-let currentEnemy = null;
-let imgHealth = null;
+let isBattleOn = false;
 
-window.addEventListener("load", () =>{
+
+
+window.addEventListener("load", () => {
 
     start();
 
-    document.addEventListener("keydown",(evt)=>{
+    document.addEventListener("keydown", (evt) => {
 
-        if (evt.key == expressions[index].alt){
-           expressions.splice(index, 1);
-           if (expressions == 0){
-                spriteList[0].changeAnimation(state.ATTACK)
-               spriteList.splice(1,1)
-               changeAnimation(state.RUN);
-               isCurrentEnemy = true;
-
-           }
-        }else{
-            console.log('test');
-            
+        if (evt.key == 'r'){
+            spriteList[2].state = state.ATTACK
+        }else if (evt.key == "w"){
+            spriteList[2].state = state.RUN
         }
 
+        console.log(spriteList[2].state);
     })
     tick();
-    
+
 
 
 })
 
 
-const tick = () =>{
+const tick = () => {
 
     //console.log(currentState);
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    spriteList.forEach(sprite =>{
+    spriteList.forEach(sprite => {
 
+        let current = spriteList.indexOf(sprite)
 
-
-        if (sprite.type instanceof UI){
+        if (sprite.type instanceof UI) {
             sprite.type.playerHealth = spriteList[2].type.health
             sprite.type.tick()
-        }else if (sprite.type instanceof Background){
+
+        } else if (sprite.type instanceof Background) {
             sprite.type.changeAnimation(sprite.state)
             sprite.type.tick()
-        }else{
+
+        } else {
+
             sprite.type.changeAnimation(sprite.state)
             let alive = sprite.type.tick()
-            if(!alive){
+
+            if (!(sprite.type instanceof Player)) {
+                checkForEnemyNear(spriteList[current])
+            }
+
+            if (!alive) {
                 let index = spriteList.indexOf(sprite);
-                spriteList.splice(index,1);
+                spriteList.splice(index, 1);
             }
         }
-
-
-
-
-        if(!sprite.type instanceof Player && !sprite.type instanceof UI && !sprite.type instanceof Background){
-            checkForEnemyNear(sprite.type)
-        }
-
-
-
-
     })
 
     window.requestAnimationFrame(tick)
@@ -98,51 +85,80 @@ const tick = () =>{
 
 const randomEvent = () => {
 
-    if (currentState == state.RUN && spriteList.length < 3){
-        spriteList.push(new Enemy())
+    if (spriteList.length < 6 && !isBattleOn) {
+        spriteList.push({ type: new Enemy(), state: state.RUN })
     }
 
     setTimeout(randomEvent, 10000)
 }
 
 const checkForEnemyNear = (sprite) => {
-   
-    if (player.x + 300 >= sprite.x){
-        changeAnimation(state.IDLE)
-        if(isCurrentEnemy){
-            ui.addExpressions("a",sprite);
-            isCurrentEnemy = false;
+    if (spriteList[2].type.x + 300 >= sprite.type.x) {
+
+       
+        if(!isBattleOn){
+            battle(sprite);
+            isBattleOn = true;
         }
     }
-    
-
 }
 
-
-const changeAnimation = (state) => {
-    currentState = state;
-    background.currentState = state;
-    spriteList.forEach((sprite)=>{
-        sprite.currentState = state
-    });
-}
 
 
 const start = () => {
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
 
-    spriteList.push({type:new Background(),state:state.RUN})
-    spriteList.push({type:new UI()})
-    spriteList.push({type:new Player(),state:state.ATTACK})
+    //Default element to create
+    spriteList.push({ type: new Background(), state: state.RUN })
+    spriteList.push({ type: new UI() })
+    spriteList.push({ type: new Player(), state: state.RUN })
 
 
 
-    //randomEvent();
-    
+    randomEvent();
+
 
 }
 
 export const doneEvent = () => {
-    spriteList[2].state = state.RUN;
+
+    if (spriteList[2].state == state.ATTACK && spriteList[3].state == state.IDLE){
+        spriteList[2].state = state.IDLE;
+        spriteList[3].state = state.DEATH;
+        
+    }else if(spriteList[3].state == state.DEATH && spriteList[2].state == state.IDLE){
+        spriteList[3].type.health = 0
+        battleIsOver()
+        
+    }
+    
+
+    
+}
+
+const battle = (sprite) => {
+
+    spriteList[2].state = state.IDLE; // Player
+    spriteList[spriteList.indexOf(sprite)].state = state.IDLE; // Enemy
+    spriteList[0].state = state.IDLE;
+    //spriteList[1].type.addExpressions("a",spriteList[spriteList.indexOf(sprite)].type)
+}
+
+const battleIsOver = () =>{
+    console.log('test');
+    spriteList[2].state = state.RUN; // Player
+    spriteList[3].state = state.RUN; // Enemy
+    spriteList[0].state = state.RUN; // Background
+
+    //console.log(spriteList);
+}
+
+const attack = (attacking) => {
+
+    if (attacking == "player"){
+        spriteList[2].state = state.ATTACK
+    }else{
+        spriteList[3].state = state.ATTACK
+    }
 }

@@ -25,7 +25,8 @@ export default class Entity {
         this.animation = {
             "attack": this.animAttack,
             "run": this.animRun,
-            "idle": this.animIdle
+            "idle": this.animIdle,
+            "death":this.animDeath
         }
 
         this.x = 150;

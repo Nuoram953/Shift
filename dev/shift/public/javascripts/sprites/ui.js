@@ -38,7 +38,7 @@ export default class UI{
 
         //Expressions
         for(let i = 0;i<this.expressions.length; i++){
-            ctx.drawImage(this.expressions[i],this.enemy.x+i*WIDTH,this.enemy.y-65,this.expressions[i].width,this.expressions[i].height)
+            ctx.drawImage(this.expressions[i],this.enemy.x-(this.length/2)+i*WIDTH,this.enemy.y-65,this.expressions[i].width,this.expressions[i].height)
         }
 
 
@@ -62,6 +62,8 @@ export default class UI{
         key3.src = '../../images/keyboard/c.png'
         key3.alt = "c";
         this.expressions.push(key3)
+
+        this.length = 2*50;
 
     }
 

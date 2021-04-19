@@ -60,18 +60,20 @@ export default class Background extends Entity{
         this.xLayer6 = 0;
         this.xLayer7 = 0;
         this.xLayer8 = 0;
+        this.xLayer9 = 0;
 
         this.speed = -1;
         
-        this.speedLayer0 = -0.5;
-        this.speedLayer1 = -1;
+        this.speedLayer0 = -0.8;
+        this.speedLayer1 = -0.3;
         this.speedLayer2 = -0.3;
         this.speedLayer3 = -0.3;
         this.speedLayer4 = -0.4;
-        this.speedLayer5 = -0.3;
-        this.speedLayer6 = -0.2;
-        this.speedLayer7 = -0.1;
-        this.speedLayer8 = -0.1;
+        this.speedLayer5 = -0.4;
+        this.speedLayer6 = -0.4;
+        this.speedLayer7 = -0.5;
+        this.speedLayer8 = -0.5;
+        this.speedLayer9 = -0.5;
   
 
     }
@@ -113,6 +115,9 @@ export default class Background extends Entity{
     
             this.xLayer8 += this.speedLayer8;
             this.xLayer8 %= this.canvas.width
+
+            this.xLayer9 += this.speedLayer9;
+            this.xLayer9 %= this.canvas.width
             
         }
         

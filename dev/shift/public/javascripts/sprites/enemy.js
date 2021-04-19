@@ -1,6 +1,7 @@
 import {
     canvas,
-    ctx
+    ctx,
+    doneEvent
 } from '../adventure.js'
 import {
     TiledImage
@@ -20,7 +21,7 @@ export default class Enemy extends Entity{
         this.speed = 3
         this.y = 670;
         this.isMoving = true
-        this.keys = [];
+        
 
         
     }
@@ -52,10 +53,11 @@ export default class Enemy extends Entity{
         let loopColum = true;
 
         columnCount = 30
-        this.animAttack = new TiledImage('../../images/sprite/Boss/spr_Attack_strip.png', columnCount, rowCount, refreshDelay, false, scale)
+        this.animAttack = new TiledImage('../../images/sprite/Boss/spr_Attack_strip.png', columnCount, rowCount, refreshDelay, loopColum, scale)
         this.animAttack.setFlipped(true)
+        this.animAttack.setLooped(false)
         this.animAttack.changeRow(0)
-        this.animAttack.changeMinMaxInterval(0, columnCount)
+        this.animAttack.changeMinMaxInterval(0, columnCount, doneEvent)
         
         
         
@@ -71,6 +73,13 @@ export default class Enemy extends Entity{
         this.animIdle.setFlipped(true);
         this.animIdle.changeRow(0)
         this.animIdle.changeMinMaxInterval(0, columnCount)
+
+        columnCount = 40
+        this.animDeath = new TiledImage('../../images/sprite/Boss/spr_Death_strip.png', columnCount, rowCount, refreshDelay, loopColum, scale)
+        this.animDeath.setFlipped(true);
+        this.animDeath.setLooped(false)
+        this.animDeath.changeRow(0)
+        this.animDeath.changeMinMaxInterval(0, columnCount, doneEvent)
         
 
 
