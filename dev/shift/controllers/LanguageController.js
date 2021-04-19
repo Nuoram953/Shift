@@ -1,9 +1,16 @@
-var Language = require('../models/language')
+var Language = require('../models/language');
+
+
 
 
 
 exports.findWord = function(req,res,next){
-    res.send('NOT IMPLEMENTED: findWords: ' + req.params.id);
+    Language.count().exec(function(err,count){
+        Language.findOne().skip(Math.random()*count).exec(function(err,word){
+            console.log(word);
+            res.send(word)
+        })
+    })
 }
 
 //OPTIONEL - Fonction d'admin

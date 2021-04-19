@@ -40,7 +40,7 @@ window.addEventListener("load", () => {
         if (evt.key == 'r') {
             entities[gameObject.PLAYER].state = state.ATTACK
         } else if (evt.key == "w") {
-            gameObject[2].state = state.RUN
+            console.log(entities[gameObject.UI].type.currentWord.expression);
         }
 
 
@@ -80,9 +80,6 @@ const tick = () => {
             checkForEnemyNear(enemy)
         }
     })
-
-
-
     window.requestAnimationFrame(tick)
 }
 
@@ -131,14 +128,12 @@ export const doneEvent = () => {
 
     //If player win
     if (entities[gameObject.PLAYER].state == state.ATTACK && entities[gameObject.ENEMY][0].state == state.IDLE) {
-        console.log('Player attack enemy');
         entities[gameObject.PLAYER].state = state.IDLE;
         entities[gameObject.ENEMY][0].state = state.DEATH;
 
     }
     // After enemy death
     else if (entities[gameObject.PLAYER].state == state.IDLE && entities[gameObject.ENEMY][0].state == state.DEATH) {
-        console.log('Enemy is dead and should disapear');
         entities[gameObject.ENEMY][0].type.health = 0
         isBattleOn = false;
         battleIsOver()
@@ -153,25 +148,15 @@ const battle = (sprite) => {
     entities[gameObject.ENEMY][entities[gameObject.ENEMY].indexOf(sprite)].state = state.IDLE; // Enemy
     entities[gameObject.BACKGROUND].state = state.IDLE;
     entities[gameObject.UI].type.enemy = sprite.type
+    entities[gameObject.UI].type.findWord()
 }
+
 const battleIsOver = () => {
     entities[gameObject.PLAYER].type.createAttack()
     entities[gameObject.PLAYER].state = state.RUN;
     entities[gameObject.ENEMY][0].state = state.RUN;
     entities[gameObject.BACKGROUND].state = state.RUN;
-
     entities[gameObject.UI].type.points(5);
-
-
-}
-
-const attack = (attacking) => {
-
-    if (attacking == "player") {
-        gameObject[2].state = state.ATTACK
-    } else {
-        gameObject[3].state = state.ATTACK
-    }
 }
 
 

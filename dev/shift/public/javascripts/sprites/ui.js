@@ -1,4 +1,5 @@
 import {canvas,ctx,player} from '../adventure.js'
+import Expression from './expression.js'
 
 const HEIGHT = 50;
 const WIDTH = 50;
@@ -62,7 +63,7 @@ export default class UI{
 
         //Expressions
         for(let i = 0;i<this.expressions.length; i++){
-            ctx.drawImage(this.expressions[i],this.enemy-(this.length/2)+i*WIDTH,this.enemy.y-65,this.expressions[i].width,this.expressions[i].height)
+            ctx.drawImage(this.expressions[i],this.enemy.x-(this.length/2)+i*WIDTH,this.enemy.y-65,this.expressions[i].width,this.expressions[i].height)
         }
 
 
@@ -70,22 +71,36 @@ export default class UI{
 
     addExpressions(string){
 
-        
+       
+        console.log( this.currentWord.expression['expression']);
 
-        let key = new Image(WIDTH,HEIGHT);
-        key.src = '../../images/keyboard/a.png'
-        key.alt = "a";
-        this.expressions.push(key)
+        let count = 0;
+        let word = this.currentWord.expression['expression']
+
+        for(let i = 0;i<word.length;i++){
+            let key = new Image(WIDTH,HEIGHT);
+            key.src = `../../images/keyboard/${word[i]}.png`
+            key.alt = "a";
+            this.expressions.push(key)
+
+        }
+
+        this.length = word.length*50
+
+        // let key = new Image(WIDTH,HEIGHT);
+        // key.src = '../../images/keyboard/a.png'
+        // key.alt = "a";
+        // this.expressions.push(key)
     
-        let key2 = new Image(WIDTH,HEIGHT);
-        key2.src = '../../images/keyboard/b.png'
-        key2.alt = "b";
-        this.expressions.push(key2)
+        // let key2 = new Image(WIDTH,HEIGHT);
+        // key2.src = '../../images/keyboard/b.png'
+        // key2.alt = "b";
+        // this.expressions.push(key2)
     
-        let key3 = new Image(WIDTH,HEIGHT);
-        key3.src = '../../images/keyboard/c.png'
-        key3.alt = "c";
-        this.expressions.push(key3)
+        // let key3 = new Image(WIDTH,HEIGHT);
+        // key3.src = '../../images/keyboard/c.png'
+        // key3.alt = "c";
+        // this.expressions.push(key3)
 
         this.length = 2*50;
 
@@ -94,6 +109,13 @@ export default class UI{
     points(value){
         this.newScore = true;
         this.newScoreValue = value
+    }
+
+    findWord(){
+        this.currentWord = new Expression();
+        setTimeout(() => {
+            this.addExpressions()
+        }, 1000);   
     }
 
 }

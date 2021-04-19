@@ -4,6 +4,7 @@ var router = express.Router();
 
 var userController = require('../controllers/UsersController')
 var gameController = require('../controllers/GameController')
+var languageController = require('../controllers/LanguageController')
 
 
 
@@ -55,6 +56,11 @@ router.get('/game/end', gameController.homePage)
 router.get('/result', gameController.resultPage)
 
 router.get('/adventure', gameController.adventurePage)
+
+
+
+
+router.get('/adventure/expression', languageController.findWord)
 
 
 
