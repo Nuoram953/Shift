@@ -36,7 +36,7 @@ window.addEventListener("load", () => {
             spriteList[2].state = state.RUN
         }
 
-        console.log(spriteList[2].state);
+        
     })
     tick();
 
@@ -96,10 +96,10 @@ const checkForEnemyNear = (sprite) => {
     if (spriteList[2].type.x + 300 >= sprite.type.x) {
 
        
-        if(!isBattleOn){
-            battle(sprite);
-            isBattleOn = true;
-        }
+        //if(!isBattleOn){
+        //    battle(sprite);
+        //    isBattleOn = true;
+        //}
     }
 }
 
@@ -122,6 +122,10 @@ const start = () => {
 }
 
 export const doneEvent = () => {
+    
+    console.log('Animation is done');
+
+    console.log(spriteList[2].state);
 
     if (spriteList[2].state == state.ATTACK && spriteList[3].state == state.IDLE){
         spriteList[2].state = state.IDLE;
@@ -131,8 +135,13 @@ export const doneEvent = () => {
         spriteList[3].type.health = 0
         battleIsOver()
         
+    }else if(spriteList[2].state == state.ATTACK){
+        console.log('Condition attack');
+        battleIsOver()
     }
     
+    console.log(spriteList[2].state);
+    console.log(spriteList[2].type.animAttack);
 
     
 }
@@ -146,10 +155,11 @@ const battle = (sprite) => {
 }
 
 const battleIsOver = () =>{
-    console.log('test');
+    spriteList[2].type.createAttack();
     spriteList[2].state = state.RUN; // Player
     spriteList[3].state = state.RUN; // Enemy
     spriteList[0].state = state.RUN; // Background
+    isBattleOn = false;
 
     //console.log(spriteList);
 }
@@ -160,5 +170,14 @@ const attack = (attacking) => {
         spriteList[2].state = state.ATTACK
     }else{
         spriteList[3].state = state.ATTACK
+    }
+}
+
+const resetAnimation = (state) => {
+    
+    if(state == state.ATTACK){
+        spriteList[2].type.animAttack.resetCol()
+        spriteList[2].type.animAttack.imageCurrentCol = 0
+        
     }
 }
