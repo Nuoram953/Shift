@@ -55,7 +55,7 @@ export default class Player extends Entity {
         columnCount = 8
         this.animRun = new TiledImage('../../images/sprite/player_run.png', columnCount, rowCount, refreshDelay, loopColum, scale)
         this.animRun.changeRow(0)
-        this.animRun.changeMinMaxInterval(0, columnCount,doneEvent)
+        this.animRun.changeMinMaxInterval(0, columnCount)
 
         columnCount = 15
         this.animIdle = new TiledImage('../../images/sprite/player_idle.png', columnCount, rowCount, refreshDelay, loopColum, scale)

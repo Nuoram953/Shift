@@ -32,7 +32,7 @@ export default class Entity {
         this.x = 150;
         this.y = 710;
         this.speed = 1;
-        this.health = 3
+        this.health = 3;
         this.isControlable = true;
     }
 

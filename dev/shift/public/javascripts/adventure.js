@@ -14,11 +14,18 @@ export let state = {
     DEATH: "death"
 }
 
+let gameObject = {
+    UI: 'ui',
+    BACKGROUND: 'background',
+    PLAYER: 'player',
+    ENEMY: 'enemy'
+}
+
 const HEIGHT = 50;
 const WIDTH = 50;
 const MAXHEALTH = 3;
 
-let spriteList = [];
+let entities = {};
 let index = 0;
 let isBattleOn = false;
 
@@ -31,9 +38,9 @@ window.addEventListener("load", () => {
     document.addEventListener("keydown", (evt) => {
 
         if (evt.key == 'r'){
-            spriteList[2].state = state.ATTACK
+           entites[gameObject.PLAYER].state = state.ATTACK
         }else if (evt.key == "w"){
-            spriteList[2].state = state.RUN
+            gameObject[2].state = state.RUN
         }
 
         
@@ -50,33 +57,31 @@ const tick = () => {
     //console.log(currentState);
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    spriteList.forEach(sprite => {
+    
 
-        let current = spriteList.indexOf(sprite)
+        entities[gameObject.BACKGROUND].type.changeAnimation(entities[gameObject.BACKGROUND].state)
+        entities[gameObject.BACKGROUND].type.tick();
 
-        if (sprite.type instanceof UI) {
-            sprite.type.playerHealth = spriteList[2].type.health
-            sprite.type.tick()
+        entities[gameObject.UI].type.playerHealth = entities[gameObject.PLAYER].type.health
+        entities[gameObject.UI].type.tick();
 
-        } else if (sprite.type instanceof Background) {
-            sprite.type.changeAnimation(sprite.state)
-            sprite.type.tick()
-
-        } else {
-
-            sprite.type.changeAnimation(sprite.state)
-            let alive = sprite.type.tick()
-
-            if (!(sprite.type instanceof Player)) {
-                checkForEnemyNear(spriteList[current])
-            }
-
-            if (!alive) {
-                let index = spriteList.indexOf(sprite);
-                spriteList.splice(index, 1);
-            }
+        entities[gameObject.PLAYER].type.changeAnimation(entities[gameObject.PLAYER].state)
+        if (!entities[gameObject.PLAYER].type.tick()) {
+            gameOver();
         }
-    })
+
+        entities[gameObject.ENEMY].forEach((enemy) => {
+            enemy.type.changeAnimation(enemy.state)
+
+            if (!enemy.type.tick()) {
+                let index = entities[gameObject.ENEMY].indexOf(enemy)
+                entities[gameObject.ENEMY].splice(index,1)
+            }else{
+                checkForEnemyNear(enemy)
+            }
+        })
+
+    
 
     window.requestAnimationFrame(tick)
 }
@@ -85,21 +90,20 @@ const tick = () => {
 
 const randomEvent = () => {
 
-    if (spriteList.length < 6 && !isBattleOn) {
-        spriteList.push({ type: new Enemy(), state: state.RUN })
+    if (entities[gameObject.ENEMY].length < 6 && !isBattleOn) {
+        entities[gameObject.ENEMY].push({ type: new Enemy(), state: state.RUN })
     }
 
     setTimeout(randomEvent, 10000)
 }
 
-const checkForEnemyNear = (sprite) => {
-    if (spriteList[2].type.x + 300 >= sprite.type.x) {
-
-       
-        //if(!isBattleOn){
-        //    battle(sprite);
-        //    isBattleOn = true;
-        //}
+const checkForEnemyNear = (enemy) => {
+    if (entities[gameObject.PLAYER].type.x + 300 >= enemy.type.x) {
+  
+        if(!isBattleOn){
+            battle(enemy);
+            isBattleOn = true;
+        }
     }
 }
 
@@ -110,9 +114,10 @@ const start = () => {
     ctx = canvas.getContext("2d");
 
     //Default element to create
-    spriteList.push({ type: new Background(), state: state.RUN })
-    spriteList.push({ type: new UI() })
-    spriteList.push({ type: new Player(), state: state.RUN })
+    entities[gameObject.BACKGROUND] = { type: new Background(), state: state.RUN };
+    entities[gameObject.UI] = { type: new UI()};
+    entities[gameObject.PLAYER] = { type: new Player(), state: state.RUN };
+    entities[gameObject.ENEMY]=[];
 
 
 
@@ -123,42 +128,36 @@ const start = () => {
 
 export const doneEvent = () => {
     
-    console.log('Animation is done');
 
-    console.log(spriteList[2].state);
-
-    if (spriteList[2].state == state.ATTACK && spriteList[3].state == state.IDLE){
-        spriteList[2].state = state.IDLE;
-        spriteList[3].state = state.DEATH;
+    if (gameObject['player'].state == state.ATTACK && gameObject[3].state == state.IDLE){
+        gameObject['player'].state = state.IDLE;
+        gameObject[3].state = state.DEATH;
         
-    }else if(spriteList[3].state == state.DEATH && spriteList[2].state == state.IDLE){
-        spriteList[3].type.health = 0
+    }else if(gameObject[3].state == state.DEATH && gameObject[2].state == state.IDLE){
+        gameObject[3].type.health = 0
         battleIsOver()
         
-    }else if(spriteList[2].state == state.ATTACK){
+    }else if(gameObject['player'].state == state.ATTACK){
         console.log('Condition attack');
         battleIsOver()
     }
     
-    console.log(spriteList[2].state);
-    console.log(spriteList[2].type.animAttack);
-
     
 }
 
 const battle = (sprite) => {
 
-    spriteList[2].state = state.IDLE; // Player
-    spriteList[spriteList.indexOf(sprite)].state = state.IDLE; // Enemy
-    spriteList[0].state = state.IDLE;
+    entities[gameObject.PLAYER].state = state.IDLE;
+    entities[gameObject.ENEMY][entities[gameObject.ENEMY].indexOf(sprite)].state = state.IDLE; // Enemy
+    entities[gameObject.BACKGROUND].state = state.IDLE;
     //spriteList[1].type.addExpressions("a",spriteList[spriteList.indexOf(sprite)].type)
 }
 
 const battleIsOver = () =>{
-    spriteList[2].type.createAttack();
-    spriteList[2].state = state.RUN; // Player
-    spriteList[3].state = state.RUN; // Enemy
-    spriteList[0].state = state.RUN; // Background
+    gameObject[2].type.createAttack();
+    gameObject[2].state = state.RUN; // Player
+    gameObject[3].state = state.RUN; // Enemy
+    gameObject[0].state = state.RUN; // Background
     isBattleOn = false;
 
     //console.log(spriteList);
@@ -167,17 +166,14 @@ const battleIsOver = () =>{
 const attack = (attacking) => {
 
     if (attacking == "player"){
-        spriteList[2].state = state.ATTACK
+        gameObject[2].state = state.ATTACK
     }else{
-        spriteList[3].state = state.ATTACK
+        gameObject[3].state = state.ATTACK
     }
 }
 
-const resetAnimation = (state) => {
-    
-    if(state == state.ATTACK){
-        spriteList[2].type.animAttack.resetCol()
-        spriteList[2].type.animAttack.imageCurrentCol = 0
-        
-    }
+
+
+const gameOver = () => {
+
 }
