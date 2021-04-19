@@ -37,13 +37,13 @@ window.addEventListener("load", () => {
 
     document.addEventListener("keydown", (evt) => {
 
-        if (evt.key == 'r'){
-           entites[gameObject.PLAYER].state = state.ATTACK
-        }else if (evt.key == "w"){
+        if (evt.key == 'r') {
+            entities[gameObject.PLAYER].state = state.ATTACK
+        } else if (evt.key == "w") {
             gameObject[2].state = state.RUN
         }
 
-        
+
     })
     tick();
 
@@ -57,31 +57,31 @@ const tick = () => {
     //console.log(currentState);
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    
 
-        entities[gameObject.BACKGROUND].type.changeAnimation(entities[gameObject.BACKGROUND].state)
-        entities[gameObject.BACKGROUND].type.tick();
 
-        entities[gameObject.UI].type.playerHealth = entities[gameObject.PLAYER].type.health
-        entities[gameObject.UI].type.tick();
+    entities[gameObject.BACKGROUND].type.changeAnimation(entities[gameObject.BACKGROUND].state)
+    entities[gameObject.BACKGROUND].type.tick();
 
-        entities[gameObject.PLAYER].type.changeAnimation(entities[gameObject.PLAYER].state)
-        if (!entities[gameObject.PLAYER].type.tick()) {
-            gameOver();
+    entities[gameObject.UI].type.playerHealth = entities[gameObject.PLAYER].type.health
+    entities[gameObject.UI].type.tick();
+
+    entities[gameObject.PLAYER].type.changeAnimation(entities[gameObject.PLAYER].state)
+    if (!entities[gameObject.PLAYER].type.tick()) {
+        gameOver();
+    }
+
+    entities[gameObject.ENEMY].forEach((enemy) => {
+        enemy.type.changeAnimation(enemy.state)
+
+        if (!enemy.type.tick()) {
+            let index = entities[gameObject.ENEMY].indexOf(enemy)
+            entities[gameObject.ENEMY].splice(index, 1)
+        } else {
+            checkForEnemyNear(enemy)
         }
+    })
 
-        entities[gameObject.ENEMY].forEach((enemy) => {
-            enemy.type.changeAnimation(enemy.state)
 
-            if (!enemy.type.tick()) {
-                let index = entities[gameObject.ENEMY].indexOf(enemy)
-                entities[gameObject.ENEMY].splice(index,1)
-            }else{
-                checkForEnemyNear(enemy)
-            }
-        })
-
-    
 
     window.requestAnimationFrame(tick)
 }
@@ -99,8 +99,8 @@ const randomEvent = () => {
 
 const checkForEnemyNear = (enemy) => {
     if (entities[gameObject.PLAYER].type.x + 300 >= enemy.type.x) {
-  
-        if(!isBattleOn){
+
+        if (!isBattleOn) {
             battle(enemy);
             isBattleOn = true;
         }
@@ -115,9 +115,9 @@ const start = () => {
 
     //Default element to create
     entities[gameObject.BACKGROUND] = { type: new Background(), state: state.RUN };
-    entities[gameObject.UI] = { type: new UI()};
+    entities[gameObject.UI] = { type: new UI() };
     entities[gameObject.PLAYER] = { type: new Player(), state: state.RUN };
-    entities[gameObject.ENEMY]=[];
+    entities[gameObject.ENEMY] = [];
 
 
 
@@ -127,47 +127,49 @@ const start = () => {
 }
 
 export const doneEvent = () => {
-    
 
-    if (gameObject['player'].state == state.ATTACK && gameObject[3].state == state.IDLE){
-        gameObject['player'].state = state.IDLE;
-        gameObject[3].state = state.DEATH;
-        
-    }else if(gameObject[3].state == state.DEATH && gameObject[2].state == state.IDLE){
-        gameObject[3].type.health = 0
-        battleIsOver()
-        
-    }else if(gameObject['player'].state == state.ATTACK){
-        console.log('Condition attack');
-        battleIsOver()
+
+    //If player win
+    if (entities[gameObject.PLAYER].state == state.ATTACK && entities[gameObject.ENEMY][0].state == state.IDLE) {
+        console.log('Player attack enemy');
+        entities[gameObject.PLAYER].state = state.IDLE;
+        entities[gameObject.ENEMY][0].state = state.DEATH;
+
     }
-    
-    
+    // After enemy death
+    else if (entities[gameObject.PLAYER].state == state.IDLE && entities[gameObject.ENEMY][0].state == state.DEATH) {
+        console.log('Enemy is dead and should disapear');
+        entities[gameObject.ENEMY][0].type.health = 0
+        isBattleOn = false;
+        battleIsOver()
+
+    }
+
+
 }
 
 const battle = (sprite) => {
-
     entities[gameObject.PLAYER].state = state.IDLE;
     entities[gameObject.ENEMY][entities[gameObject.ENEMY].indexOf(sprite)].state = state.IDLE; // Enemy
     entities[gameObject.BACKGROUND].state = state.IDLE;
-    //spriteList[1].type.addExpressions("a",spriteList[spriteList.indexOf(sprite)].type)
+    entities[gameObject.UI].type.enemy = sprite.type
 }
+const battleIsOver = () => {
+    entities[gameObject.PLAYER].type.createAttack()
+    entities[gameObject.PLAYER].state = state.RUN;
+    entities[gameObject.ENEMY][0].state = state.RUN;
+    entities[gameObject.BACKGROUND].state = state.RUN;
 
-const battleIsOver = () =>{
-    gameObject[2].type.createAttack();
-    gameObject[2].state = state.RUN; // Player
-    gameObject[3].state = state.RUN; // Enemy
-    gameObject[0].state = state.RUN; // Background
-    isBattleOn = false;
+    entities[gameObject.UI].type.points(5);
 
-    //console.log(spriteList);
+
 }
 
 const attack = (attacking) => {
 
-    if (attacking == "player"){
+    if (attacking == "player") {
         gameObject[2].state = state.ATTACK
-    }else{
+    } else {
         gameObject[3].state = state.ATTACK
     }
 }
@@ -175,5 +177,5 @@ const attack = (attacking) => {
 
 
 const gameOver = () => {
-
+    console.log('');
 }

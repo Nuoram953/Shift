@@ -18,13 +18,37 @@ export default class UI{
         this.score = 0
         this.expressions = []
         this.enemy = null;
-
+        this.newScore= false;
+        this.newScoreY = 0;
+        this.newScoreValue = null;
+        this.font = 55;
+        this.opacity = 1;
 
     }
 
 
 
     tick(){
+
+        if(this.newScore){
+
+            this.newScoreY += 2.5
+            this.font -= 1.5
+            this.opacity -= 0.05
+
+            ctx.font = `${this.font}px Arial`
+            ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+            ctx.fillText(this.newScoreValue,this.enemy.x,this.enemy.y - this.newScoreY)
+
+            if(this.opacity < 0){
+                this.newScore = false;      
+                this.newScoreY = 0
+                this.font = 55
+                this.opacity = 1
+
+                this.score += this.newScoreValue;
+            }
+        }
 
         //Health
         for (let i = 0;i<this.playerHealth;i++){
@@ -38,15 +62,15 @@ export default class UI{
 
         //Expressions
         for(let i = 0;i<this.expressions.length; i++){
-            ctx.drawImage(this.expressions[i],this.enemy.x-(this.length/2)+i*WIDTH,this.enemy.y-65,this.expressions[i].width,this.expressions[i].height)
+            ctx.drawImage(this.expressions[i],this.enemy-(this.length/2)+i*WIDTH,this.enemy.y-65,this.expressions[i].width,this.expressions[i].height)
         }
 
 
     }
 
-    addExpressions(string,sprite){
+    addExpressions(string){
 
-        this.enemy = sprite;
+        
 
         let key = new Image(WIDTH,HEIGHT);
         key.src = '../../images/keyboard/a.png'
@@ -65,6 +89,11 @@ export default class UI{
 
         this.length = 2*50;
 
+    }
+
+    points(value){
+        this.newScore = true;
+        this.newScoreValue = value
     }
 
 }
