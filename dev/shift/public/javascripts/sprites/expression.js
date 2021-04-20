@@ -3,7 +3,7 @@ import {Factory} from '../factory.js'
 export default class Expression {
     constructor() {
         this.expression = this.request();
-        
+        this.index = 0
 
     }
 

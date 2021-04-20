@@ -37,10 +37,10 @@ window.addEventListener("load", () => {
 
     document.addEventListener("keydown", (evt) => {
 
-        if (evt.key == 'r') {
-            entities[gameObject.PLAYER].state = state.ATTACK
-        } else if (evt.key == "w") {
-            console.log(entities[gameObject.UI].type.currentWord.expression);
+        entities[gameObject.UI].type.checkInput(evt.key);
+
+        if(entities[gameObject.UI].type.expressions.length <=0){
+            entities[gameObject.PLAYER].state = state.ATTACK;
         }
 
 
