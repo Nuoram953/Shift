@@ -37,10 +37,15 @@ window.addEventListener("load", () => {
 
     document.addEventListener("keydown", (evt) => {
 
-        entities[gameObject.UI].type.checkInput(evt.key);
+        let answer = entities[gameObject.UI].type.checkInput(evt.key);
+
+        if(!answer){
+            entities[gameObject.ENEMY][0].state = state.ATTACK;
+        }
 
         if(entities[gameObject.UI].type.expressions.length <=0){
             entities[gameObject.PLAYER].state = state.ATTACK;
+            //TODO:Reset animation attack of enemy
         }
 
 
@@ -138,6 +143,12 @@ export const doneEvent = () => {
         isBattleOn = false;
         battleIsOver()
 
+    }
+
+    // If player make a mistake
+    else if(entities[gameObject.PLAYER].state == state.IDLE && entities[gameObject.ENEMY][0].state == state.ATTACK){
+        entities[gameObject.PLAYER].type.health -= 0.5;
+        entities[gameObject.ENEMY][0].state = state.IDLE;
     }
 
 

@@ -60,8 +60,15 @@ export default class UI{
         }
 
         //Health
-        for (let i = 0;i<this.playerHealth;i++){
+
+
+        for (let i = 0;i<Math.floor(this.playerHealth);i++){
             ctx.drawImage(this.imgHealth,50+this.imgHealth.width*i,50,this.imgHealth.width,this.imgHealth.height);
+        }
+
+
+        if(this.playerHealth % 2 != 0 && this.playerHealth != 3){
+            ctx.drawImage(this.imgHealthHalf,50+this.imgHealthHalf.width*Math.floor(this.playerHealth),50,this.imgHealthHalf.width,this.imgHealthHalf.height);
         }
 
         //Score
@@ -123,6 +130,9 @@ export default class UI{
 
         if(key == this.expressions[this.currentWord.index].alt){
             this.expressions.splice(this.currentWord.index,1)
+            return true;
+        }else{
+            return false;
         }
 
         
