@@ -4,12 +4,13 @@ import Expression from './expression.js'
 const HEIGHT = 50;
 const WIDTH = 50;
 const SPECIAL_KEY = {
-    ")":"paranthèse g",
-    "(":"paranthèse d",
+    ")":"parantheseG",
+    "(":"parantheseD",
     "_": "underscore",
     "}": "Crochet g",
     "{": "Crochet d",
-    ";":"point virgule"
+    ";":"point virgule",
+    "Shift": "Shift"
 }
 
 
@@ -61,7 +62,7 @@ export default class UI{
 
         //Health
 
-
+        
         for (let i = 0;i<Math.floor(this.playerHealth);i++){
             ctx.drawImage(this.imgHealth,50+this.imgHealth.width*i,50,this.imgHealth.width,this.imgHealth.height);
         }
@@ -85,9 +86,6 @@ export default class UI{
     }
 
     addExpressions(string){   
-        console.log( this.currentWord.expression['expression']);
-
-        let count = 0;
         let word = this.currentWord.expression['expression']
 
         for(let i = 0;i<word.length;i++){
@@ -124,17 +122,16 @@ export default class UI{
     }
 
     checkInput(key){
-
-        console.log(`key by user --> ${key}`);
-        console.log(`key should be --> ${this.expressions[this.currentWord.index].alt}`);
-
-        if(key == this.expressions[this.currentWord.index].alt){
-            this.expressions.splice(this.currentWord.index,1)
+        //**The first element is always the one to remove if the player answer correctly */
+        if((key in SPECIAL_KEY)) return
+        
+        
+        if(key == this.expressions[0].alt){
+            this.expressions.splice(0,1)
             return true;
-        }else{
-            return false;
         }
 
+        return false;
         
 
     }

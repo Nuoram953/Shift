@@ -23,10 +23,6 @@ export default class Player extends Entity {
     }
 
     tick() {
-
-
-        
-
         if (this.health > 0) {
             this.currentAnimation.tick(this.x, this.y, this.ctx);
         }

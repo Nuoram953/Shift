@@ -21,37 +21,57 @@ let gameObject = {
     ENEMY: 'enemy'
 }
 
-const HEIGHT = 50;
-const WIDTH = 50;
-const MAXHEALTH = 3;
 
 let entities = {};
-let index = 0;
 let isBattleOn = false;
+let start = false;
 
 
 
 window.addEventListener("load", () => {
 
-    start();
+    let sStart = "Appuyez sur ENTER pour commencer";
+
+    canvas = document.getElementById("canvas");
+    ctx = canvas.getContext("2d");
+
+    ctx.fillStyle = "black";
+    ctx.font = "55px Arial";
+    ctx.fillText(sStart,(canvas.width/2)-ctx.measureText(sStart).width/2,canvas.height/2,canvas.width,canvas.height);
 
     document.addEventListener("keydown", (evt) => {
 
-        let answer = entities[gameObject.UI].type.checkInput(evt.key);
+        if(!start && evt.key == "Enter"){ 
+            start = true
+            init();
+            tick()
 
-        if(!answer){
-            entities[gameObject.ENEMY][0].state = state.ATTACK;
+        }else{
+            let answer = entities[gameObject.UI].type.checkInput(evt.key);
+ 
+            if(answer != undefined){
+                if (!answer) {
+                    entities[gameObject.ENEMY][0].state = state.ATTACK;
+                }
+        
+                if (entities[gameObject.UI].type.expressions.length <= 0) {
+                    entities[gameObject.PLAYER].state = state.ATTACK;
+                    //TODO:Reset animation attack of enemy
+                }
+            }
+
         }
 
-        if(entities[gameObject.UI].type.expressions.length <=0){
-            entities[gameObject.PLAYER].state = state.ATTACK;
-            //TODO:Reset animation attack of enemy
-        }
+
+
+
+
+
 
 
     })
-    tick();
 
+    
 
 
 })
@@ -59,10 +79,7 @@ window.addEventListener("load", () => {
 
 const tick = () => {
 
-    //console.log(currentState);
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-
 
     entities[gameObject.BACKGROUND].type.changeAnimation(entities[gameObject.BACKGROUND].state)
     entities[gameObject.BACKGROUND].type.tick();
@@ -111,9 +128,8 @@ const checkForEnemyNear = (enemy) => {
 
 
 
-const start = () => {
-    canvas = document.getElementById("canvas");
-    ctx = canvas.getContext("2d");
+const init = () => {
+
 
     //Default element to create
     entities[gameObject.BACKGROUND] = { type: new Background(), state: state.RUN };
@@ -121,7 +137,7 @@ const start = () => {
     entities[gameObject.PLAYER] = { type: new Player(), state: state.RUN };
     entities[gameObject.ENEMY] = [];
 
-
+    
 
     randomEvent();
 
@@ -137,6 +153,7 @@ export const doneEvent = () => {
         entities[gameObject.ENEMY][0].state = state.DEATH;
 
     }
+
     // After enemy death
     else if (entities[gameObject.PLAYER].state == state.IDLE && entities[gameObject.ENEMY][0].state == state.DEATH) {
         entities[gameObject.ENEMY][0].type.health = 0
@@ -146,7 +163,7 @@ export const doneEvent = () => {
     }
 
     // If player make a mistake
-    else if(entities[gameObject.PLAYER].state == state.IDLE && entities[gameObject.ENEMY][0].state == state.ATTACK){
+    else if (entities[gameObject.PLAYER].state == state.IDLE && entities[gameObject.ENEMY][0].state == state.ATTACK) {
         entities[gameObject.PLAYER].type.health -= 0.5;
         entities[gameObject.ENEMY][0].state = state.IDLE;
     }

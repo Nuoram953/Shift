@@ -18,7 +18,7 @@ export default class Enemy extends Entity{
         this.ctx = ctx;
         
         this.x = this.canvas.width + 10;
-        this.speed = 3
+        this.speed = 1
         this.y = 670;
         this.isMoving = true
         
