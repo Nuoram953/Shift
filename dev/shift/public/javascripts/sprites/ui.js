@@ -4,8 +4,8 @@ import Expression from './expression.js'
 const HEIGHT = 50;
 const WIDTH = 50;
 const SPECIAL_KEY = {
-    ")":"parantheseG",
-    "(":"parantheseD",
+    "(":"parantheseG",
+    ")":"parantheseD",
     "_": "underscore",
     "}": "Crochet g",
     "{": "Crochet d",
@@ -13,6 +13,10 @@ const SPECIAL_KEY = {
     "Shift": "Shift",
     ":":"doublePoint"
 }
+
+
+
+const INVALID_KEY = ['Shift', 'Enter', 'Backspace']
 
 
 export default class UI{
@@ -80,14 +84,17 @@ export default class UI{
 
         //Expressions
         for(let i = 0;i<this.expressions.length; i++){
-            ctx.drawImage(this.expressions[i],this.enemy.x-(this.length/2)+i*WIDTH,this.enemy.y-65,this.expressions[i].width,this.expressions[i].height)
+            if(this.expressions[i] != "space"){
+                ctx.drawImage(this.expressions[i],this.enemy.x-(this.length/2)+i*WIDTH,this.enemy.y-65,this.expressions[i].width,this.expressions[i].height)
+            }
         }
 
 
     }
 
     addExpressions(string){   
-        let word = this.currentWord.expression['expression']
+        //let word = this.currentWord.expression['expression']
+        let word = "test()"
 
         for(let i = 0;i<word.length;i++){
             let char = word[i]
@@ -96,10 +103,15 @@ export default class UI{
                 char = SPECIAL_KEY[word[i]]
             }
             
-            let key = new Image(WIDTH,HEIGHT);
-            key.src = `../../images/keyboard/${char}.png`
-            key.alt = char;
-            this.expressions.push(key)
+            if(char != " "){
+                let key = new Image(WIDTH,HEIGHT);
+                key.src = `../../images/keyboard/${char}.png`
+                key.alt = char;
+                this.expressions.push(key)
+            }else{
+                this.expressions.push("space")
+            }
+
 
         }
 
@@ -123,11 +135,15 @@ export default class UI{
     }
 
     checkInput(key){
-        //**The first element is always the one to remove if the player answer correctly */
-        if((key in SPECIAL_KEY)) return
-        
-        
-        if(key == this.expressions[0].alt){
+
+        console.log(`Input by user -> ${key}`);
+        console.log(`Input needed -> ${this.expressions[0].alt}`);
+        //**The first element is always the one to remove if the player answer correctly */ 
+
+        if(INVALID_KEY.includes(key)) return
+
+
+        if((key == this.expressions[0].alt && !INVALID_KEY.includes(key)) ||( SPECIAL_KEY[key]== this.expressions[0].alt && !INVALID_KEY.includes(key))){
             this.expressions.splice(0,1)
             return true;
         }
