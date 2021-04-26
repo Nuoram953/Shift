@@ -18,7 +18,7 @@ export default class Enemy extends Entity{
         this.ctx = ctx;
         
         this.x = this.canvas.width + 10;
-        this.speed = 1
+        this.speed = 3
         this.y = 670;
         this.isMoving = true
         
@@ -83,5 +83,22 @@ export default class Enemy extends Entity{
         
 
 
+    }
+
+    createAttack(){
+        let columnCount = null;
+        let rowCount = 1;
+        let refreshDelay = 100;
+        let scale = 2.5;
+        let loopColum = true;
+
+        columnCount = 30
+        this.animAttack = new TiledImage('../../images/sprite/Boss/spr_Attack_strip.png', columnCount, rowCount, refreshDelay, loopColum, scale)
+        this.animAttack.setFlipped(true)
+        this.animAttack.setLooped(false)
+        this.animAttack.changeRow(0)
+        this.animAttack.changeMinMaxInterval(0, columnCount, doneEvent)
+
+        this.animation['attack'] = this.animAttack
     }
 }

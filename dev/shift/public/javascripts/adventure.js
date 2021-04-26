@@ -25,6 +25,7 @@ let gameObject = {
 let entities = {};
 let isBattleOn = false;
 let start = false;
+let canInput = true;
 
 
 
@@ -47,18 +48,26 @@ window.addEventListener("load", () => {
             tick()
 
         }else{
-            let answer = entities[gameObject.UI].type.checkInput(evt.key);
+            
+            if(canInput){
+                let answer = entities[gameObject.UI].type.checkInput(evt.key);
  
-            if(answer != undefined){
-                if (!answer) {
-                    entities[gameObject.ENEMY][0].state = state.ATTACK;
-                }
-        
-                if (entities[gameObject.UI].type.expressions.length <= 0) {
-                    entities[gameObject.PLAYER].state = state.ATTACK;
-                    //TODO:Reset animation attack of enemy
+                if(answer != undefined){
+                    if (!answer) {
+                        entities[gameObject.ENEMY][0].state = state.ATTACK;
+                        canInput = false;
+                    }
+            
+                    if (entities[gameObject.UI].type.expressions.length <= 0) {
+                        entities[gameObject.PLAYER].state = state.ATTACK;
+                        //TODO:Reset animation attack of enemy
+                        canInput = false;
+                    }
+
+                    
                 }
             }
+
 
         }
 
@@ -130,6 +139,7 @@ const checkForEnemyNear = (enemy) => {
 
 const init = () => {
 
+    canInput = false;
 
     //Default element to create
     entities[gameObject.BACKGROUND] = { type: new Background(), state: state.RUN };
@@ -166,12 +176,18 @@ export const doneEvent = () => {
     else if (entities[gameObject.PLAYER].state == state.IDLE && entities[gameObject.ENEMY][0].state == state.ATTACK) {
         entities[gameObject.PLAYER].type.health -= 0.5;
         entities[gameObject.ENEMY][0].state = state.IDLE;
+        entities[gameObject.ENEMY][0].type.createAttack()
     }
+
+    canInput = true;
 
 
 }
 
 const battle = (sprite) => {
+
+    canInput = true;
+
     entities[gameObject.PLAYER].state = state.IDLE;
     entities[gameObject.ENEMY][entities[gameObject.ENEMY].indexOf(sprite)].state = state.IDLE; // Enemy
     entities[gameObject.BACKGROUND].state = state.IDLE;

@@ -10,7 +10,8 @@ const SPECIAL_KEY = {
     "}": "Crochet g",
     "{": "Crochet d",
     ";":"point virgule",
-    "Shift": "Shift"
+    "Shift": "Shift",
+    ":":"doublePoint"
 }
 
 
