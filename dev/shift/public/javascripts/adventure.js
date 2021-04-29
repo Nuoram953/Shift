@@ -2,6 +2,7 @@ import Player from '/public/javascripts/sprites/player.js'
 import Enemy from '/public/javascripts/sprites/enemy.js'
 import Background from '/public/javascripts/sprites/background.js'
 import UI from '/public/javascripts/sprites/ui.js'
+import Prop from './sprites/prop';
 
 
 export let ctx = null;
@@ -18,12 +19,14 @@ let gameObject = {
     UI: 'ui',
     BACKGROUND: 'background',
     PLAYER: 'player',
-    ENEMY: 'enemy'
+    ENEMY: 'enemy',
+    PROP: 'prop'
 }
 
 
 let entities = {};
 let isBattleOn = false;
+let isPropOn = false;
 let start = false;
 let canInput = true;
 
@@ -38,51 +41,36 @@ window.addEventListener("load", () => {
 
     ctx.fillStyle = "black";
     ctx.font = "55px Arial";
-    ctx.fillText(sStart,(canvas.width/2)-ctx.measureText(sStart).width/2,canvas.height/2,canvas.width,canvas.height);
+    ctx.fillText(sStart, (canvas.width / 2) - ctx.measureText(sStart).width / 2, canvas.height / 2, canvas.width, canvas.height);
 
     document.addEventListener("keydown", (evt) => {
 
-        if(!start && evt.key == "Enter"){ 
+        if (!start && evt.key == "Enter") {
             start = true
             init();
             tick()
 
-        }else{
-            
-            if(canInput){
+        } else {
+
+            if (canInput) {
                 let answer = entities[gameObject.UI].type.checkInput(evt.key);
- 
-                if(answer != undefined){
+
+                if (answer != undefined) {
                     if (!answer) {
                         entities[gameObject.ENEMY][0].state = state.ATTACK;
                         canInput = false;
                     }
-            
+
                     if (entities[gameObject.UI].type.expressions.length <= 0) {
                         entities[gameObject.PLAYER].state = state.ATTACK;
                         //TODO:Reset animation attack of enemy
                         canInput = false;
                     }
-
-                    
                 }
             }
-
-
         }
 
-
-
-
-
-
-
-
     })
-
-    
-
-
 })
 
 
@@ -111,6 +99,18 @@ const tick = () => {
             checkForEnemyNear(enemy)
         }
     })
+
+    entities[gameObject.PROP].forEach((prop) => {
+        prop.type.changeAnimation(prop.state)
+        let alive = prop.type.tick();
+
+        if (!alive) {
+            entities[gameObject.PROP].splice(0, 1)
+            isPropOn = false
+        }else{
+            checkForPropNear(prop)
+        }
+    })
     window.requestAnimationFrame(tick)
 }
 
@@ -119,7 +119,8 @@ const tick = () => {
 const randomEvent = () => {
 
     if (entities[gameObject.ENEMY].length < 6 && !isBattleOn) {
-        entities[gameObject.ENEMY].push({ type: new Enemy(), state: state.RUN })
+        //entities[gameObject.ENEMY].push({ type: new Enemy(), state: state.RUN })
+        entities[gameObject.PROP].push({ type: new Prop(), state: state.RUN })
     }
 
     setTimeout(randomEvent, 10000)
@@ -135,6 +136,32 @@ const checkForEnemyNear = (enemy) => {
     }
 }
 
+const checkForPropNear = (prop) => {
+    if (entities[gameObject.PLAYER].type.x + 50 >= prop.type.x) {
+
+        if(!isPropOn){
+            isPropOn = true;
+
+            entities[gameObject.PLAYER].state = state.IDLE
+            entities[gameObject.BACKGROUND].state = state.IDLE
+            entities[gameObject.PROP][0].state = state.IDLE
+            entities[gameObject.UI].type.prop = prop.type
+            entities[gameObject.UI].type.health(true)
+    
+    
+            setTimeout(() => {
+                entities[gameObject.PLAYER].state = state.RUN
+                entities[gameObject.BACKGROUND].state = state.RUN
+                entities[gameObject.PROP][0].state = state.RUN
+                
+            }, 1000);
+        }
+
+
+        
+    }
+}
+
 
 
 const init = () => {
@@ -146,8 +173,9 @@ const init = () => {
     entities[gameObject.UI] = { type: new UI() };
     entities[gameObject.PLAYER] = { type: new Player(), state: state.RUN };
     entities[gameObject.ENEMY] = [];
+    entities[gameObject.PROP] = [];
 
-    
+
 
     randomEvent();
 

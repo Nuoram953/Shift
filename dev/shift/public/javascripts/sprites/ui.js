@@ -33,8 +33,10 @@ export default class UI{
         this.score = 0
         this.expressions = []
         this.enemy = null;
+        this.prop = null;
         this.newScore= false;
-        this.newScoreY = 0;
+        this.newHealth = false;
+        this.tempY = 0;
         this.newScoreValue = null;
         this.font = 55;
         this.opacity = 1;
@@ -45,23 +47,40 @@ export default class UI{
 
     tick(){
 
+        //If the player kill an enemy
         if(this.newScore){
 
-            this.newScoreY += 2.5
+            this.tempY += 2.5
             this.font -= 1.5
             this.opacity -= 0.05
 
             ctx.font = `${this.font}px Arial`
             ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-            ctx.fillText(this.newScoreValue,this.enemy.x,this.enemy.y - this.newScoreY)
+            ctx.fillText(this.newScoreValue,this.enemy.x,this.enemy.y - this.tempY)
 
             if(this.opacity < 0){
                 this.newScore = false;      
-                this.newScoreY = 0
+                this.tempY = 0
                 this.font = 55
                 this.opacity = 1
 
                 this.score += this.newScoreValue;
+            }
+        }
+
+        //If the player recieve a hearth
+        if(this.newHealth){
+            this.tempY += 2.5
+            this.font -= 1.5
+
+            console.log(this.tempY);
+            ctx.drawImage(this.imgHealth,this.prop.x,this.prop.y-this.tempY,this.imgHealth.width,this.imgHealth.height)
+
+            if(this.tempY > 75){
+                this.newHealth = false;      
+                this.tempY = 0
+                this.font = 55
+                this.opacity = 1
             }
         }
 
@@ -127,21 +146,22 @@ export default class UI{
         this.newScoreValue = value
     }
 
+    health(state){
+        this.newHealth = state;
+    }
+
     findWord(){
         this.currentWord = new Expression();
-        setTimeout(() => {
+        setTimeout(() => {  
             this.addExpressions()
         }, 1000);   
     }
 
     checkInput(key){
 
-        console.log(`Input by user -> ${key}`);
-        console.log(`Input needed -> ${this.expressions[0].alt}`);
         //**The first element is always the one to remove if the player answer correctly */ 
 
         if(INVALID_KEY.includes(key)) return
-
 
         if((key == this.expressions[0].alt && !INVALID_KEY.includes(key)) ||( SPECIAL_KEY[key]== this.expressions[0].alt && !INVALID_KEY.includes(key))){
             this.expressions.splice(0,1)
