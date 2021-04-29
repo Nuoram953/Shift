@@ -107,7 +107,7 @@ const tick = () => {
         if (!alive) {
             entities[gameObject.PROP].splice(0, 1)
             isPropOn = false
-        }else{
+        } else {
             checkForPropNear(prop)
         }
     })
@@ -118,12 +118,20 @@ const tick = () => {
 
 const randomEvent = () => {
 
-    if (entities[gameObject.ENEMY].length < 6 && !isBattleOn) {
-        //entities[gameObject.ENEMY].push({ type: new Enemy(), state: state.RUN })
-        entities[gameObject.PROP].push({ type: new Prop(), state: state.RUN })
-    }
+    let eventState = state.RUN;
 
-    setTimeout(randomEvent, 10000)
+    if (isBattleOn || isPropOn) {
+        eventState = state.IDLE;
+    }else{
+        switch (Math.floor(Math.random() * 2)) {
+            case 0: entities[gameObject.ENEMY].push({ type: new Enemy(), state: eventState })
+                break;
+            case 1: entities[gameObject.PROP].push({ type: new Prop(), state: eventState })
+                break;
+        }
+    }
+    
+    setTimeout(randomEvent, 5000)
 }
 
 const checkForEnemyNear = (enemy) => {
@@ -139,26 +147,19 @@ const checkForEnemyNear = (enemy) => {
 const checkForPropNear = (prop) => {
     if (entities[gameObject.PLAYER].type.x + 50 >= prop.type.x) {
 
-        if(!isPropOn){
+        if (!isPropOn) {
             isPropOn = true;
 
-            entities[gameObject.PLAYER].state = state.IDLE
-            entities[gameObject.BACKGROUND].state = state.IDLE
-            entities[gameObject.PROP][0].state = state.IDLE
+            globalState(state.IDLE)
+
             entities[gameObject.UI].type.prop = prop.type
             entities[gameObject.UI].type.health(true)
-    
-    
+
             setTimeout(() => {
-                entities[gameObject.PLAYER].state = state.RUN
-                entities[gameObject.BACKGROUND].state = state.RUN
-                entities[gameObject.PROP][0].state = state.RUN
-                
+                globalState(state.RUN)
+
             }, 1000);
         }
-
-
-        
     }
 }
 
@@ -216,20 +217,35 @@ const battle = (sprite) => {
 
     canInput = true;
 
-    entities[gameObject.PLAYER].state = state.IDLE;
-    entities[gameObject.ENEMY][entities[gameObject.ENEMY].indexOf(sprite)].state = state.IDLE; // Enemy
-    entities[gameObject.BACKGROUND].state = state.IDLE;
+    globalState(state.IDLE)
     entities[gameObject.UI].type.enemy = sprite.type
     entities[gameObject.UI].type.findWord()
+   
 }
 
 const battleIsOver = () => {
     entities[gameObject.PLAYER].type.createAttack()
-    entities[gameObject.PLAYER].state = state.RUN;
-    entities[gameObject.ENEMY][0].state = state.RUN;
-    entities[gameObject.BACKGROUND].state = state.RUN;
     entities[gameObject.UI].type.points(5);
+
+    globalState(state.RUN)
+
+    
 }
+
+const globalState = (state) => {
+    entities[gameObject.PLAYER].state = state;
+    
+    entities[gameObject.BACKGROUND].state = state;
+
+
+    entities[gameObject.ENEMY].forEach(enemy => {
+        enemy.state = state
+    })
+    entities[gameObject.PROP].forEach(prop => {
+        prop.state = state
+    })
+}
+
 
 
 

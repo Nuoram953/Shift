@@ -73,7 +73,6 @@ export default class UI{
             this.tempY += 2.5
             this.font -= 1.5
 
-            console.log(this.tempY);
             ctx.drawImage(this.imgHealth,this.prop.x,this.prop.y-this.tempY,this.imgHealth.width,this.imgHealth.height)
 
             if(this.tempY > 75){
@@ -85,8 +84,6 @@ export default class UI{
         }
 
         //Health
-
-        
         for (let i = 0;i<Math.floor(this.playerHealth);i++){
             ctx.drawImage(this.imgHealth,50+this.imgHealth.width*i,50,this.imgHealth.width,this.imgHealth.height);
         }

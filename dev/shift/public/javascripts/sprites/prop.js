@@ -25,7 +25,7 @@ export default class Prop extends Entity {
         super()
         this.ctx = ctx
         this.x = canvas.width + 10
-        this.y = 670 
+        this.y = 690     
         this.speed = 2
         this.createAnimation(Math.ceil(Math.random() * Object.keys(type).length))
     }
