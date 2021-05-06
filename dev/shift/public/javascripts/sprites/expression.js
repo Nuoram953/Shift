@@ -1,28 +1,44 @@
-import {Factory} from '../factory.js'
+import {factory} from '../factory.js'
+import {canvas,ctx} from '../adventure'
 
 export default class Expression {
     constructor() {
-        this.expression = this.request();
+        this.expression = null;
         this.index = 0
+        this.request();
 
     }
 
 
 
     request() {
-        fetch("/adventure/expression", {
-            method: "GET",
-            mode: 'cors',
-            headers: {
-                "Content-Type": "application/json"
-            },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                this.expression = data
+
+        factory(1,10,canvas,ctx,"adventure").then(data => {
+            console.log(data[1]);
+
+            let word = ""
+
+            data[1]['word'].forEach((letter) =>{
+                word+=letter['char']
             })
-            .catch(console.error);
+
+            this.expression = word
+            console.log(this.expression);
+        })
+
+        // fetch("/adventure/expression", {
+        //     method: "GET",
+        //     mode: 'cors',
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        // })
+        //     .then((res) => res.json())
+        //     .then((data) => {
+        //         console.log(data);
+        //         this.expression = data
+        //     })
+        //     .catch(console.error);
 
 
     }

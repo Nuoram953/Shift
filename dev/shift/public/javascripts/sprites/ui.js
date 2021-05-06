@@ -11,7 +11,8 @@ const SPECIAL_KEY = {
     "{": "Crochet d",
     ";":"point virgule",
     "Shift": "Shift",
-    ":":"doublePoint"
+    ":":"doublePoint",
+    ".":"point"
 }
 
 
@@ -111,7 +112,7 @@ export default class UI{
     }
 
     addExpressions(string){   
-        let word = this.currentWord.expression['expression']
+        let word = this.currentWord.expression
 
         for(let i = 0;i<word.length;i++){
             let char = word[i]
@@ -176,6 +177,10 @@ export default class UI{
 
     getWord(){
         return self.word
+    }
+
+    setWord(){
+        self.word = []
     }
 
 }

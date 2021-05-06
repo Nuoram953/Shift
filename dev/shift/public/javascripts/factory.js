@@ -6,8 +6,8 @@
 /*******************************************************************/
 
 
-async function factory(nExpression,nNoun, canvas, ctx) {
-  const value = await asyncFunction(nExpression, nNoun);
+async function factory(nExpression,nNoun, canvas, ctx,type) {
+  const value = await asyncFunction(nExpression, nNoun,type);
 
   let words = [];
   let noun = value['expressions'];
@@ -29,9 +29,17 @@ async function factory(nExpression,nNoun, canvas, ctx) {
  * @param {int} num -> The number of word needed
  * @returns {dict}
  */
-const asyncFunction = async (num1, num2) => {
+const asyncFunction = async (num1, num2,type) => {
   const nouns = await getNouns(num2);
-  const expressions = await getExpressions(num1);
+  let expressions = null
+  switch (type) {
+    case "normal": expressions = await getExpressions(num1);
+      break;
+    case "adventure":expressions = await getExpressionsAdventure();
+    break;
+  }
+
+
   let data = {
     nouns: nouns,
     expressions: expressions,
@@ -71,6 +79,19 @@ async function getExpressions(num) {
 
   const data = await response.json();
   return data;
+}
+
+async function getExpressionsAdventure() {
+  const response = await fetch("/adventure/Expression", {
+      method: "GET",
+      mode: "cors",
+      headers: {
+          "Content-Type": "application/json"
+      },
+  });
+
+  const data = await response.json();
+  return data
 }
 
 

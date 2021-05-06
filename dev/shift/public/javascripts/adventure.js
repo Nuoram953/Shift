@@ -262,7 +262,7 @@ const battleIsOver = () => {
     game['words'][idx]['end'] = Date.now();
     game['score'] = entities[gameObject.UI].type.score;
 
-
+    entities[gameObject.UI].type.setWord();
     globalState(state.RUN)
 
 }
