@@ -36,19 +36,19 @@ exports.adventurePage = function (req, res, next) {
 
 exports.resultPage = function (req, res, next) {
   Game.
-  find().
-  where('user').equals(req.session.user).
-  sort({
-    time: -1
-  }).
-  select().
-  limit(1).
-  exec(function (err, game) {
-    console.log(game);
-    res.render("result", {
-      result: game[0]
-    });
-  })
+    find().
+    where('user').equals(req.session.user).
+    sort({
+      time: -1
+    }).
+    select().
+    limit(1).
+    exec(function (err, game) {
+      console.log(game);
+      res.render("result", {
+        result: game[0]
+      });
+    })
 
 
 
@@ -67,7 +67,7 @@ exports.preGame_trad = function (req, res, next) {
         $addToSet: "$difficulty"
       },
     },
-  }, ]).exec(function (err, language) {
+  },]).exec(function (err, language) {
     let difficulty = [];
 
     //Without thoses lines, the difficulties aren't in order
@@ -94,7 +94,7 @@ exports.gameGetNoun = function (req, res, next) {
     $sample: {
       size: req.body.quantity
     }
-  }, ]).exec(function (err, language) {
+  },]).exec(function (err, language) {
 
     let noun = [];
 
@@ -112,7 +112,7 @@ exports.gameGetExpression = function (req, res, next) {
   Language.aggregate([{
     '$match': {
       'difficulty': req.body.difficulty,
-      'language':req.body.language
+      'language': req.body.language
     }
   }, {
     '$sample': {
@@ -134,14 +134,22 @@ exports.gameGetExpression = function (req, res, next) {
 //OPTIONEL - Fonction d'admin
 exports.addGame = function (req, res, next) {
 
+  let language,difficulty;
+  if (req.body.type == "normal") {
+    language = params['language']
+    difficulty = params['difficulty']
+  }else{
+    language = "Tous les languages"
+  difficulty ="Toutes les difficultés"
+  }
 
   let game = new Game({
     type: req.body.type,
     time: req.body.date,
     cpm: req.body.cpm,
     user: req.session.user[0],
-    language: params['language'],
-    difficulty: params['difficulty'],
+    language: language,
+    difficulty: difficulty,
     score: req.body.score,
     words: req.body.words,
     stats: req.body.stats
@@ -159,15 +167,15 @@ exports.addGame = function (req, res, next) {
 
 exports.detailsGame = function (req, res, next) {
   Game.
-  findById(req.params.id).
-  select().
-  exec(function (err, game) {
-    if (err) throw err;
-    console.log(game);
-    res.render('historyDetails', {
-      title: "Detail de la partie",
-      game: game,
-      currentUser: req.session.user
+    findById(req.params.id).
+    select().
+    exec(function (err, game) {
+      if (err) throw err;
+      console.log(game);
+      res.render('historyDetails', {
+        title: "Detail de la partie",
+        game: game,
+        currentUser: req.session.user
+      })
     })
-  })
 };

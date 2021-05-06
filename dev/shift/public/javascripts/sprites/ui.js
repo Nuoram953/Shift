@@ -41,6 +41,8 @@ export default class UI{
         this.font = 55;
         this.opacity = 1;
 
+        self.word = [] 
+
     }
 
 
@@ -109,8 +111,7 @@ export default class UI{
     }
 
     addExpressions(string){   
-        //let word = this.currentWord.expression['expression']
-        let word = "test()"
+        let word = this.currentWord.expression['expression']
 
         for(let i = 0;i<word.length;i++){
             let char = word[i]
@@ -162,12 +163,19 @@ export default class UI{
 
         if((key == this.expressions[0].alt && !INVALID_KEY.includes(key)) ||( SPECIAL_KEY[key]== this.expressions[0].alt && !INVALID_KEY.includes(key))){
             this.expressions.splice(0,1)
+            self.word.push({color:"green",char:key})
+            console.log(self.word);
             return true;
         }
 
+        
         return false;
         
 
+    }
+
+    getWord(){
+        return self.word
     }
 
 }

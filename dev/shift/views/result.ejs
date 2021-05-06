@@ -14,7 +14,15 @@
         <p> Caractère par minute: ~<%= result['cpm'] %> </p>
         <p> Language: <%= result['language'] %> </p>
         <p> Difficulté: <%= result['difficulty'] %> </p>
+
         <div class="result-stats">
+        <% if (result['type'] == "adventure") { %>
+         
+            <p>Vous avez écrit <%= result['words'].length %> mot(s)</p>
+        
+        <% } else { %>
+             
+        
             <div class="result-stats-circle" id="result-wrong">
                 <%= result['stats']['wrong'] %>
             </div>
@@ -24,19 +32,23 @@
             <div class="result-stats-circle"  id="result-good">
                 <p><%= result['stats']['good'] %> </p>
             </div>
-        </div>
-
-
-
-
-        <% if ( result['stats']['wrong']  == 0 ) { %>
-            <p>Bravo! Vous avez aucune erreur! Vous êtes prêt pour essayer le mode aventure</p>
             
-        <% } else if (result['stats']['wrong'] < 3) { %>
-            <p>Félicitation! Vous avez seulement <%= result['stats']['wrong'] %> erreurs! </p>
-        <% } else { %>
-            <p>Meilleure chance la prochaine fois</p>
-            <% } %>
+        </div>
+        <% } %>
+         
+        <% if (result['type'] == "normall") { %>
+            <% if ( result['stats']['wrong']  == 0 ) { %>
+                <p>Bravo! Vous avez aucune erreur! Vous êtes prêt pour essayer le mode aventure</p>
+
+            <% } else if (result['stats']['wrong'] < 3) { %>
+                <p>Félicitation! Vous avez seulement <%= result['stats']['wrong'] %> erreurs! </p>
+            <% } else { %>
+                <p>Meilleure chance la prochaine fois</p>
+                <% } %>
+        <% } %>
+
+
+
          
           
 

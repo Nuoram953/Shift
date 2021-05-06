@@ -46,6 +46,8 @@ window.addEventListener("load", () => {
 
     factory(WORDS,NOUNS, canvas, ctx).then((data) => {
         words = data;
+        console.log(words[index]);
+        console.log(words);
         words[index]['start'] = Date.now();
         show(words[index]['word'])
         keyboardPrep();

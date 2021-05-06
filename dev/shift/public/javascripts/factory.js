@@ -85,7 +85,7 @@ async function getExpressions(num) {
  * @returns {dict} -> An array of dict that contains the info needed for each letter in the word
  */
 const prep = (word, width, ctx, nouns) => {
-  let x = (width / 2) - caclPX(word, ctx) / 2;
+  let x = (width / 2) - caclPX(word, ctx)/2;
   let letter = [];
 
   while (word.toString().includes("placeholder")) {
@@ -98,7 +98,7 @@ const prep = (word, width, ctx, nouns) => {
       position: x,
       char: word[char]
     })
-    x += 25;
+    x += 30;
   }
   return letter
 }
@@ -112,13 +112,20 @@ const prep = (word, width, ctx, nouns) => {
  */
 const caclPX = (word, ctx) => {
   let distance = 0;
-  let whitespace = (word.length / 4) * 0.98; // @TODO: Better center align
+  ctx.font = "30px Arial";
 
-  distance += whitespace
-  for (let index = 0; index < word.length; index++) {
-    distance += ctx.measureText(word[index]).width;
-    distance += whitespace
+  console.log(`${word}---->length: ${word.length}`);
+
+  if(word.length > 3){
+    distance += 30
   }
+  for (let index = 0; index < word.length; index++) {
+    
+    distance += ctx.measureText(word[index]).width;
+
+    
+  }
+
   return distance
 }
 

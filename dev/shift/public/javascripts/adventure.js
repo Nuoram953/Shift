@@ -5,6 +5,7 @@ import UI from '/public/javascripts/sprites/ui.js'
 import Prop from './sprites/prop';
 
 
+
 export let ctx = null;
 export let canvas = null;
 export let player = null;
@@ -23,12 +24,22 @@ let gameObject = {
     PROP: 'prop'
 }
 
-
+let game = {
+    score: 0,
+    words: [],
+    type: "adventure",
+    time: Date.now(),
+    cpm: null,
+    languages: null,
+    difficulty: null,
+    stats: null,
+}
 let entities = {};
 let isBattleOn = false;
 let isPropOn = false;
 let start = false;
 let canInput = true;
+let isOver = false;
 
 
 
@@ -74,44 +85,48 @@ window.addEventListener("load", () => {
 })
 
 
+//Game loop
 const tick = () => {
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    if(!isOver){
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    entities[gameObject.BACKGROUND].type.changeAnimation(entities[gameObject.BACKGROUND].state)
-    entities[gameObject.BACKGROUND].type.tick();
-
-    entities[gameObject.UI].type.playerHealth = entities[gameObject.PLAYER].type.health
-    entities[gameObject.UI].type.tick();
-
-    entities[gameObject.PLAYER].type.changeAnimation(entities[gameObject.PLAYER].state)
-    if (!entities[gameObject.PLAYER].type.tick()) {
-        gameOver();
+        entities[gameObject.BACKGROUND].type.changeAnimation(entities[gameObject.BACKGROUND].state)
+        entities[gameObject.BACKGROUND].type.tick();
+    
+        entities[gameObject.UI].type.playerHealth = entities[gameObject.PLAYER].type.health
+        entities[gameObject.UI].type.tick();
+    
+        entities[gameObject.PLAYER].type.changeAnimation(entities[gameObject.PLAYER].state)
+        if (!entities[gameObject.PLAYER].type.tick()) {
+            gameOver();
+        }
+    
+        entities[gameObject.ENEMY].forEach((enemy) => {
+            enemy.type.changeAnimation(enemy.state)
+    
+            if (!enemy.type.tick()) {
+                let index = entities[gameObject.ENEMY].indexOf(enemy)
+                entities[gameObject.ENEMY].splice(index, 1)
+            } else {
+                checkForEnemyNear(enemy)
+            }
+        })
+    
+        entities[gameObject.PROP].forEach((prop) => {
+            prop.type.changeAnimation(prop.state)
+            let alive = prop.type.tick();
+    
+            if (!alive) {
+                entities[gameObject.PROP].splice(0, 1)
+                isPropOn = false
+            } else {
+                checkForPropNear(prop)
+            }
+        })
+        window.requestAnimationFrame(tick)
     }
-
-    entities[gameObject.ENEMY].forEach((enemy) => {
-        enemy.type.changeAnimation(enemy.state)
-
-        if (!enemy.type.tick()) {
-            let index = entities[gameObject.ENEMY].indexOf(enemy)
-            entities[gameObject.ENEMY].splice(index, 1)
-        } else {
-            checkForEnemyNear(enemy)
-        }
-    })
-
-    entities[gameObject.PROP].forEach((prop) => {
-        prop.type.changeAnimation(prop.state)
-        let alive = prop.type.tick();
-
-        if (!alive) {
-            entities[gameObject.PROP].splice(0, 1)
-            isPropOn = false
-        } else {
-            checkForPropNear(prop)
-        }
-    })
-    window.requestAnimationFrame(tick)
+   
 }
 
 
@@ -122,15 +137,25 @@ const randomEvent = () => {
 
     if (isBattleOn || isPropOn) {
         eventState = state.IDLE;
-    }else{
-        switch (Math.floor(Math.random() * 2)) {
-            case 0: entities[gameObject.ENEMY].push({ type: new Enemy(), state: eventState })
+    } else {
+        switch (Math.floor(Math.random() * 10)) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+                entities[gameObject.ENEMY].push({ type: new Enemy(), state: eventState })
                 break;
-            case 1: entities[gameObject.PROP].push({ type: new Prop(), state: eventState })
+            case 8:
+            case 9:
+                entities[gameObject.PROP].push({ type: new Prop(), state: eventState })
                 break;
         }
     }
-    
+
     setTimeout(randomEvent, 5000)
 }
 
@@ -167,6 +192,10 @@ const checkForPropNear = (prop) => {
 
 const init = () => {
 
+
+
+
+
     canInput = false;
 
     //Default element to create
@@ -183,6 +212,7 @@ const init = () => {
 
 }
 
+//When certains animations are done
 export const doneEvent = () => {
 
 
@@ -214,27 +244,32 @@ export const doneEvent = () => {
 }
 
 const battle = (sprite) => {
-
     canInput = true;
-
+    game['words'].push({ word: [], start: Date.now(), end: null, cpm: null })
     globalState(state.IDLE)
     entities[gameObject.UI].type.enemy = sprite.type
     entities[gameObject.UI].type.findWord()
-   
+
 }
 
 const battleIsOver = () => {
     entities[gameObject.PLAYER].type.createAttack()
     entities[gameObject.UI].type.points(5);
 
+    let idx = game['words'].length - 1
+
+    game['words'][idx]['word'] = entities[gameObject.UI].type.getWord();
+    game['words'][idx]['end'] = Date.now();
+    game['score'] = entities[gameObject.UI].type.score;
+
+
     globalState(state.RUN)
 
-    
 }
 
 const globalState = (state) => {
     entities[gameObject.PLAYER].state = state;
-    
+
     entities[gameObject.BACKGROUND].state = state;
 
 
@@ -246,9 +281,65 @@ const globalState = (state) => {
     })
 }
 
+const calculateCPM = () => {
+    console.log('To be implemented');
+}
 
+const calculateStats = () => {
+
+    let stats = { good: 0, corrected: 0, wrong: 0 }
+
+    if (game['words'].length > 0) {
+        game['words'].forEach((word) => {
+            
+                word['word'].forEach((letter) => {
+                    if (letter['color'] == "green") {
+                        stats['green'] += 1;
+                    }
+                    else if (letter['color'] == "red") {
+                        stats['red'] += 1;
+                    }
+                    else {
+                        stats['yellow'] += 1;
+                    }
+                })
+            
+
+        })
+    }
+
+    return stats
+
+}
 
 
 const gameOver = () => {
-    console.log('');
+
+    isOver = true;
+    fetch("/game/result", {
+        method: "POST",
+        body: JSON.stringify({
+            date: game['time'],
+            words: game['words'],
+            cpm: 15,
+            type: "adventure",
+            score: game['score'],
+            stats: calculateStats()
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        },
+        redirect: "manual"
+    }).then((response) => response.json())
+        .then((data) => {
+            console.log(game);
+            console.log(data);
+            window.location.replace(data['url'])
+        })
+        .catch(console.error);
+
+
+
 }
+
+
