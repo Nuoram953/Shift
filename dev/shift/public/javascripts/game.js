@@ -44,10 +44,10 @@ window.addEventListener("load", () => {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
-    factory(WORDS,NOUNS, canvas, ctx).then((data) => {
+    factory(WORDS,NOUNS, canvas, ctx,"normal").then((data) => {
         words = data;
-        console.log(words[index]);
         console.log(words);
+        console.log(words[index]);
         words[index]['start'] = Date.now();
         show(words[index]['word'])
         keyboardPrep();
@@ -142,7 +142,6 @@ const calculateCPM = () => {
     }
 
     let total = avg / count
-    document.getElementById('cpm').innerText = total
     return total
 }
 

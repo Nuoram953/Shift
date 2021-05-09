@@ -87,6 +87,9 @@ exports.preGame_trad = function (req, res, next) {
 exports.startGame = function (req, res, next) {
   params["language"] = req.body.language;
   params["difficulty"] = req.body.difficulty;
+
+  console.log(params);
+
 };
 
 exports.gameGetNoun = function (req, res, next) {
@@ -134,13 +137,14 @@ exports.gameGetExpression = function (req, res, next) {
 //OPTIONEL - Fonction d'admin
 exports.addGame = function (req, res, next) {
 
-  let language,difficulty;
+  let language, difficulty;
+  
   if (req.body.type == "normal") {
     language = params['language']
     difficulty = params['difficulty']
-  }else{
-    language = "Tous les languages"
-  difficulty ="Toutes les difficultés"
+  } else {
+    language = "-"
+    difficulty = "-"
   }
 
   let game = new Game({

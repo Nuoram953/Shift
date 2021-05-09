@@ -11,11 +11,9 @@
     <script type="module" src="/javascripts/factory.js"></script>
 </head>
 <body>
-    <p id="game-start">Appuyez sur la touche "Enter" pour commencer</p>
     <div class="container-gameUI" style="text-align: center">
-        <p id="language"><%= params['language'] %> </p>
-        <p id="difficulty"><%= params['difficulty'] %> </p>
-        <p id="cpm"></p>
+        <p id="language" style="visibility: hidden"><%= params['language'] %> </p>
+        <p id="difficulty" style="visibility: hidden"><%= params['difficulty'] %> </p>
         <canvas height="500px" width="1200px" id="canvas"></canvas>
 
     </div>

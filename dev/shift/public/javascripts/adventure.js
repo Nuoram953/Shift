@@ -4,11 +4,10 @@ import Background from '/public/javascripts/sprites/background.js'
 import UI from '/public/javascripts/sprites/ui.js'
 import Prop from './sprites/prop';
 
-
-
 export let ctx = null;
 export let canvas = null;
 export let player = null;
+
 export let state = {
     ATTACK: "attack",
     RUN: "run",
@@ -34,6 +33,7 @@ let game = {
     difficulty: null,
     stats: null,
 }
+
 let entities = {};
 let isBattleOn = false;
 let isPropOn = false;
@@ -45,14 +45,14 @@ let isOver = false;
 
 window.addEventListener("load", () => {
 
-    let sStart = "Appuyez sur ENTER pour commencer";
+    let msgStart = "Appuyez sur ENTER pour commencer";
 
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
 
     ctx.fillStyle = "black";
     ctx.font = "55px Arial";
-    ctx.fillText(sStart, (canvas.width / 2) - ctx.measureText(sStart).width / 2, canvas.height / 2, canvas.width, canvas.height);
+    ctx.fillText(msgStart, (canvas.width / 2) - ctx.measureText(msgStart).width / 2, canvas.height / 2, canvas.width, canvas.height);
 
     document.addEventListener("keydown", (evt) => {
 
@@ -74,7 +74,6 @@ window.addEventListener("load", () => {
 
                     if (entities[gameObject.UI].type.expressions.length <= 0) {
                         entities[gameObject.PLAYER].state = state.ATTACK;
-                        //TODO:Reset animation attack of enemy
                         canInput = false;
                     }
                 }
@@ -88,23 +87,23 @@ window.addEventListener("load", () => {
 //Game loop
 const tick = () => {
 
-    if(!isOver){
+    if (!isOver) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
 
         entities[gameObject.BACKGROUND].type.changeAnimation(entities[gameObject.BACKGROUND].state)
         entities[gameObject.BACKGROUND].type.tick();
-    
+
         entities[gameObject.UI].type.playerHealth = entities[gameObject.PLAYER].type.health
         entities[gameObject.UI].type.tick();
-    
+
         entities[gameObject.PLAYER].type.changeAnimation(entities[gameObject.PLAYER].state)
         if (!entities[gameObject.PLAYER].type.tick()) {
             gameOver();
         }
-    
+
         entities[gameObject.ENEMY].forEach((enemy) => {
             enemy.type.changeAnimation(enemy.state)
-    
+
             if (!enemy.type.tick()) {
                 let index = entities[gameObject.ENEMY].indexOf(enemy)
                 entities[gameObject.ENEMY].splice(index, 1)
@@ -112,11 +111,11 @@ const tick = () => {
                 checkForEnemyNear(enemy)
             }
         })
-    
+
         entities[gameObject.PROP].forEach((prop) => {
             prop.type.changeAnimation(prop.state)
             let alive = prop.type.tick();
-    
+
             if (!alive) {
                 entities[gameObject.PROP].splice(0, 1)
                 isPropOn = false
@@ -126,7 +125,7 @@ const tick = () => {
         })
         window.requestAnimationFrame(tick)
     }
-   
+
 }
 
 
@@ -137,27 +136,22 @@ const randomEvent = () => {
 
     if (isBattleOn || isPropOn) {
         eventState = state.IDLE;
+
     } else {
-        switch (Math.floor(Math.random() * 10)) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-                entities[gameObject.ENEMY].push({ type: new Enemy(), state: eventState })
-                break;
-            case 8:
-            case 9:
-                entities[gameObject.PROP].push({ type: new Prop(), state: eventState })
-                break;
+
+        if (Math.floor(Math.random() * 10) > 3) {
+            entities[gameObject.ENEMY].push({ type: new Enemy(), state: eventState })
+
+        } else {
+            entities[gameObject.PROP].push({ type: new Prop(), state: eventState })
         }
+
     }
 
     setTimeout(randomEvent, 5000)
 }
+
+
 
 const checkForEnemyNear = (enemy) => {
     if (entities[gameObject.PLAYER].type.x + 300 >= enemy.type.x) {
@@ -168,6 +162,8 @@ const checkForEnemyNear = (enemy) => {
         }
     }
 }
+
+
 
 const checkForPropNear = (prop) => {
     if (entities[gameObject.PLAYER].type.x + 50 >= prop.type.x) {
@@ -192,10 +188,6 @@ const checkForPropNear = (prop) => {
 
 const init = () => {
 
-
-
-
-
     canInput = false;
 
     //Default element to create
@@ -205,11 +197,7 @@ const init = () => {
     entities[gameObject.ENEMY] = [];
     entities[gameObject.PROP] = [];
 
-
-
     randomEvent();
-
-
 }
 
 //When certains animations are done
@@ -291,19 +279,19 @@ const calculateStats = () => {
 
     if (game['words'].length > 0) {
         game['words'].forEach((word) => {
-            
-                word['word'].forEach((letter) => {
-                    if (letter['color'] == "green") {
-                        stats['green'] += 1;
-                    }
-                    else if (letter['color'] == "red") {
-                        stats['red'] += 1;
-                    }
-                    else {
-                        stats['yellow'] += 1;
-                    }
-                })
-            
+
+            word['word'].forEach((letter) => {
+                if (letter['color'] == "green") {
+                    stats['good'] += 1;
+                }
+                else if (letter['color'] == "red") {
+                    stats['wrong'] += 1;
+                }
+                else {
+                    stats['corrected'] += 1;
+                }
+            })
+
 
         })
     }
@@ -314,6 +302,8 @@ const calculateStats = () => {
 
 
 const gameOver = () => {
+
+    game['words'].pop(); // If the game end, the player didn't complete the last word
 
     isOver = true;
     fetch("/game/result", {

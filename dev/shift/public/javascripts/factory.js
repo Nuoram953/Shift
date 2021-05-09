@@ -6,8 +6,8 @@
 /*******************************************************************/
 
 
-async function factory(nExpression,nNoun, canvas, ctx,type) {
-  const value = await asyncFunction(nExpression, nNoun,type);
+async function factory(nExpression, nNoun, canvas, ctx, type) {
+  const value = await asyncFunction(nExpression, nNoun, type);
 
   let words = [];
   let noun = value['expressions'];
@@ -29,21 +29,25 @@ async function factory(nExpression,nNoun, canvas, ctx,type) {
  * @param {int} num -> The number of word needed
  * @returns {dict}
  */
-const asyncFunction = async (num1, num2,type) => {
-  const nouns = await getNouns(num2);
-  let expressions = null
-  switch (type) {
-    case "normal": expressions = await getExpressions(num1);
-      break;
-    case "adventure":expressions = await getExpressionsAdventure();
-    break;
-  }
+const asyncFunction = async (num1, num2, type) => {
 
 
   let data = {
-    nouns: nouns,
-    expressions: expressions,
+    nouns: null,
+    expressions: null,
   };
+
+  data['nouns'] = await getNouns(num2);
+
+  switch (type) {
+    case "normal": data['expressions'] = await getExpressions(num1);
+      break;
+    case "adventure": data['expressions'] = await getExpressionsAdventure();
+      break;
+  }
+
+  console.log(data);
+
   return data;
 };
 
@@ -70,7 +74,7 @@ async function getExpressions(num) {
     body: JSON.stringify({
       quantity: num,
       difficulty: document.getElementById('difficulty').innerHTML.toString().trim(),
-      language:document.getElementById('language').innerHTML.toString().trim()
+      language: document.getElementById('language').innerHTML.toString().trim()
     }),
     headers: {
       "Content-Type": "application/json"
@@ -83,11 +87,11 @@ async function getExpressions(num) {
 
 async function getExpressionsAdventure() {
   const response = await fetch("/adventure/Expression", {
-      method: "GET",
-      mode: "cors",
-      headers: {
-          "Content-Type": "application/json"
-      },
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json"
+    },
   });
 
   const data = await response.json();
@@ -106,7 +110,7 @@ async function getExpressionsAdventure() {
  * @returns {dict} -> An array of dict that contains the info needed for each letter in the word
  */
 const prep = (word, width, ctx, nouns) => {
-  let x = (width / 2) - caclPX(word, ctx)/2;
+  let x = (width / 2) - caclPX(word, ctx) / 2;
   let letter = [];
 
   while (word.toString().includes("placeholder")) {
@@ -137,14 +141,14 @@ const caclPX = (word, ctx) => {
 
   console.log(`${word}---->length: ${word.length}`);
 
-  if(word.length > 3){
+  if (word.length > 3) {
     distance += 30
   }
   for (let index = 0; index < word.length; index++) {
-    
+
     distance += ctx.measureText(word[index]).width;
 
-    
+
   }
 
   return distance

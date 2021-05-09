@@ -77,12 +77,13 @@ window.addEventListener("load", () => {
           "difficulty": selected["difficulty"],
         }),
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
       })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+
       })
       .catch(console.error);
   });

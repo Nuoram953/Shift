@@ -26,20 +26,5 @@ export default class Expression {
             console.log(this.expression);
         })
 
-        // fetch("/adventure/expression", {
-        //     method: "GET",
-        //     mode: 'cors',
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        // })
-        //     .then((res) => res.json())
-        //     .then((data) => {
-        //         console.log(data);
-        //         this.expression = data
-        //     })
-        //     .catch(console.error);
-
-
     }
 }
