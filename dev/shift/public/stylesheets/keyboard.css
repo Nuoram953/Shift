@@ -11,6 +11,7 @@ body * {
 }
 
 .keyboard-base {
+    margin: 150px auto;
     max-width: 1085px;
     padding: 20px;
     position: absolute;

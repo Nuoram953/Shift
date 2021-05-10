@@ -6,7 +6,8 @@
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
     "webpack": "webpack --watch",
-    "serverstart": "SET DEBUG=Shift:* && npm run devstart"
+    "serverstart": "SET DEBUG=Shift:* && npm run devstart",
+    "scss": "node-sass --watch ./public/stylesheets -o ./public/stylesheets"
   },
   "dependencies": {
     "async": "^3.2.0",
@@ -25,6 +26,7 @@
     "mongoose": "^5.11.19",
     "mongoose-simple-random": "^0.4.1",
     "morgan": "~1.9.1",
+    "node-sass": "^6.0.0",
     "popper.js": "^1.16.1",
     "serve-favicon": "^2.5.0"
   },
