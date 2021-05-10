@@ -1,44 +1,110 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="icon" href="/images/logo/logo.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="/javascripts/index.js"></script>
+  </head>
 
-<head>
-  <title><%= title %></title>
-  <link rel="stylesheet" href="/stylesheets/style.css" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link rel="icon" href="/images/logo/logo.png">
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&display=swap" rel="stylesheet" />
-</head>
+  <body class="body">
+    <nav class="navbar">
+      <p></p>
+      <div class="navbar-links">
+        <ul class="navbar-links-list">
+          <li>
+            <a href="/login" name="login" class="navbar-link-color"
+              >Se connecter</a
+            >
+          </li>
+          <li>
+            <a href="/signup" name="inscription" class="navbar-link-color"
+              >S'inscrire</a
+            >
+          </li>
+          <li>
+            <a href="" name="details" class="navbar-link-color">Service</a>
+          </li>
+          <li>
+            <a href="" name="contact" class="navbar-link-color"
+              >Nous contacter</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-<body class="body">
-  <nav class="navbar">
-    <p></p>
-    <div class="navbar-links">
-      <ul class="navbar-links-list">
-        <li>
-          <a href="/login" name="login" class="navbar-link-color">Se connecter</a>
-        </li>
-        <li>
-          <a href="/signup" name="inscription" class="navbar-link-color">S'inscrire</a>
-        </li>
-        <li>
-          <a href="" name="details" class="navbar-link-color">Service</a>
-        </li>
-        <li>
-          <a href="" name="contact" class="navbar-link-color">Nous contacter</a>
-        </li>
-      </ul>
+    <div class="page" id="page1">
+      <div id="background-index"></div>
+      <div class="title">
+        <h1>SHIFT</h1>
+        <h2>Développer votre rapidité</h2>
+      </div>
     </div>
-  </nav>
 
-  <div class="page" id="page1">
-    <div id="background-index"></div>
-    <div class="title">
-      <h1>SHIFT</h1>
-      <h2>Développer votre rapidité</h2>
+    <div class="page-break">
+      <p>Commencer votre aventure dès aujourd'hui!</p>
+      <a href="/signup">Cliquer ici</a>
+      <p>pour l'inscription</p>
     </div>
-  </div>
 
-  <div class="page" id="page2">
+    <div class="container-positif">
+      <div class="one-positif">
+        <img src="/images/shift_desc.jpg" alt="" />
+        <h2>Devenez la machine!</h2>
+        <p>
+          Vous allez devenir plus rapide que votre "autocomplete" de votre
+          IDE.
+        </p>
+      </div>
+      <div class="one-positif">
+        <img src="/images/shift_desc.jpg" alt="" />
+        <h2>Plusieurs langages disponibles</h2>
+        <p>
+          Pratiquez-vous à l'aide de plusieurs langages disponibles.
+        </p>
+      </div>
+      <div class="one-positif">
+        <img src="/images/shift_desc.jpg" alt="" />
+        <h2>Des expressions courament utlilisées</h2>
+        <p>
+          Pratiquez-vous à écrire des expressions courament utilisé.
+        </p>
+      </div>
+    </div>
+
+    <div class="container-more-info">
+      <div class="one-info">
+        <h2>Comment ça fonctionne?</h2>
+        <p>Écrviez les expressions le plus rapidement possible pour battre vos records précedents. Pour le mode aventure, accumulez le plus de point possible sans mourir</p>
+      </div>
+      <div class="one-info">
+        <h2>Comment ça fonctionne?</h2>
+        <p>Crée un compte pour conserver vos statistiques. Vous allez pouvoir constater votre progressions dans les différents langages.</p>
+      </div>
+    </div>
+
+    <div class="container-mode">
+      <div class="mode-presentation">
+        <img class="arrow" id="left" src="" alt="arrow-left">
+        <img id="picture" src="" alt="picture of mode">
+        <img class="arrow" id="right" src="" alt="arrow-right">
+      </div>
+      <div class="mode-text">
+        <h2 id="mode-title"></h2>
+        <p id="mode-desc"></p>
+      </div>
+
+    </div>
+
+
+
+    <!-- <div class="page" id="page2">
     <div class="container">
       <div class="body-desc">
         <div class="body-desc-image">
@@ -91,13 +157,8 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <div class="page-break">
-    <p>Commencer votre aventure dès aujourd'hui!</p>
-    <a href="/signup">Cliquer ici</a>
-    <p>pour l'inscription</p>
-  </div>
-
-
-  <%- include('partials/footer.ejs') %>
+    <%- include('partials/footer.ejs') %>
+  </body>
+</html>
