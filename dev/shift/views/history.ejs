@@ -1,114 +1,213 @@
 <%- include('partials/header.ejs') %>
 
-<script type ="module" src="/javascripts/history.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
-<script id="cpm" type="application/json"><%=cpm%> </script>
-<script id="date" type="application/json"><%=date%> </script>
-<script id="count" type="application/json"><%=count%> </script>
+    <script type="module" src="/javascripts/history.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+    <script id="cpm" type="application/json"><%=cpm%> </script>
+    <script id="date" type="application/json"><%=date%> </script>
+    <script id="count" type="application/json"><%=count%> </script>
 
 
-<div class="container-history-stat">
+    <div class="container-history-stat">
 
-    <div class="overview-profil">
-        <h2>Antoine</h2>
-        <p>Crée le 12/02/2020</p>
+        <div class="overview-profil">
+            <h2>Antoine</h2>
+            <p>Crée le 12/02/2020</p>
+        </div>
+
+
+        <div class="history-overview">
+            <div class="history-background small-stat">
+                <p>Langage favoris</p>
+                <p>python</p>
+            </div>
+            <div class="history-background small-stat">
+                <p>Difficulté favorite</p>
+                <p>python</p>
+            </div>
+            <div class="history-background small-stat">
+                <p>Nombre de partie jouée</p>
+                <p>python</p>
+            </div>
+            <div class="history-background small-stat">
+                <p>Test</p>
+                <p>python</p>
+            </div>
+            <div class="graph">
+                <canvas id="chart-donut" class="overview-stats history-background canvas-chart-sm" width="300"
+                    height="300"></canvas>
+            </div>
+        </div>
+
+
+        <div class="overview-stats history-background">
+            <div class="player-game-played">
+                <div class="game" id="headers" data=<%=game %>>
+                    <p>Date</p>
+                    <p>Type</p>
+                    <p>Langage</p>
+                    <p>Difficulté</p>
+                    <p>CPM</p>
+                    <p>Stats g/c/m</p>
+                </div>
+                <% game.forEach(element=> { %>
+                    <a href=<%=element.url %> >
+                        <div class="game">
+                            <p>
+                                <%= `${element.time.getDate()}/${element.time.getMonth()+1}/${element.time.getFullYear()}`
+                                    %>
+                            </p>
+                            <p>
+                                <%= element.type %>
+                            </p>
+                            <p>
+                                <%= element.language %>
+                            </p>
+                            <p>
+                                <%= element.difficulty %>
+                            </p>
+                            <p>
+                                <%= element.cpm %>
+                            </p>
+                            <p>
+                                <%= `${element.stats['good']}/${element.stats['corrected']}/${element.stats['wrong']}`
+                                    %>
+                            </p>
+                        </div>
+                    </a>
+                    <% }) %>
+            </div>
+        </div>
+
+        <div class="overview-graph">
+            <div class="graph">
+                <canvas id="chart" class="overview-stats history-background canvas-chart" width="600"
+                    height="400"></canvas>
+            </div>
+            <div class="graph">
+                <canvas id="chart-count" class="overview-stats history-background canvas-chart" width="600"
+                    height="400"></canvas>
+            </div>
+        </div>
+
+
+
     </div>
 
+    <script>
 
-    <div class="history-overview">
-        <div class="history-background small-stat">
-            <p>Test</p>
-            <p>python</p>
-        </div>
-        <div class="history-background small-stat">
-            <p>Test</p>
-            <p>python</p>
-        </div>
-        <div class="history-background small-stat">
-            <p>Test</p>
-            <p>python</p>
-        </div>
-        <div class="history-background small-stat">
-            <p>Test</p>
-            <p>python</p>
-        </div>
-        <div class="history-background small-stat">
-            <p>Test</p>
-            <p>python</p>
-        </div>
-    </div>
+        let canvas = document.getElementById("chart-count");
+        let ctx = canvas.getContext("2d");
 
-    
-    <div class="overview-stats history-background"></div>
+        let count = '<%- JSON.stringify(count) %>';
+        let dataset = JSON.parse(count)
 
-    <div class="overview-graph">
-        <div class="graph">
-            <canvas id ="chart" class="overview-stats history-background canvas-chart" width="600" height="400"></canvas>
-        </div>
-        <div class="graph">
-            <canvas id ="chart-count" class="overview-stats history-background canvas-chart" width="600" height="400"></canvas>
-        </div>
-    </div>
+        let label = [];
+        let data = []
 
-   
+        dataset.forEach(result => {
+            data.push(result.total);
+            label.push(result._id.language)
+        })
+        console.log(dataset)
 
-</div>
-
-<script>
-
-    let canvas = document.getElementById("chart-count");
-    let ctx = canvas.getContext("2d");
-
-    let count = '<%- JSON.stringify(count) %>';
-    let dataset = JSON.parse(count)
-
-    let label = [];
-    let data = []
-
-    dataset.forEach(result =>{
-        data.push(result.total);
-        label.push(result._id.language)
-    })
-    console.log(dataset)
-
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: label,
-            datasets: [{
-                label: 'Total pour chaque langage',
-                data: data,
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            scales: {
-                y: {
-                    beginAtZero: true
-                },
-                x: {
-                    borderWidth: 5
-
-                }
-
-
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: label,
+                datasets: [{
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                    ],
+                    borderWidth: 1
+                }],
 
             },
-            spanGaps: true,
-            layout: {
-                padding:0
+            options: {
+                title: {
+                    display: true,
+                    text: "Distribution des parties jouées selon le langage"
+                },
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    y: {
+
+
+                    },
+                    x: {
+                        borderWidth: 5
+
+                    },
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: 10
+                        }
+                    }]
+
+
+
+                },
+                spanGaps: true,
+                layout: {
+                    padding: 0
+                }
+            },
+        });
+
+        canvas = document.getElementById("chart-donut");
+        ctx = canvas.getContext("2d");
+
+        var myChart2 = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ["Normal", "Aventure"],
+                datasets: [{
+                    label: 'test',
+                    data: [50, 20],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                    ],
+                    hoverOffset: 4
+                }],
+
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Distribution des parties jouées selon le mode"
+                },
+                responsive: true,
+                maintainAspectRatio: true,
+
             }
-        },
-    });
+        });
 
-</script>
+    </script>
 
-<!-- <div class="container-history">
+    <!-- <div class="container-history">
     <div class="player-info">
         <div class="info">
             <img src="/images/defaultUser.jpg" alt="Default user" id="profil-icon">
@@ -156,5 +255,6 @@
         </div>
             <%}%>
 </div>     -->
-</body>
+    </body>
+
     </html>

@@ -611,8 +611,8 @@ footer {
 }
 
 .small-stat{
-  height: 100px;
-  width: 15%;
+  height: 300px;
+  width: 300px;
   display:flex;
   flex-direction: column;
   justify-content: space-around;
@@ -661,9 +661,16 @@ footer {
   margin: 50px auto ;
 }
 
+
+
 .canvas-chart{
-  width:600px !important;
+  width:700px !important;
   height:400px !important;
+}
+
+.canvas-chart-sm{
+  width:300px !important;
+  height:300px !important;
 }
 
 
@@ -727,7 +734,6 @@ footer {
   display: flex;
   flex-direction: column;
   min-width: 50%;
-  border-radius: 16px;
   overflow-y: scroll;
   height: 400px;
 }
@@ -750,7 +756,7 @@ footer {
   justify-content: space-around;
   align-items: center;
   text-align: center;
-  background-color: whitesmoke;
+  background-color: white;
   padding: 5px;
 }
 
@@ -762,6 +768,8 @@ footer {
   align-items: center;
   text-align: center;
   background-color: whitesmoke;
+  font-weight: 500;
+  font-size: larger;
 }
 
 .game:hover:not(#headers) {

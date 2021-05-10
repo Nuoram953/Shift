@@ -32,7 +32,6 @@ window.addEventListener("load", () => {
         data: {
             labels: dateFormat.reverse(),
             datasets: [{
-                label: 'CPM pour les dernières parties',
                 data: cpm.reverse(),
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
@@ -41,6 +40,10 @@ window.addEventListener("load", () => {
             }]
         },
         options: {
+            title:{
+                display:true,
+                text: "Distribution du CPM selon les 6 dernières parties"
+            },
             responsive: true,
             maintainAspectRatio: true,
             scales: {
