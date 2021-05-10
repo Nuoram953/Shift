@@ -17,8 +17,6 @@ window.addEventListener("load", () => {
     canvas = document.getElementById("chart");
     ctx = canvas.getContext("2d");
 
-    ctx.canvas.parentNode.style.width = "600px";
-    ctx.canvas.parentNode.style.height = "400px";
 
     
     let cpm = document.getElementById('cpm').textContent.split(",");
@@ -44,7 +42,7 @@ window.addEventListener("load", () => {
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
             scales: {
                 y: {
                     beginAtZero: true
@@ -57,7 +55,11 @@ window.addEventListener("load", () => {
 
 
             },
-            spanGaps: true
+            spanGaps: true,
+            layout:{
+                padding:0
+            }
         },
     });
+
 })

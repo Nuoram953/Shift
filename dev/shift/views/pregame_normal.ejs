@@ -1,34 +1,54 @@
 <%- include('partials/header.ejs') %>
 
-<script src="/javascripts/preGame.js"></script>
-  
-<div class="container-pregame">
+    <script src="/javascripts/preGame.js"></script>
+
+
+
+    <div class="pregame-title">
+        <h2>Langage</h2>
+        <hr class="hr-normal">
+    </div>
     <div class="container-items">
-        <% language.forEach(element => { %>
+        <% language.forEach(element=> { %>
             <div class="language">
-                <img src="/images/language/<%= element %>.png" alt= <%= element %> >
-                <p><%= element %> </p>
-                
+                <img src="/images/language/<%= element %>.png" alt=<%=element %> >
+                <p>
+                    <%= element %>
+                </p>
+
             </div>
-        <% }) %>
+            <% }) %>
     </div>
-    
+
+    <div class="pregame-title">
+        <h2>Difficulté</h2>
+        <hr class="hr-normal">
+    </div>
     <div class="container-items">
-        <% difficulty.forEach(element => { %>
-            <div class="difficulty">
-                <img src="/images/difficulty/<%= element %>.png" alt= <%= element %> >
-                <p><%= element %> </p>
+        <% difficulty.forEach(element=> { %>
+            <div class="difficulty">    
+                <img src="/images/difficulty/<%= element %>.png" alt=<%=element %> >
+                <p>
+                    <%= element %>
+                </p>
                 
             </div>
-        <% }) %>
-    
+            <% }) %>
+
     </div>
-    
-    <a href="/game" class="button-link" id="btnStartGame">Commencer</a>
-</div>
+
+    <div class="pregame-confirm">
+        <a href="/game" class="button-link" id="btnStartGame">Commencer</a>
+    </div>
 
 
 
 
-</body>
-</html>
+    </div>
+
+
+
+
+    </body>
+
+    </html>

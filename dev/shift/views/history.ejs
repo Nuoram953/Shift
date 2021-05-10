@@ -4,9 +4,111 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
 <script id="cpm" type="application/json"><%=cpm%> </script>
 <script id="date" type="application/json"><%=date%> </script>
+<script id="count" type="application/json"><%=count%> </script>
 
 
-<div class="container-history">
+<div class="container-history-stat">
+
+    <div class="overview-profil">
+        <h2>Antoine</h2>
+        <p>Crée le 12/02/2020</p>
+    </div>
+
+
+    <div class="history-overview">
+        <div class="history-background small-stat">
+            <p>Test</p>
+            <p>python</p>
+        </div>
+        <div class="history-background small-stat">
+            <p>Test</p>
+            <p>python</p>
+        </div>
+        <div class="history-background small-stat">
+            <p>Test</p>
+            <p>python</p>
+        </div>
+        <div class="history-background small-stat">
+            <p>Test</p>
+            <p>python</p>
+        </div>
+        <div class="history-background small-stat">
+            <p>Test</p>
+            <p>python</p>
+        </div>
+    </div>
+
+    
+    <div class="overview-stats history-background"></div>
+
+    <div class="overview-graph">
+        <div class="graph">
+            <canvas id ="chart" class="overview-stats history-background canvas-chart" width="600" height="400"></canvas>
+        </div>
+        <div class="graph">
+            <canvas id ="chart-count" class="overview-stats history-background canvas-chart" width="600" height="400"></canvas>
+        </div>
+    </div>
+
+   
+
+</div>
+
+<script>
+
+    let canvas = document.getElementById("chart-count");
+    let ctx = canvas.getContext("2d");
+
+    let count = '<%- JSON.stringify(count) %>';
+    let dataset = JSON.parse(count)
+
+    let label = [];
+    let data = []
+
+    dataset.forEach(result =>{
+        data.push(result.total);
+        label.push(result._id.language)
+    })
+    console.log(dataset)
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: label,
+            datasets: [{
+                label: 'Total pour chaque langage',
+                data: data,
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                },
+                x: {
+                    borderWidth: 5
+
+                }
+
+
+
+            },
+            spanGaps: true,
+            layout: {
+                padding:0
+            }
+        },
+    });
+
+</script>
+
+<!-- <div class="container-history">
     <div class="player-info">
         <div class="info">
             <img src="/images/defaultUser.jpg" alt="Default user" id="profil-icon">
@@ -53,6 +155,6 @@
             </div>
         </div>
             <%}%>
-</div>    
+</div>     -->
 </body>
     </html>
