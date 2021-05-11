@@ -5,14 +5,27 @@ var router = express.Router();
 var userController = require('../controllers/UsersController')
 var gameController = require('../controllers/GameController')
 var languageController = require('../controllers/LanguageController')
+var adminController = require('../controllers/AdminController')
 
-
+var Language = require("../models/language");
 
 
 router.get('/', function (req, res, next) {
-  res.render('index', {
-    title: 'Shift'
-  });
+
+  Language.aggregate([{
+    $group: {
+      _id: null,
+      language: {
+        $addToSet: "$language"
+      },
+    },
+  },]).exec(function (err, language) {
+
+    res.render('index', {
+      title: 'Shift',
+      language: language[0].language
+    });
+  })
 });
 
 
@@ -63,6 +76,7 @@ router.get('/adventure', gameController.adventurePage)
 router.get('/adventure/expression', languageController.findWord)
 
 
+router.get('/admin',adminController.adminPage)
 
 
 

@@ -43,7 +43,7 @@ a {
   text-decoration: none;
 }
 
-.body img {
+.body img:not(.arrow,.social-icon) { 
   border: 5px var(--primaryColor) solid;
   box-shadow: 1px 2px 5px grey;
 }
@@ -250,6 +250,7 @@ a {
   padding: 100px;
   display: flex;
   flex-direction: column;
+  background-color:rgb(182, 177, 177); 
 }
 
 .mode-presentation{
@@ -279,12 +280,46 @@ a {
   width:100px;
   align-items:center;
 }
-#picture{
-  height:500px;
-  width:700px;
+
+.arrow:hover{
+  background-color:whitesmoke;
+  border-radius:50%;
 }
 
 
+#picture{
+  height:500px;
+  width:700px;
+  background-size:cover;
+}
+
+.container-lang-disp{
+  background-color:white;
+  display: flex;
+  flex-direction: column;
+  justify-content:space-evenly;
+  align-items:center;
+  padding: 100px;
+}
+
+.all-lang{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+}
+
+.one-lang > img{
+  height: 100px;
+  width: 100px;
+}
+
+.one-lang{
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+  margin:50px;
+}
 
 
 
@@ -349,6 +384,10 @@ a {
   color: white;
 }
 
+
+
+
+
 /*
 * Footer
 */
@@ -408,6 +447,95 @@ footer {
   width: 75%;
   word-wrap: break-word;
 }
+
+/*****************************************************************
+/**ADMIN
+/***************************************************************/
+
+.sidebar{
+  display: flex;
+  flex-direction: column;
+  background-color:#0f1f31;
+  width: 10%;
+  height: calc(100vh - var(--navbar-height));
+  color: white;
+}
+
+.sidebar > ul {
+  display: flex;
+  flex-direction: column;
+  justify-content:left;
+  align-items:left;
+  width: 100%;
+}
+
+.sidebar>ul>li{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 25px 0;
+  width: inherit;
+  padding: 10px 0;
+  height: 40px;
+}
+
+.sidebar>hr{
+  width: 80%;
+}
+.sidebar-section{
+  margin: 100px 20px 0;
+}
+
+.sidebar>ul>li:hover{
+  background-color:var(--primaryColor);
+}
+
+.btn-admin-selected{
+  background-color:var(--primaryColor);;
+}
+
+.container-admin{
+  display: flex;
+  flex-direction: row;
+  justify-content:flex-start;
+}
+
+.container-section{
+  display: flex;
+  flex-direction: column;
+ 
+}
+
+.btn-admin{
+  background:none;
+  border: none;
+  width: inherit;
+  height: inherit;
+  color:gray;
+  font-size:20px;
+  align-items:left;
+  justify-content:left;
+  text-align:left;
+  padding-left:15px;
+}
+
+
+.section{
+  visibility:hidden;
+  position:absolute;
+}
+
+
+.actif{
+  visibility:visible;
+}
+
+.sidebar-icon{
+  height: 35px;
+  width: 35px;
+  margin-left:15px;
+}
+
 
 /*
 *signup
@@ -1001,7 +1129,6 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: blue 2px solid;
   width: fit-content;
 }
 

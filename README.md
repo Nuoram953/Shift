@@ -89,6 +89,7 @@ npm run webpack
 - [Heart](https://gpway.itch.io/2d-pixel-heart?download)
 - [keyboard](https://codepen.io/irajsuhail/pen/mYMZVm)
 - [key](https://iconarchive.com/show/keyboard-keys-icons-by-chromatix.html)
+- [Arrow](https://www.flaticon.com/search?word=arrow)
 
 ## Remerciements
 Un gros merci à Frédéric pour le script qui s'occupe de l'animation de spritesheets qui m'a sauvé énormément de temps

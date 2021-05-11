@@ -1,6 +1,29 @@
 <%- include('partials/header.ejs') %>
 
-<div class="signup-background">
+<body class="body-login">
+    <div class="container-login">
+        <form action="/login/verif" method="post" class="form-login">
+            <div class="form-login-info">
+                <h2>Inscrivez-vous gratuitement</h2>
+                <p>La plateforme <b>Shift</b> vous permet d'améliorer votre rapidité au clavier dans les langages que vous avez de la difficulté</p>
+            </div>
+            <div class="form-login-input">
+                <img src="/images/logo/logo.png" alt="logo-shift" id="login-logo">
+                <% if (typeof(error) != "undefined") { %> 
+                    <p class="error"><%= error %> </p>
+                <% } %>
+                <input type="text" for="username" name="username" placeholder="Nom d'utilisateur" id="username" value=<%=typeof(username) != "undefined" ? username : ""  %> >
+                <input type="password" for="password" name="password" placeholder="Mot de passe" id="password" >
+                <button id="login_confirm" type='submit'>Completer</button>
+                <p id="signup-login">Vous avez déjà compte? Connectez-vous <a href="/login">ici</a></p>
+
+            </div>
+
+        </form>       
+    </div>
+
+
+<!-- <div class="signup-background">
     <div class="signup-container">
         <form action="/signup/newUser" method="post" class="signup-form">
             <h2 id="signup-title">Inscrivez-vous gratuitement!</h2>
@@ -13,10 +36,10 @@
                 <% } %>
             </div>
 
-            <p id="signup-login">Vous avez déjà compte? Connectez-vous <a href="/login">ici</a></p>
+            
         </form>
     </div>
-</div>
+</div> -->
 
 
     </body>

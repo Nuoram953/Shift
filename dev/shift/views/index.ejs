@@ -91,13 +91,25 @@
 
     <div class="container-mode">
       <div class="mode-presentation">
-        <img class="arrow" id="left" src="" alt="arrow-left">
+        <img class="arrow" id="left" src="/images/mode/left-arrow.png" alt="arrow-left">
         <img id="picture" src="" alt="picture of mode">
-        <img class="arrow" id="right" src="" alt="arrow-right">
+        <img class="arrow" id="right" src="/images/mode/right-arrow.png" alt="arrow-right">
       </div>
       <div class="mode-text">
         <h2 id="mode-title"></h2>
         <p id="mode-desc"></p>
+      </div>
+    </div>
+
+    <div class="container-lang-disp">
+      <h2>Langages disponibles</h2>
+      <div class="all-lang">
+        <% language.forEach(lang => { %>
+          <div class="one-lang">
+            <img src="/images/language/<%= lang %>.png" alt="<%= lang  %> ">
+            <p><%= lang %> </p>
+          </div>
+          <% }) %>
       </div>
 
     </div>

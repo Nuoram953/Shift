@@ -303,7 +303,7 @@ const calculateStats = () => {
 
 const gameOver = () => {
 
-    game['words'].pop(); // If the game end, the player didn't complete the last word
+    game['words'].pop(); // If the game end, the player didn't complete the current word
 
     isOver = true;
     fetch("/game/result", {
