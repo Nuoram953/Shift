@@ -72,13 +72,14 @@ export default class UI{
         }
 
         //If the player recieve a hearth
-        if(this.newHealth){
+        if(this.newHealth ){
             this.tempY += 2.5
             this.font -= 1.5
 
             ctx.drawImage(this.imgHealth,this.prop.x,this.prop.y-this.tempY,this.imgHealth.width,this.imgHealth.height)
 
             if(this.tempY > 75){
+                player.type.health++;
                 this.newHealth = false;      
                 this.tempY = 0
                 this.font = 55
@@ -87,14 +88,10 @@ export default class UI{
         }
 
         //Health
-        for (let i = 0;i<Math.floor(this.playerHealth);i++){
+        for (let i = 0;i<this.playerHealth;i++){
             ctx.drawImage(this.imgHealth,50+this.imgHealth.width*i,50,this.imgHealth.width,this.imgHealth.height);
         }
 
-
-        if(this.playerHealth % 2 != 0 && this.playerHealth != 3){
-            ctx.drawImage(this.imgHealthHalf,50+this.imgHealthHalf.width*Math.floor(this.playerHealth),50,this.imgHealthHalf.width,this.imgHealthHalf.height);
-        }
 
         //Score
         ctx.font = "55px Arial";
@@ -146,7 +143,9 @@ export default class UI{
     }
 
     health(state){
-        this.newHealth = state;
+        if(player.type.health < player.type.maxHealth){
+            this.newHealth = state;
+        }
     }
 
     findWord(){
@@ -159,6 +158,9 @@ export default class UI{
     checkInput(key){
 
         //**The first element is always the one to remove if the player answer correctly */ 
+
+        console.log(`Input by user -> ${key}`);
+        console.log(`Input needed -> ${this.expressions[0].alt}`);
 
         if(INVALID_KEY.includes(key)) return
 

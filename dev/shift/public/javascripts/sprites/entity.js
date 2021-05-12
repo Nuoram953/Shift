@@ -33,6 +33,7 @@ export default class Entity {
         this.y = 710;
         this.speed = 1;
         this.health = 3;
+        this.maxHealth = this.health;
         this.isControlable = true;
     }
 

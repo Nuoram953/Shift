@@ -1,6 +1,29 @@
 <%- include('partials/header.ejs') %>
 
 <div class="details-words">
+
+    <div class="overview-profil">
+        <h2 id="overview-title">Sommaire de la partie: </h2>
+        <div class="container-overview">
+            <div class="overview-category">
+                <p>Langage:</p>
+                <p>Difficulté:</p>
+                <p>Date:</p>
+                <p>CPM:</p>
+                <p>Type:</p>
+            </div>
+            <div class="overview-category small-stat-result">
+                <p><%= game.language  %> </p>
+                <p><%=  game.difficulty %> </p>
+                <p><%= game.time %> </p>
+                <p><%= game.cpm %> </p>
+                <p><%= game.type %> </p>
+            </div>
+        </div>
+        
+    </div>
+
+
     <% game.words.forEach(element => { %>
     <div class="one-word">
         <div class="one-word-info">

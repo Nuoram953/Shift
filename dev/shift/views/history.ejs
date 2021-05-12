@@ -19,19 +19,19 @@
             <div class="history-overview">
                 <div class="history-background small-stat">
                     <p>Langage favoris</p>
-                    <p> <%= favorite %> </p>
+                    <p class="small-stat-result"> <%= favorite %> </p>
                 </div>
                 <div class="history-background small-stat">
                     <p>Difficulté favorite</p>
-                    <p><%= difficulty %> </p>
+                    <p class="small-stat-result"><%= difficulty %> </p>
                 </div>
                 <div class="history-background small-stat">
                     <p>Nombre de partie jouée</p>
-                    <p><%= total %> </p>
+                    <p class="small-stat-result"><%= total %> </p>
                 </div>
                 <div class="history-background small-stat">
                     <p>Jours depuis la création</p>
-                    <p><%= new Date(Math.abs(new Date() - new Date(currentUser[0]['date']))).getDate() %> </p>
+                    <p class="small-stat-result"><%= new Date(Math.abs(new Date() - new Date(currentUser[0]['date']))).getDate() %> </p>
                 </div>
                 <div class="graph">
                     <canvas id="chart-donut" class="overview-stats history-background canvas-chart-sm" width="300"
@@ -185,7 +185,7 @@
                 label.push(type._id.type)
                 data.push(type.total)
             })
-            
+
             var myChart2 = new Chart(ctx, {
                 type: 'doughnut',
                 data: {

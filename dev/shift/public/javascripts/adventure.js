@@ -40,6 +40,7 @@ let isPropOn = false;
 let start = false;
 let canInput = true;
 let isOver = false;
+let lastInput = null;
 
 
 
@@ -66,6 +67,8 @@ window.addEventListener("load", () => {
             if (canInput) {
                 let answer = entities[gameObject.UI].type.checkInput(evt.key);
 
+                lastInput = Date.now();
+
                 if (answer != undefined) {
                     if (!answer) {
                         entities[gameObject.ENEMY][0].state = state.ATTACK;
@@ -89,6 +92,17 @@ const tick = () => {
 
     if (!isOver) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+       
+        if(Date.now()- lastInput >= 6000 && lastInput){
+            lastInput = Date.now();
+            entities[gameObject.ENEMY][0].state = state.ATTACK
+            entities[gameObject.ENEMY][0].type.createAttack()
+        }
+        
+
+
+
 
         entities[gameObject.BACKGROUND].type.changeAnimation(entities[gameObject.BACKGROUND].state)
         entities[gameObject.BACKGROUND].type.tick();
@@ -139,11 +153,11 @@ const randomEvent = () => {
 
     } else {
 
-        if (Math.floor(Math.random() * 10) > 3) {
-            entities[gameObject.ENEMY].push({ type: new Enemy(), state: eventState })
-
-        } else {
+        if (Math.floor(Math.random() * 10) < 3) {
             entities[gameObject.PROP].push({ type: new Prop(), state: eventState })
+            
+        } else {
+            entities[gameObject.ENEMY].push({ type: new Enemy(), state: eventState })
         }
 
     }
@@ -197,6 +211,8 @@ const init = () => {
     entities[gameObject.ENEMY] = [];
     entities[gameObject.PROP] = [];
 
+    player = entities[gameObject.PLAYER]
+
     randomEvent();
 }
 
@@ -221,7 +237,7 @@ export const doneEvent = () => {
 
     // If player make a mistake
     else if (entities[gameObject.PLAYER].state == state.IDLE && entities[gameObject.ENEMY][0].state == state.ATTACK) {
-        entities[gameObject.PLAYER].type.health -= 0.5;
+        entities[gameObject.PLAYER].type.health--;
         entities[gameObject.ENEMY][0].state = state.IDLE;
         entities[gameObject.ENEMY][0].type.createAttack()
     }
@@ -233,6 +249,7 @@ export const doneEvent = () => {
 
 const battle = (sprite) => {
     canInput = true;
+    lastInput = Date.now()
     game['words'].push({ word: [], start: Date.now(), end: null, cpm: null })
     globalState(state.IDLE)
     entities[gameObject.UI].type.enemy = sprite.type
@@ -241,6 +258,7 @@ const battle = (sprite) => {
 }
 
 const battleIsOver = () => {
+    lastInput = null;
     entities[gameObject.PLAYER].type.createAttack()
     entities[gameObject.UI].type.points(5);
 
@@ -302,6 +320,8 @@ const calculateStats = () => {
 
 
 const gameOver = () => {
+
+    console.log(game['words']);
 
     game['words'].pop(); // If the game end, the player didn't complete the current word
 
