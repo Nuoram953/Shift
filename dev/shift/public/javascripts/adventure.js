@@ -84,7 +84,7 @@ window.addEventListener("load", () => {
 })
 
 
-//Game loop
+
 const tick = () => {
 
     if (!isOver) {

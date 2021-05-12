@@ -55,7 +55,7 @@
 
     <div class="container-positif">
       <div class="one-positif">
-        <img src="/images/shift_desc.jpg" alt="" />
+        <img src="/images/positif_machine.png" alt="" class="icon-positif"/>
         <h2>Devenez la machine!</h2>
         <p>
           Vous allez devenir plus rapide que votre "autocomplete" de votre
@@ -63,14 +63,14 @@
         </p>
       </div>
       <div class="one-positif">
-        <img src="/images/shift_desc.jpg" alt="" />
+        <img src="/images/positif_language.png" alt="" class="icon-positif"/>
         <h2>Plusieurs langages disponibles</h2>
         <p>
           Pratiquez-vous à l'aide de plusieurs langages disponibles.
         </p>
       </div>
       <div class="one-positif">
-        <img src="/images/shift_desc.jpg" alt="" />
+        <img src="/images/positif_expression.png" alt="" class="icon-positif"/>
         <h2>Des expressions courament utlilisées</h2>
         <p>
           Pratiquez-vous à écrire des expressions courament utilisé.
@@ -84,7 +84,7 @@
         <p>Écrviez les expressions le plus rapidement possible pour battre vos records précedents. Pour le mode aventure, accumulez le plus de point possible sans mourir</p>
       </div>
       <div class="one-info">
-        <h2>Comment ça fonctionne?</h2>
+        <h2>Simple à utiliser</h2>
         <p>Crée un compte pour conserver vos statistiques. Vous allez pouvoir constater votre progressions dans les différents langages.</p>
       </div>
     </div>
@@ -106,70 +106,13 @@
       <div class="all-lang">
         <% language.forEach(lang => { %>
           <div class="one-lang">
-            <img src="/images/language/<%= lang %>.png" alt="<%= lang  %> ">
+            <img src="/images/language/<%= lang %>.png" alt="<%= lang  %> " class="icon-language-available">
             <p><%= lang %> </p>
           </div>
           <% }) %>
       </div>
 
     </div>
-
-
-
-    <!-- <div class="page" id="page2">
-    <div class="container">
-      <div class="body-desc">
-        <div class="body-desc-image">
-          <img src="/images/shift_desc.jpg" alt="personne lente au clavier" />
-          <div class="body-desc-text">
-            <p>
-              Shift est une platforme qui a comme objectif d'améliorer la rapidité au clavier des nouveaux programmeurs.
-              C'est un avantage important que tous les programmeurs devraient posséder à la fin de leur technique!
-            </p>
-            <a href="/signup" class="button-link">Allez vers l'inscription</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container section-positive">
-      <div class="body-positive">
-        <div class="positive-container positive-left-side">
-          <div id="positive1" class="positive">
-            <img src="/images/positive_rapide.jpg" alt="" />
-            <div class="positive-text">
-              <h3>Devenez la machine!</h3>
-              <p>
-                Vous allez devenir tellement rapide que votre "autocomplete" de votre IDE ne sera pas capable de vous suivre.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="positive-container positive-right-side">
-          <div id="positive2" class="positive">
-            <div class="positive-text">
-              <h3>Plusieurs langages disponibles</h3>
-              <p>
-                Pratiquez-vous à l'aide de plusieurs langages disponibles dont Python, Javascript et plus encore.
-              </p>
-            </div>
-            <img src="/images/positive_language.jpg" alt="" />
-          </div>
-        </div>
-        <div class="positive-container positive-left-side">
-          <div id="positive3" class="positive">
-            <img src="/images/positive_expressions.jpg" alt="" />
-            <div class="positive-text">
-              <h3>Des expressions courament utlilisées</h3>
-              <p>
-                Pratiquez-vous à écrire des expressions que vous allez employé
-                plusieurs fois dans votre carrière.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
 
     <%- include('partials/footer.ejs') %>
   </body>

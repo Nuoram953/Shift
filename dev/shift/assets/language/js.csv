@@ -1,2 +1,6 @@
 expression;difficulty;language
 const placeholder = () => {};hard;js
+True;easy;js
+False;easy;js
+class placeholder;medium;js
+export;easy;js

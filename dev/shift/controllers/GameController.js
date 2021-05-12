@@ -134,7 +134,7 @@ exports.gameGetExpression = function (req, res, next) {
   });
 };
 
-//OPTIONEL - Fonction d'admin
+
 exports.addGame = function (req, res, next) {
 
   let language, difficulty;

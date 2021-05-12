@@ -1,3 +1,10 @@
+/*******************************************************************
+*NAME: ANTOINE AUGER-MAROUN
+*DATE: 12/04/2021
+*OBJECT: Manage tab in sidebar on admin page
+*FICHIER: admin.js
+/*******************************************************************/
+
 
 let btnOverview, btnLanguage = null
 let overview,language = null

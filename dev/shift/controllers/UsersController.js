@@ -1,5 +1,13 @@
+/*******************************************************************
+*NAME: ANTOINE AUGER-MAROUN
+*DATE: 2021-05-12 10:52:01
+*OBJECT: Manage everything related to user. Display pages and retrives informations from mongoDB
+*FICHIER: UserController.js
+/*******************************************************************/
+
 var User = require('../models/user');
 var Game = require('../models/game');
+var Language = require("../models/language");
 
 var mongoose = require("mongoose");
 var bcrypt = require('bcrypt');
@@ -16,6 +24,24 @@ const ERROR = {
 };
 
 
+exports.indexPage = function (req, res, next) {
+    {
+        Language.aggregate([{
+            $group: {
+                _id: null,
+                language: {
+                    $addToSet: "$language"
+                },
+            },
+        },]).exec(function (err, data) {
+
+            res.render('index', {
+                title: 'Shift',
+                language: data[0].language
+            });
+        })
+    }
+}
 
 exports.loginPage = function (req, res, next) {
     res.render('login', {
@@ -46,11 +72,6 @@ exports.signupPage = function (req, res, next) {
 
 exports.historyPage = function (req, res, next) {
 
-    //Informations wanted : 
-    // cpm for the last 10 games 
-    // list of game (click for details)
-    // basic player info
-
     async.parallel({
         game: function (callback) {
             Game.
@@ -69,6 +90,30 @@ exports.historyPage = function (req, res, next) {
                 exec(callback)
 
         },
+        //Number of game played for each language
+        type: function (callback) {
+            Game.aggregate([
+                {
+                    '$match': {
+                        'user': mongoose.Types.ObjectId(req.params.id)
+                    }
+                }, 
+
+                {
+                    '$group': {
+                        '_id': {
+                            'type': '$type',
+                        },
+                        'total': {
+                            '$sum': 1
+                        }
+
+                    }
+                }
+            ]).exec(callback)
+
+        },
+        //Number of game played for each language
         count: function (callback) {
             Game.aggregate([
                 {
@@ -82,12 +127,13 @@ exports.historyPage = function (req, res, next) {
                         },
                         'total': {
                             '$sum': 1
-                        }
+                        },
                     }
                 }
             ]).exec(callback)
 
         },
+        //Count the number of games played for each difficulty
         diff: function (callback) {
             Game.aggregate([
                 {
@@ -110,7 +156,6 @@ exports.historyPage = function (req, res, next) {
     }, function (err, results) {
         if (err) return next(err);
 
-        console.log(results.diff);
         //Gather the cpm of the last 6 games in arrays for easier manipulation
         let count = (results.game.length <= 6) ? results.game.length : 6;
         let date = []
@@ -128,19 +173,19 @@ exports.historyPage = function (req, res, next) {
         let total = 0
         let tempLanguage = {
             value: 0,
-            language:null
+            language: null
         }
 
-        results.count.forEach(lang=>{
-            if (idx == 0){
+        results.count.forEach(lang => {
+            if (idx == 0) {
                 tempLanguage.value = parseInt(lang.total)
                 tempLanguage.language = lang._id.language
             }
-            else if(parseInt(lang.total) > tempLanguage.value){
+            else if (parseInt(lang.total) > tempLanguage.value) {
                 tempLanguage.value = parseInt(lang.total)
                 tempLanguage.language = lang._id.language
             }
-            
+
             idx++;
             console.log(parseInt(lang.total));
             total += parseInt(lang.total)
@@ -150,21 +195,22 @@ exports.historyPage = function (req, res, next) {
         idx = 0
         let tempDifficulty = {
             value: 0,
-            difficulty:null
+            difficulty: null
         }
-        results.diff.forEach(lang=>{
-            if (idx == 0){
+        results.diff.forEach(lang => {
+            if (idx == 0) {
                 tempDifficulty.value = parseInt(lang.total)
                 tempDifficulty.difficulty = lang._id.difficulty
             }
-            else if(parseInt(lang.total) > tempDifficulty.value){
+            else if (parseInt(lang.total) > tempDifficulty.value) {
                 tempDifficulty.value = parseInt(lang.total)
                 tempDifficulty.difficulty = lang._id.difficulty
-            }
-            
+            }   
+
             idx++;
         })
 
+        console.log(results.type);
 
         res.render("history", {
             currentUser: [results.player],
@@ -175,24 +221,14 @@ exports.historyPage = function (req, res, next) {
             date: date,
             count: results.count,
             favorite: tempLanguage.language,
-            total:total,
-            difficulty:tempDifficulty.difficulty
-
-
+            total: total,
+            difficulty: tempDifficulty.difficulty,
+            type:results.type
         });
     })
-
-
-    console.log(req.session.user);
-
 }
 
 
-
-
-/**
- * We're checking for user input password and the one hashed one in the DB. If valid -> home, else -> login with error message.
- */
 exports.loginVerif = function (req, res, next) {
     User.
         find().

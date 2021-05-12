@@ -14,7 +14,7 @@ Application web pour améliorer la rapidité au clavier des nouveaux programmeur
 - Chrome
 - Visual Studio Code
 
-<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>`</kbd> Permet d'ouvrir un terminal pour les commandes suivantes
+Les commandes doivent se faire dans un terminal ( <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>`</kbd> ) sur VSC
 
 ## Première utilisation
 

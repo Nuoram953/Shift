@@ -47,7 +47,7 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/module",express.static(path.join(__dirname, "dist")));
+app.use("/module", express.static(path.join(__dirname, "dist")));
 app.use(favicon(path.join(__dirname, 'public', '/images/logo.png')))
 
 
@@ -91,7 +91,6 @@ const init = () => {
   let db = mongoose.connection;
 
   //Checking if BD contains all csv languages files otherwise adding them to the collection "Language"
-  let json = null;
   fs.readdir(LANGUAGE, (err, files) => {
     files.forEach((file) => {
       file = file.split(".")[0];
@@ -103,9 +102,10 @@ const init = () => {
         .exec(function (err, document) {
           if (err) throw err;
 
-          if (document == 0) {
-            json = csvToJson.getJsonFromCsv(`./assets/language/${file}.csv`);
-            console.log(json);
+          let json = csvToJson.getJsonFromCsv(`./assets/language/${file}.csv`);
+
+          if (document != json.length) {
+            db.collection("Language").deleteMany({ "language": file })
             db.collection("Language").insertMany(json, function (err, res) {
               if (err) throw err;
             });
@@ -114,7 +114,8 @@ const init = () => {
     });
   });
 
-  //If none User, add Admin for testing
+  //If there is no user in db, add Admin account for testing
+  //*When ready for release change default password for admin account
   User.find()
     .countDocuments()
     .exec(function (err, users) {
@@ -123,7 +124,6 @@ const init = () => {
       if (users <= 0) {
         bcrypt.genSalt(saltRounds, function (err, salt) {
           bcrypt.hash("admin", salt, function (err, hash) {
-            // Store hash in your password DB.
             let admin = new User({
               username: "admin",
               password: hash,

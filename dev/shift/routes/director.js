@@ -1,3 +1,10 @@
+/*******************************************************************
+*NAME: ANTOINE AUGER-MAROUN
+*DATE: 12/04/2021
+*OBJECT: Redirects every links to their controller and function
+*FICHIER: director.js
+/*******************************************************************/
+
 var express = require('express');
 var router = express.Router();
 
@@ -7,32 +14,13 @@ var gameController = require('../controllers/GameController')
 var languageController = require('../controllers/LanguageController')
 var adminController = require('../controllers/AdminController')
 
-var Language = require("../models/language");
 
 
-router.get('/', function (req, res, next) {
-
-  Language.aggregate([{
-    $group: {
-      _id: null,
-      language: {
-        $addToSet: "$language"
-      },
-    },
-  },]).exec(function (err, language) {
-
-    res.render('index', {
-      title: 'Shift',
-      language: language[0].language
-    });
-  })
-});
-
-
-
-/**
+/****************************************************************
  * User Controller
- */
+ ****************************************************************/
+router.get('/', userController.indexPage)
+
 router.get('/login', userController.loginPage)
 
 router.post('/login/verif', userController.loginVerif)
@@ -46,10 +34,9 @@ router.get('/history/user/:id', userController.historyPage)
 router.post('/signup/newUser', userController.addUser)
 
 
-
-/**
+/****************************************************************
  * Game Controller
- */
+ ****************************************************************/
 router.get('/game/details/:id', gameController.detailsGame)
 
 router.get('/game/prep', gameController.preGame_trad)
@@ -71,12 +58,16 @@ router.get('/result', gameController.resultPage)
 router.get('/adventure', gameController.adventurePage)
 
 
-
-
+/****************************************************************
+ * Language Controller
+ ****************************************************************/
 router.get('/adventure/expression', languageController.findWord)
 
 
-router.get('/admin',adminController.adminPage)
+/****************************************************************
+ * Admin Controller
+ ****************************************************************/
+router.get('/admin', adminController.adminPage)
 
 
 
