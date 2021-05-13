@@ -26,7 +26,7 @@
                     <p class="small-stat-result"><%= difficulty %> </p>
                 </div>
                 <div class="history-background small-stat">
-                    <p>Nombre de partie jouée</p>
+                    <p>Nombre de parties jouées</p>
                     <p class="small-stat-result"><%= total %> </p>
                 </div>
                 <div class="history-background small-stat">
@@ -50,6 +50,7 @@
                         <p>CPM</p>
                         <p>Stats g/c/m</p>
                     </div>
+                    <hr>
                     <% game.forEach(element=> { %>
                         <a href=<%=element.url %> >
                             <div class="game">
@@ -145,6 +146,9 @@
                         display: true,
                         text: "Distribution des parties jouées selon le langage"
                     },
+                    legend:{
+                        display: false
+                    },
                     responsive: true,
                     maintainAspectRatio: true,
                     scales: {
@@ -210,6 +214,9 @@
                     title: {
                         display: true,
                         text: "Distribution des parties jouées selon le mode"
+                    },
+                    legend:{
+                        display: false
                     },
                     responsive: true,
                     maintainAspectRatio: true,

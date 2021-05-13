@@ -44,6 +44,9 @@ window.addEventListener("load", () => {
                 display:true,
                 text: "Distribution du CPM selon les 6 dernières parties"
             },
+            legend:{
+                display: false
+            },
             responsive: true,
             maintainAspectRatio: true,
             scales: {

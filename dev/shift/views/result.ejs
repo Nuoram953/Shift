@@ -5,15 +5,59 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&display=swap" rel="stylesheet" />
     <title>Document</title>
 </head>
-<body>
+<body class="body-result">
     <div class="container-result">
         <h1>Fin de partie</h2>
-        <p> Type: <%= result['type'] %> </p>
-        <p> Caractère par minute: ~<%= result['cpm'] %> </p>
-        <p> Language: <%= result['language'] %> </p>
-        <p> Difficulté: <%= result['difficulty'] %> </p>
+
+        <% if (result.words.length > 0) { %>
+        
+            <p>Vous avez écrit <b><%= result['words'].length %> </b> mot(s)</p>
+
+            <div class="result-stats">
+                <div class="one-result-stat">
+                    <div class="result-stats-circle" id="result-wrong"></div>
+                    <p><%= result.stats.wrong %> </p>
+                    <p>Erreur</p>
+                </div>
+                <div class="one-result-stat">
+                    <div class="result-stats-circle" id="result-good"></div>
+                    <p><%= result.stats.good %> </p>
+                    <p>Parfait</p>
+                </div>
+                <div class="one-result-stat">
+                    <div class="result-stats-circle" id="result-corrected"></div>
+                    <p><%= result.stats.corrected %> </p>
+                    <p>Corrigé</p>
+                </div>
+            </div>
+        
+        <% } else { %>
+            <p>Vous avez écrit aucun mot. Meilleure change la prochaine fois.</p>
+        <% } %> 
+        <hr>
+        <div class="result-overview">
+            <div class="overview-category">
+                <p>Langage:</p>
+                <p>Difficulté:</p>
+                <p>Date:</p>
+                <p>CPM:</p>
+                <p>Type:</p>
+            </div>
+            <div class="overview-category">
+                <p><%= result.language %>  </p>
+                <p><%= result.difficulty %>  </p>
+                <p><%= `${result.time.getDate()}/${result.time.getMonth()+1}/${result.time.getFullYear()}` %>  </p>
+                <p><%= result.cpm %>  </p>
+                <p><%= result.type %>  </p>
+            </div>
+        </div>
+        <hr>
+        <a href="/home" class="button-link" id="result-return-btn">Retour</a>
+        <!-- 
 
         <div class="result-stats">
         <% if (result['type'] == "adventure") { %>
@@ -45,7 +89,7 @@
             <% } else { %>
                 <p>Meilleure chance la prochaine fois</p>
                 <% } %>
-        <% } %>
+        <% } %> -->
 
 
 
@@ -54,6 +98,6 @@
 
 
     </div>
-    <a href="/home">Retour au menu</a>
+    
 </body>
 </html>
