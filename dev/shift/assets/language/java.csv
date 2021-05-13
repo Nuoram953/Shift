@@ -1,0 +1,18 @@
+expression;difficulty;language
+char;easy;java
+import;easy;java
+int;easy;java
+private;easy;java
+class;easy;java
+switch;easy;java
+String;easy;java
+private class placeholder;medium;java
+switch(placeholder);medium;java
+if (placeholder > placeholder);medium;java
+String placeholder = "placeholder";medium;java
+new placeholder(placeholder);medium;java
+public boolean placeholder implements;medium;java
+Vector <String> placeholder = new Vector<>();hard;java
+Context placeholder = new Context();hard;java
+Toast placeholder = Toast.makeText(context, placeholder, duration);hard;java
+card.startDrag(null, shadowBuilder, card, 0);hard;java

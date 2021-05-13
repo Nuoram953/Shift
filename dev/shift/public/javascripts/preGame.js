@@ -5,11 +5,6 @@
 *FICHIER: preGame.js
 /*******************************************************************/
 
-
-
-
-
-
 let btn = null;
 let language = null;
 let difficulty = null;

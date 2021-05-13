@@ -1,3 +1,11 @@
+/*******************************************************************
+*NAME: ANTOINE AUGER-MAROUN
+*DATE: 2021-05-13 11:14:49
+*OBJECT: Manage adventure game. Main file. Everything is compile into main.js with webpack
+*FICHIER: adventure.js
+/*******************************************************************/
+
+
 import Player from '/public/javascripts/sprites/player.js'
 import Enemy from '/public/javascripts/sprites/enemy.js'
 import Background from '/public/javascripts/sprites/background.js'
@@ -41,6 +49,9 @@ let start = false;
 let canInput = true;
 let isOver = false;
 let lastInput = null;
+
+let audio = new Audio('/sounds/adventure.mp3')
+audio.volume = 0.1;
 
 
 
@@ -204,6 +215,8 @@ const init = () => {
 
     canInput = false;
 
+    audio.play()
+
     //Default element to create
     entities[gameObject.BACKGROUND] = { type: new Background(), state: state.RUN };
     entities[gameObject.UI] = { type: new UI() };
@@ -216,9 +229,7 @@ const init = () => {
     randomEvent();
 }
 
-//When certains animations are done
 export const doneEvent = () => {
-
 
     //If player win
     if (entities[gameObject.PLAYER].state == state.ATTACK && entities[gameObject.ENEMY][0].state == state.IDLE) {
@@ -321,9 +332,7 @@ const calculateStats = () => {
 
 const gameOver = () => {
 
-    console.log(game['words']);
-
-    game['words'].pop(); // If the game end, the player didn't complete the current word
+    game['words'].pop(); // If the game end, the player didn't complete the current word so we remove it
 
     isOver = true;
     fetch("/game/result", {
@@ -342,8 +351,6 @@ const gameOver = () => {
         redirect: "manual"
     }).then((response) => response.json())
         .then((data) => {
-            console.log(game);
-            console.log(data);
             window.location.replace(data['url'])
         })
         .catch(console.error);

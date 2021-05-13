@@ -192,8 +192,9 @@ const calculateStats = () => {
 
     words.forEach(word => {
         word['word'].forEach(letter => {
-            if (letter['color'] == "red") {
+            if (letter['color'] == "red" || letter['color'] == "black") {
                 stats['wrong'] += 1
+                letter['color'] = "red"
             } else if (letter['color'] == "rgb(212, 212, 25)") {
                 stats['corrected'] += 1
             } else {

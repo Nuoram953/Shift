@@ -110,11 +110,15 @@ async function getExpressionsAdventure() {
  * @returns {dict} -> An array of dict that contains the info needed for each letter in the word
  */
 const prep = (word, width, ctx, nouns) => {
-  let x = (width / 2) - caclPX(word, ctx) / 2;
+  let x = (width / 2) - (caclPX(word, ctx) / 2);
   let letter = [];
 
   while (word.toString().includes("placeholder")) {
     word = word.replace("placeholder", nouns[Math.floor(Math.random() * nouns.length)]);
+  }
+
+  if(word.length < 20){
+    x+=30;
   }
 
   for (let char in word) {
@@ -141,12 +145,14 @@ const caclPX = (word, ctx) => {
 
   console.log(`${word}---->length: ${word.length}`);
 
-  if (word.length > 3) {
-    distance += 30
-  }
+ 
+  
+
   for (let index = 0; index < word.length; index++) {
 
-    distance += ctx.measureText(word[index]).width;
+    if(word[index] != " "){
+      distance += 30;
+    }
 
 
   }

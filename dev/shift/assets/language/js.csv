@@ -1,6 +1,43 @@
 expression;difficulty;language
 const placeholder = () => {};hard;js
-True;easy;js
-False;easy;js
+true;easy;js
+false;easy;js
 class placeholder;medium;js
 export;easy;js
+export placeholder;medium;js
+placeholder.forEach(placeholder=>{});hard;js
+return;easy;js
+return placeholder;medium;js
+let placeholder;medium;js
+const placeholder;medium;js
+constructor(){};medium;js
+while(placeholder>placeholder);medium;js
+let placeholder = null;medium;js
+catch(IndexError);easy;js
+switch(placeholder);medium;js
+try;easy;js
+this.placeholder;medium;js
+super();easy;js
+for(let placeholder in placeholder);hard;js
+async placeholder;easy;js
+let placeholder = [];medium;js
+this.classList.toggle("active");hard;js
+placeholder.addEventListener("load",placeholder());hard;js
+placeholder.style.display = "none";medium;js
+if;easy;js
+else;easy;js
+else if;easy;js
+while;easy;js
+for;easy;js
+catch;easy;js
+break;easy;js
+switch;easy;js
+const;easy;js
+let;easy;js
+import;easy;js
+var;easy;js
+yield;easy;js
+throw;easy;js
+null;easy;js
+finally;easy;js
+//comment;easy;js

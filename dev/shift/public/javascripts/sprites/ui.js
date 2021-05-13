@@ -12,7 +12,10 @@ const SPECIAL_KEY = {
     ";":"point virgule",
     "Shift": "Shift",
     ":":"doublePoint",
-    ".":"point"
+    ".":"point",
+    ">":"point",
+    "<":"point",
+    "=":"egal",
 }
 
 
