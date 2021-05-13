@@ -18,7 +18,7 @@ Les commandes doivent se faire dans un terminal ( <kbd>Ctrl</kbd> + <kbd>Shift</
 
 ## Première utilisation
 
-Il faut télécharger les dépendances demandé par l'application
+Il faut télécharger les dépendances demandées par l'application
 
 ```
 npm install
@@ -34,7 +34,7 @@ npm run serverstart
 
 ## Modification (Optionel)
 
-Dans un cas, ou vous voulez apporter des modifications au code, certains fichiers js sont compilés avec Webpack. Il faut donc le mettre à jour.
+Dans un cas, où vous voulez apporter des modifications au code, certains fichiers JS sont compilés avec Webpack. Il faut donc le mettre à jour.
 
 Dans un deuxième terminal (sans fermer la première)
 
