@@ -2,7 +2,7 @@
 
 # Sommaire
 
-Application web pour améliorer la rapidité au clavier des nouveaux programmeurs. Pratiquez-vous dans un language choisie par l'utilisateur ou si vous être prêt, dans un mode aventure ou tous les langages et difficultés sont présentes.
+Application web pour améliorer la rapidité au clavier des nouveaux programmeurs. Pratiquez-vous dans un language choisie par l'utilisateur ou si vous êtes prêt, dans un mode aventure où tous les langages et difficultés sont présentes.
 
 # Installation
 
