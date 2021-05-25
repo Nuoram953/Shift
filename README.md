@@ -2,7 +2,7 @@
 
 # Sommaire
 
-Application web pour améliorer la rapidité au clavier des nouveaux programmeurs. Pratiquez-vous dans un language choisie par l'utilisateur ou si vous êtes prêt, dans un mode aventure où tous les langages et difficultés sont présentes.
+Application web pour améliorer la rapidité au clavier des nouveaux programmeurs. Pratiquez-vous dans un langage choisie par l'utilisateur.Si vous êtes prêt, essayer le mode aventure où tous les langages et difficultés sont présentes par un maximum de défi.
 
 # Installation
 
@@ -11,7 +11,7 @@ Application web pour améliorer la rapidité au clavier des nouveaux programmeur
 - Js
 - Node.js
 - MongoDB
-- Chrome
+- Chrome (Firefox ne fonctionne pas à 100% à cause de certaines stratégies de sécurité)
 - Visual Studio Code
 
 Les commandes doivent se faire dans un terminal ( <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>`</kbd> ) sur VSC
@@ -45,8 +45,8 @@ npm run webpack
 # Utilisation
 
 1. Ouvrez une fenêtre dans Chrome et allez à l'addresse [https://localhost:3000](https://localhost:3000)
-2. Créez un compte
-3. Différent mode de jeux sont disponibles soit "normal" et "aventure"
+2. Créer un compte
+3. Différents modes de jeux sont disponibles soit "normal" et "aventure"
 
    - Normal:
         - Languages disponibles:
@@ -93,9 +93,4 @@ npm run webpack
 
 ## Remerciements
 Un gros merci à Frédéric pour le script qui s'occupe de l'animation de spritesheets qui m'a sauvé énormément de temps
-<!-- # Élements importants
-## Dans une partie ...
-Le clavier à été trouvé sur Internet. Il comprend une partie css et html.
-J'ai apporté quelques modifications pour les besoins du projets.
-- Un id par touche
-- Du code javascript pour le changement de couleur après une touche appuyée -->
+

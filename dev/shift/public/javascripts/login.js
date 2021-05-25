@@ -1,3 +1,10 @@
+/*******************************************************************
+*NAME: ANTOINE AUGER-MAROUN
+*DATE: 2021-05-25 13:05:31
+*OBJECT: Show error message if login infos are wrong. Remove them after 5 seconds
+*FICHIER: login.js
+/*******************************************************************/
+
 window.addEventListener('load', () => {
 
 

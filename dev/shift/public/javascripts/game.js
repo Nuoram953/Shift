@@ -11,7 +11,7 @@ import {
 } from './factory.js'
 
 const HEIGHT = 50;
-const WORDS = 5;
+const WORDS = 10;
 const NOUNS = 25;
 const INVALID_KEY = ['Shift', 'Enter', 'Backspace']
 const DOUBLE_KEY = {
@@ -36,8 +36,6 @@ let canvas = null;
 
 window.addEventListener("load", () => {
 
-    //keyAudio.preload();
-
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
     ctx.font = "30px Arial";
@@ -52,10 +50,8 @@ window.addEventListener("load", () => {
         show(words[index]['word'])
         keyboardPrep();
         changeColor();
-        //keyAudio.play();
 
         window.addEventListener('keydown', (event) => {
-            //keyAudio.play();
             keyInput(event.key);
             show(words[index]['word'])
             changeColor();
