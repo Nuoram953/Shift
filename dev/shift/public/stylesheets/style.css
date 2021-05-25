@@ -536,10 +536,15 @@ footer {
   visibility: hidden;
   position: absolute;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background-color: whitesmoke;
   width: inherit;
   justify-content: space-evenly;
+  overflow: hidden;
+}
+
+#section-overview{
+  height: 90%;
 }
 
 .actif {
@@ -566,12 +571,24 @@ footer {
   align-items: center;
 }
 
+.container-medium-stat{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
 .medium-stat > * {
   margin: 0 10px;
 }
 
 .medium-stat-result {
   font-size: 40px;
+}
+
+.admin-user, .admin-game-played{
+  background-color: white;
+  padding: 100px 200px;
+  box-shadow: 1px 1px 5px gray;
 }
 
 /*
@@ -1232,6 +1249,15 @@ footer {
   border: 5px solid white;
   box-shadow: 1px 1px 5px grey;
 }
+
+#current-word{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
 
 /*
 * Result Page

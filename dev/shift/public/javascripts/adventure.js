@@ -48,7 +48,8 @@ let isPropOn = false;
 let start = false;
 let canInput = true;
 let isOver = false;
-let lastInput = null;
+
+let txtCurrentWord = null
 
 let audio = new Audio('/sounds/adventure.mp3')
 audio.volume = 0.1;
@@ -56,6 +57,8 @@ audio.volume = 0.1;
 
 
 window.addEventListener("load", () => {
+
+    txtCurrentWord = document.getElementById("current-word");
 
     let msgStart = "Appuyez sur ENTER pour commencer";
 
@@ -78,8 +81,7 @@ window.addEventListener("load", () => {
             if (canInput) {
                 let answer = entities[gameObject.UI].type.checkInput(evt.key);
 
-                lastInput = Date.now();
-
+    
                 if (answer != undefined) {
                     if (!answer) {
                         entities[gameObject.ENEMY][0].state = state.ATTACK;
@@ -91,6 +93,7 @@ window.addEventListener("load", () => {
                         canInput = false;
                     }
                 }
+                
             }
         }
 
@@ -104,22 +107,16 @@ const tick = () => {
     if (!isOver) {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-       
-        if(Date.now()- lastInput >= 6000 && lastInput){
-            lastInput = Date.now();
-            entities[gameObject.ENEMY][0].state = state.ATTACK
-            entities[gameObject.ENEMY][0].type.createAttack()
-        }
-        
-
-
-
-
         entities[gameObject.BACKGROUND].type.changeAnimation(entities[gameObject.BACKGROUND].state)
         entities[gameObject.BACKGROUND].type.tick();
 
         entities[gameObject.UI].type.playerHealth = entities[gameObject.PLAYER].type.health
         entities[gameObject.UI].type.tick();
+        try{
+            txtCurrentWord.innerHTML = entities[gameObject.UI].type.currentWord.expression;
+        }catch(TypeError){
+
+        }
 
         entities[gameObject.PLAYER].type.changeAnimation(entities[gameObject.PLAYER].state)
         if (!entities[gameObject.PLAYER].type.tick()) {
@@ -164,7 +161,7 @@ const randomEvent = () => {
 
     } else {
 
-        if (Math.floor(Math.random() * 10) < 3) {
+        if (Math.floor(Math.random() * 10) < 1 && entities[gameObject.PLAYER].type.health < 3) {
             entities[gameObject.PROP].push({ type: new Prop(), state: eventState })
             
         } else {
@@ -260,7 +257,7 @@ export const doneEvent = () => {
 
 const battle = (sprite) => {
     canInput = true;
-    lastInput = Date.now()
+
     game['words'].push({ word: [], start: Date.now(), end: null, cpm: null })
     globalState(state.IDLE)
     entities[gameObject.UI].type.enemy = sprite.type
@@ -269,7 +266,7 @@ const battle = (sprite) => {
 }
 
 const battleIsOver = () => {
-    lastInput = null;
+
     entities[gameObject.PLAYER].type.createAttack()
     entities[gameObject.UI].type.points(5);
 

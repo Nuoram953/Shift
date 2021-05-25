@@ -16,6 +16,8 @@ const SPECIAL_KEY = {
     ">":"point",
     "<":"point",
     "=":"egal",
+    "\"":"guillemets",
+    ",":"virgule"
 }
 
 
